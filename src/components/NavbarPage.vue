@@ -1,11 +1,12 @@
-<template>
+<template>    
     <nav class="site-nav">
         <div class="container">
             <div class="menu-bg-wrap">
                 <div class="site-navigation">
                     <div class="row g-0 align-items-center">
                         <div class="col-2">
-                            <a href="index.html" class="logo m-0 float-start">Blogy<span class="text-primary">.</span></a>
+                            <router-link to="/" class="logo m-0 float-start" >home</router-link>
+                            
                         </div>
                         <div class="col-8 text-center">
                             <form action="#" class="search-form d-inline-block d-lg-none">
@@ -14,16 +15,19 @@
                             </form>
 
                             <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu mx-auto">
-                                <li class="active"><a href="index.html">Home</a></li>
+                                <li class="active">                                    
+                                    <router-link to="/">home</router-link>
+                                </li>
                                 <li class="has-children">
-                                    <a href="category.html">Pages</a>
+                                    <router-link to="/category">pages</router-link>
+                                    
                                     <ul class="dropdown">
-                                        <li><a href="search-result.html">Search Result</a></li>
-                                        <li><a href="blog.html">Blog</a></li>
-                                        <li><a href="single.html">Blog Single</a></li>
-                                        <li><a href="category.html">Category</a></li>
-                                        <li><a href="about.html">About</a></li>
-                                        <li><a href="contact.html">Contact Us</a></li>
+                                        <li><router-link to="/searchResult">Search Result</router-link></li>
+                                        <li><router-link to="/blog">Blog</router-link></li>
+                                        <li><router-link to="/single">Blog Single</router-link></li>
+                                        <li><router-link to="/category">Category</router-link></li>
+                                        <li><router-link to="/about">About</router-link></li>
+                                        <li><router-link to="/contact">Cantact Us</router-link></li>                                        
                                         <li><a href="#">Menu One</a></li>
                                         <li><a href="#">Menu Two</a></li>
                                         <li class="has-children">
@@ -36,9 +40,10 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a href="category.html">Culture</a></li>
-                                <li><a href="category.html">Business</a></li>
-                                <li><a href="category.html">Politics</a></li>
+                                <li><router-link to="/category">Culture</router-link></li>
+                                <li><router-link to="/category">Business</router-link></li>
+                                <li><router-link to="/category">Politics</router-link></li>
+   
                             </ul>
                         </div>
                         <div class="col-2 text-end">
