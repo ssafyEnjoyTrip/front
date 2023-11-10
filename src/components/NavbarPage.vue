@@ -8,11 +8,6 @@
                             <router-link to="/" class="logo m-0 float-start">Tripy .</router-link>
                         </div>
                         <div class="col-6 text-center">
-                            <form action="#" class="search-form d-inline-block d-lg-none">
-                                <input type="text" class="form-control" placeholder="Search..." />
-                                <span class="bi-search"></span>
-                            </form>
-
                             <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu mx-auto">
                                 <li class="active">
                                     <router-link to="/">home</router-link>
@@ -46,24 +41,24 @@
                         </div>
                         <div class="col-4">
                             <ul>
-                                <li v-show="!isLogin">
-                                    <router-link to="/" class="btn btn-primary me-md-2" href="#" v-show="!isLogin" role="button">로그인</router-link>
+                                <tr v-show="!isLogin">
+                                    <router-link to="/contact" class="btn btn-primary me-md-2" v-show="!isLogin" role="button">로그인</router-link>
                                     <router-link to="/" class="btn btn-primary" href="#" v-show="!isLogin" role="button">회원가입</router-link>
-                                </li>
-                                <li v-show="isLogin">
+                                </tr>
+                                <tr v-show="isLogin">
                                     <router-link to="/" class="btn btn-primary me-md-2" href="#" v-show="isLogin" role="button"
                                         >마이 페이지</router-link
                                     >
                                     <router-link to="/" class="btn btn-primary" href="#" v-show="isLogin" role="button">로그아웃</router-link>
-                                </li>
+                                </tr>
                             </ul>
-                            <button @click="changeState()">상태변화</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
+    <button @click="changeState()">상태변화</button>
 </template>
 
 <script setup>
