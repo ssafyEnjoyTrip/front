@@ -1,115 +1,4 @@
 <template>
-    <section class="section bg-light">
-        <div class="container">
-            <div class="container pt-3">
-                <h2>관광지 검색</h2>
-                <div class="row">
-                    <div class="col">
-                        <select id="area1List" class="form-select">
-                            <option value="">시도</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <select id="area2List" class="form-select">
-                            <option value="">구군</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <select id="cat1List" class="form-select">
-                            <option value="">대분류</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <select id="cat2List" class="form-select">
-                            <option value="">중분류</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <select id="cat3List" class="form-select">
-                            <option value="">소분류</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <div class="d-grid gap-2">
-                            <button id="btnSearch" type="button" class="btn btn-primary">검색</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container mt-3">
-                <div class="row" id="itemList">
-                    <div class="col-3"></div>
-                    <div class="col-3"></div>
-                    <div class="col-3"></div>
-                    <div class="col-3"></div>
-                </div>
-            </div>
-            <!-- <div class="container d-flex justify-content-center align-items-center h-100">
-                <div id="spinner" class="spinner-border text-info hide" role="status"> hide class 로 제어 
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-            </div> -->
-            <div id="map" style="width: 100%; height: 600px"></div>
-            <!-- <div class="row align-items-stretch retro-layout">
-    
-    
-    
-                 <div class="col-md-4">
-                    <a href="single.html" class="h-entry mb-30 v-height gradient">
-    
-                        <div class="featured-img" style="background-image: url('images/img_2_horizontal.jpg');"></div>
-    
-                        <div class="text">
-                            <span class="date">Apr. 14th, 2022</span>
-                            <h2>AI can now kill those annoying cookie pop-ups</h2>
-                        </div>
-                    </a>
-                    <a href="single.html" class="h-entry v-height gradient">
-    
-                        <div class="featured-img" style="background-image: url('images/img_5_horizontal.jpg');"></div>
-    
-                        <div class="text">
-                            <span class="date">Apr. 14th, 2022</span>
-                            <h2>Don’t assume your user data in the cloud is safe</h2>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="single.html" class="h-entry img-5 h-100 gradient">
-    
-                        <div class="featured-img" style="background-image: url('images/img_1_vertical.jpg');"></div>
-    
-                        <div class="text">
-                            <span class="date">Apr. 14th, 2022</span>
-                            <h2>Why is my internet so slow?</h2>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="single.html" class="h-entry mb-30 v-height gradient">
-    
-                        <div class="featured-img" style="background-image: url('images/img_3_horizontal.jpg');"></div>
-    
-                        <div class="text">
-                            <span class="date">Apr. 14th, 2022</span>
-                            <h2>Startup vs corporate: What job suits you best?</h2>
-                        </div>
-                    </a>
-                    <a href="single.html" class="h-entry v-height gradient">
-    
-                        <div class="featured-img" style="background-image: url('images/img_4_horizontal.jpg');"></div>
-    
-                        <div class="text">
-                            <span class="date">Apr. 14th, 2022</span>
-                            <h2>Thought you loved Python? Wait until you meet Rust</h2>
-                        </div>
-                    </a>
-                </div> 
-            </div> -->
-        </div>
-    </section>
-    <!-- End retroy layout blog posts -->
-
     <!-- Start posts-entry -->
     <section class="section posts-entry">
         <div class="container">
@@ -117,20 +6,20 @@
                 <div class="col-sm-6">
                     <h2 class="posts-entry-title">Business</h2>
                 </div>
-                <div class="col-sm-6 text-sm-end"><a href="category.html" class="read-more">View All</a></div>
+                <div class="col-sm-6 text-sm-end"><router-link to="/category" class="read-more">View All</router-link></div>
             </div>
             <div class="row g-3">
                 <div class="col-md-9">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="blog-entry">
-                                <a href="single.html" class="img-link">
+                                <router-link to="/single" class="img-link">
                                     <img src="images/img_1_sq.jpg" alt="Image" class="img-fluid" />
-                                </a>
+                                </router-link>
                                 <span class="date">Apr. 14th, 2022</span>
-                                <h2><a href="single.html">Thought you loved Python? Wait until you meet Rust</a></h2>
+                                <h2><router-link to="/single">Thought you loved Python? Wait until you meet Rust</router-link></h2>
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
-                                <p><a href="single.html" class="btn btn-sm btn-outline-primary">Read More</a></p>
+                                <p><router-link to="/single" class="btn btn-sm btn-outline-primary">Read More</router-link></p>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -546,16 +435,3 @@
         </div>
     </div>
 </template>
-
-<script setup>
-window.onload = function () {
-    var mapContainer = document.querySelector("#map"), // 지도를 표시할 div
-        mapOption = {
-            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-            level: 3, // 지도의 확대 레벨
-        };
-
-    // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-    var map = new kakao.maps.Map(mapContainer, mapOption);
-};
-</script>
