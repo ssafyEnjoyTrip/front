@@ -1,16 +1,36 @@
 <template>
+    <div class="container">
+        <button @click="list()" type="button" class="btn btn-success">Success</button>
+        <table>
+            <thead>
+                <tr>
+                    <td>번호</td>
+                    <td>제목</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                    <td>댓글</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in articleList" :key="index">
+                    <td>{{ item.articleId }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.userId }}</td>
+                    <td>{{ item.registerTime }}</td>
+                    <td>{{ item.commentsCount }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <div class="section search-result-wrap">
         <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="heading">Category: Business</div>
-                </div>
-            </div>
             <div class="row posts-entry">
                 <div class="col-lg-8">
                     <div class="blog-entry d-flex blog-entry-search-item">
-                        <router-link to="/single" class="img-link me-4"> <img src="images/img_1_sq.jpg" alt="Image" class="img-fluid" /> </router-link
-                        >>
+                        <router-link to="/single" class="img-link me-4">
+                            <img src="images/img_1_sq.jpg" alt="Image" class="img-fluid" />
+                        </router-link>
                         <div>
                             <span class="date">Apr. 14th, 2022 &bullet; <a href="#">Business</a></span>
                             <h2><router-link to="/single">Thought you loved Python? Wait until you meet Rust</router-link></h2>
@@ -175,3 +195,29 @@
         </div>
     </div>
 </template>
+
+<script setup>
+import axios from "axios";
+import { ref } from "vue";
+
+const article = ref({});
+const articleList = ref([]);
+
+const list = async () => {
+    console.log("list()");
+    try {
+        let response = await axios.get("http://localhost:8090/article/list");
+        let { data } = await response;
+        articleList.value = data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+</script>
+
+<style>
+tr,
+td {
+    border: 1px solid black;
+}
+</style>
