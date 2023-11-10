@@ -1,92 +1,23 @@
 <template>
-    <div class="container">
-        <button @click="list()" type="button" class="btn btn-success">Success</button>
-        <table>
-            <thead>
-                <tr>
-                    <td>번호</td>
-                    <td>제목</td>
-                    <td>작성자</td>
-                    <td>작성일</td>
-                    <td>댓글</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(item, index) in articleList" :key="index">
-                    <td>{{ item.articleId }}</td>
-                    <td>{{ item.title }}</td>
-                    <td>{{ item.userId }}</td>
-                    <td>{{ item.registerTime }}</td>
-                    <td>{{ item.commentsCount }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
     <div class="section search-result-wrap">
         <div class="container">
             <div class="row posts-entry">
                 <div class="col-lg-8">
-                    <div class="blog-entry d-flex blog-entry-search-item">
-                        <router-link to="/single" class="img-link me-4">
-                            <img src="images/img_1_sq.jpg" alt="Image" class="img-fluid" />
-                        </router-link>
+                    <div class="blog-entry d-flex blog-entry-search-item" v-for="(item, index) in articleList" :key="index">
+                        <a class="img-link me-4">
+                            <img src="https://picsum.photos/1024/1000/?image=50" alt="Image" class="img-fluid" @click="detail(item.articleId)" />
+                        </a>
                         <div>
-                            <span class="date">Apr. 14th, 2022 &bullet; <a href="#">Business</a></span>
-                            <h2><router-link to="/single">Thought you loved Python? Wait until you meet Rust</router-link></h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
-                            <p><router-link to="/single" class="btn btn-sm btn-outline-primary">Read More</router-link></p>
+                            <span class="date"
+                                >{{ item.registerTime }} &bullet; <a href="#">{{ item.commentsCount }}</a></span
+                            >
+                            <h2>
+                                {{ item.title }}
+                            </h2>
+                            <p>{{ item.content }}</p>
+                            <button class="btn btn-sm btn-outline-primary">Read More</button>
                         </div>
                     </div>
-
-                    <div class="blog-entry d-flex blog-entry-search-item">
-                        <router-link to="/single" class="img-link me-4">
-                            <img src="images/img_2_sq.jpg" alt="Image" class="img-fluid" />
-                        </router-link>
-                        <div>
-                            <span class="date">Apr. 14th, 2022 &bullet; <a href="#">Business</a></span>
-                            <h2><router-link to="/single">Thought you loved Python? Wait until you meet Rust</router-link></h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
-                            <p><router-link to="/single" class="btn btn-sm btn-outline-primary">Read More</router-link></p>
-                        </div>
-                    </div>
-
-                    <div class="blog-entry d-flex blog-entry-search-item">
-                        <router-link to="/single" class="img-link me-4">
-                            <img src="images/img_3_sq.jpg" alt="Image" class="img-fluid" />
-                        </router-link>
-                        <div>
-                            <span class="date">Apr. 14th, 2022 &bullet; <a href="#">Business</a></span>
-                            <h2><router-link to="/single">Thought you loved Python? Wait until you meet Rust</router-link></h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
-                            <p><router-link to="/single" class="btn btn-sm btn-outline-primary">Read More</router-link></p>
-                        </div>
-                    </div>
-
-                    <div class="blog-entry d-flex blog-entry-search-item">
-                        <router-link to="/single" class="img-link me-4">
-                            <img src="images/img_4_sq.jpg" alt="Image" class="img-fluid" />
-                        </router-link>
-                        <div>
-                            <span class="date">Apr. 14th, 2022 &bullet; <a href="#">Business</a></span>
-                            <h2><router-link to="/single">Thought you loved Python? Wait until you meet Rust</router-link></h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
-                            <p><router-link to="/single" class="btn btn-sm btn-outline-primary">Read More</router-link></p>
-                        </div>
-                    </div>
-
-                    <div class="blog-entry d-flex blog-entry-search-item">
-                        <router-link to="/single" class="img-link me-4">
-                            <img src="images/img_5_sq.jpg" alt="Image" class="img-fluid" />
-                        </router-link>
-                        <div>
-                            <span class="date">Apr. 14th, 2022 &bullet; <a href="#">Business</a></span>
-                            <h2><router-link to="/single">Thought you loved Python? Wait until you meet Rust</router-link></h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
-                            <p><router-link to="/single" class="btn btn-sm btn-outline-primary">Read More</router-link></p>
-                        </div>
-                    </div>
-
                     <div class="row text-start pt-5 border-top">
                         <div class="col-md-12">
                             <div class="custom-pagination">
@@ -199,6 +130,7 @@
 <script setup>
 import axios from "axios";
 import { ref } from "vue";
+import router from "../router";
 
 const article = ref({});
 const articleList = ref([]);
@@ -213,6 +145,24 @@ const list = async () => {
         console.log(error);
     }
 };
+
+const detail = async (articleId) => {
+    alert("Push로 출동한 녀석!");
+    router.push({
+        name: "Single",
+    });
+    console.log("detail()");
+    console.log(articleId);
+    try {
+        let response = await axios.get("http://localhost:8090/article/" + articleId);
+        let { data } = await response;
+        console.log(data);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+list();
 </script>
 
 <style>
