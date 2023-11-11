@@ -3,9 +3,10 @@ import MainPage from "@/components/MainPage.vue";
 import AboutPage from "@/components/AboutPage.vue";
 import BlogPage from "@/components/BlogPage.vue";
 import CategoryPage from "@/components/CategoryPage.vue";
-import ContactPage from "@/components/ContactPage.vue";
+import LoginPage from "@/components/LoginPage.vue";
 import SearchResultPage from "@/components/SearchResultPage.vue";
 import SinglePage from "@/components/SinglePage.vue";
+import JoinPage from "@/components/JoinPage.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,8 +29,12 @@ const router = createRouter({
             component: CategoryPage,
         },
         {
-            path: "/contact",
-            component: ContactPage,
+            path: "/login",
+            component: LoginPage,
+        },
+        {
+            path: "/join",
+            component: JoinPage,
         },
         {
             path: "/searchResult",
