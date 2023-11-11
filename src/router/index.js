@@ -23,6 +23,7 @@ const router = createRouter({
             component: BlogPage,
         },
         {
+            name: "Catogory",
             path: "/category",
             component: CategoryPage,
         },
@@ -34,10 +35,7 @@ const router = createRouter({
             path: "/searchResult",
             component: SearchResultPage,
         },
-        {
-            path: "/single",
-            component: SinglePage,
-        },
+        { name: "Single", path: "/single", component: SinglePage },
     ],
 });
 
