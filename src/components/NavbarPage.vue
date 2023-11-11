@@ -21,7 +21,7 @@
                                         <li><router-link to="/single">Blog Single</router-link></li>
                                         <li><router-link to="/category">Category</router-link></li>
                                         <li><router-link to="/about">About</router-link></li>
-                                        <li><router-link to="/contact">Cantact Us</router-link></li>
+                                        <!-- <li><router-link to="/contact">Cantact Us</router-link></li> -->
                                         <li><a href="#">Menu One</a></li>
                                         <li><a href="#">Menu Two</a></li>
                                         <li class="has-children">
@@ -42,8 +42,8 @@
                         <div class="col-4">
                             <ul>
                                 <tr v-show="!isLogin">
-                                    <router-link to="/contact" class="btn btn-primary me-md-2" v-show="!isLogin" role="button">로그인</router-link>
-                                    <router-link to="/" class="btn btn-primary" href="#" v-show="!isLogin" role="button">회원가입</router-link>
+                                    <router-link to="/login" class="btn btn-primary me-md-2" v-show="!isLogin" role="button">로그인</router-link>
+                                    <router-link to="/join" class="btn btn-primary" v-show="!isLogin" role="button">회원가입</router-link>
                                 </tr>
                                 <tr v-show="isLogin">
                                     <router-link to="/" class="btn btn-primary me-md-2" href="#" v-show="isLogin" role="button"
