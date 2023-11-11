@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row align-items-center justify-content-center text-center pt-5">
                 <div class="col-lg-6">
-                    <h1 class="heading text-white mb-3">Contact Us</h1>
+                    <h1 class="heading text-white mb-3">로그인</h1>
                 </div>
             </div>
         </div>
@@ -12,7 +12,7 @@
     <div class="section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 mb-5 mb-lg-0">
+                <!-- <div class="col-lg-4 mb-5 mb-lg-0">
                     <div class="contact-info">
                         <div class="address mt-2">
                             <i class="icon-room"></i>
@@ -44,31 +44,49 @@
                             <p>+1 1234 55488 55</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
+                
                 <div class="col-lg-8">
-                    <form action="#">
-                        <div class="row">
-                            <div class="col-6 mb-3">
-                                <input type="text" class="form-control" placeholder="Your Name" />
-                            </div>
-                            <div class="col-6 mb-3">
-                                <input type="email" class="form-control" placeholder="Your Email" />
-                            </div>
-                            <div class="col-12 mb-3">
-                                <input type="text" class="form-control" placeholder="Subject" />
-                            </div>
-                            <div class="col-12 mb-3">
-                                <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
-                            </div>
-
-                            <div class="col-12">
-                                <input type="submit" value="Send Message" class="btn btn-primary" />
-                            </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <input v-model="email" type="text" class="form-control" name="email" placeholder="Your Email"/>
                         </div>
-                    </form>
+                        <div class="col-12 mb-3">
+                            <input v-model="password" type="text" class="form-control" name = "password" placeholder="password"/>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary" @click="login">로그인</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- /.untree_co-section -->
 </template>
+
+<script setup>
+import axios from 'axios';
+import { ref } from 'vue';
+const email = ref("");
+const password = ref("");
+
+const login = async () => {
+    try {
+        const axiosConfig = {
+        headers:{
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+        }
+        
+        let response = await axios.post("api/login", {
+            email: email.value,
+            password: password.value
+        },axiosConfig);
+
+        console.log(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+};
+</script>
