@@ -138,7 +138,7 @@ const articleList = ref([]);
 const list = async () => {
     console.log("list()");
     try {
-        let response = await axios.get("http://localhost:8090/article/list");
+        let response = await axios.get("http://localhost:8080/article/list");
         let { data } = await response;
         articleList.value = data;
     } catch (error) {
@@ -147,16 +147,27 @@ const list = async () => {
 };
 
 const detail = async (articleId) => {
-    alert("Push로 출동한 녀석!");
-    router.push({
-        name: "Single",
-    });
+    
+    
     console.log("detail()");
     console.log(articleId);
     try {
-        let response = await axios.get("http://localhost:8090/article/" + articleId);
+        let response = await axios.get("http://localhost:8080/article/" + articleId);
         let { data } = await response;
-        console.log(data);
+        
+        router.push({
+        name: "Single",
+        query: {
+            articleId: data.articleId,
+            title: data.title,
+            registerTime: data.registerTime,
+            commentsCount: data.commentsCount,
+            content: data.content,
+            userId: data.userId,
+            },
+        
+        });
+        alert("Push로 출동한 녀석!");
     } catch (error) {
         console.log(error);
     }
