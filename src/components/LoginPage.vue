@@ -35,7 +35,11 @@
 import axios from 'axios';
 import { ref } from 'vue';
 import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/userStore";
+import { storeToRefs } from 'pinia'
 
+const store = useUserStore();
+const { isLogin } = storeToRefs(store);
 const router = useRouter();
 const email = ref("");
 const password = ref("");
@@ -54,6 +58,7 @@ const login = async () => {
         }, axiosConfig);
         const { data } = response;
         if (data == 'success') {
+            isLogin.value = true; // 로그인 성공시 isLogin을 true로 바꿔주기
             router.push({
                 path: `/`
             })

@@ -58,14 +58,13 @@
             </div>
         </div>
     </nav>
-    <button @click="changeState()">상태변화</button>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { useUserStore } from "@/stores/userStore";
+import { storeToRefs } from 'pinia'
 
-const isLogin = ref(false);
-const changeState = () => {
-    isLogin.value = !isLogin.value;
-};
+const store = useUserStore();
+const { isLogin } = storeToRefs(store);
+
 </script>
