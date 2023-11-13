@@ -1,6 +1,10 @@
-.DS_Store
-node_modules
-/dist
+# Node.js
+node_modules/
+
+# Vite
+/dist/
+/.cache/
+/.env
 
 
 # local env files
@@ -21,3 +25,19 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+# Node.js
+node_modules/
+
+# Vite
+/dist/
+/.cache/
+/.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
