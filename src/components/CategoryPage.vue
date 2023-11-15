@@ -9,7 +9,7 @@
                         </a>
                         <div>
                             <span class="date"
-                                >{{ item.registerTime }} &bullet; <a href="#">{{ item.commentsCount }}</a></span
+                                >{{ item.registerTime }} &bullet; <a href="#">{{ item.name }}</a></span
                             >
                             <h2>
                                 {{ item.title }}
@@ -128,50 +128,12 @@
 </template>
 
 <script setup>
-import axios from "axios";
-import { ref } from "vue";
-import router from "../router";
+import { useArticleStore } from "@/stores/articleStore";
+import { storeToRefs } from "pinia";
 
-const article = ref({});
-const articleList = ref([]);
-
-const list = async () => {
-    console.log("list()");
-    try {
-        let response = await axios.get("http://localhost:8080/article/list");
-        let { data } = await response;
-        articleList.value = data;
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-const detail = async (articleId) => {
-    
-    
-    console.log("detail()");
-    console.log(articleId);
-    try {
-        let response = await axios.get("http://localhost:8080/article/" + articleId);
-        let { data } = await response;
-        
-        router.push({
-        name: "Single",
-        query: {
-            articleId: data.articleId,
-            title: data.title,
-            registerTime: data.registerTime,
-            commentsCount: data.commentsCount,
-            content: data.content,
-            userId: data.userId,
-            },
-        
-        });
-        alert("Push로 출동한 녀석!");
-    } catch (error) {
-        console.log(error);
-    }
-};
+const store = useArticleStore();
+const { list, detail } = store;
+const { article, articleList } = storeToRefs(store);
 
 list();
 </script>

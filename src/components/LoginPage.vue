@@ -15,10 +15,10 @@
                 <div class="col-lg-8">
                     <div class="row">
                         <div class="col-6 mb-3">
-                            <input v-model="email" type="text" class="form-control" name="email" placeholder="Your Email"/>
+                            <input v-model="email" type="text" class="form-control" name="email" placeholder="Your Email" />
                         </div>
                         <div class="col-12 mb-3">
-                            <input v-model="password" type="text" class="form-control" name = "password" placeholder="password"/>
+                            <input v-model="password" type="text" class="form-control" name="password" placeholder="password" />
                         </div>
                         <div class="col-12">
                             <button class="btn btn-primary" @click="login">로그인</button>
@@ -32,11 +32,11 @@
 </template>
 
 <script setup>
-import axios from 'axios';
-import { ref } from 'vue';
+import axios from "axios";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/userStore";
-import { storeToRefs } from 'pinia'
+import { storeToRefs } from "pinia";
 
 const store = useUserStore();
 const { isLogin } = storeToRefs(store);
@@ -47,21 +47,25 @@ const password = ref("");
 const login = async () => {
     try {
         const axiosConfig = {
-        headers:{
-            "Content-Type": "application/x-www-form-urlencoded"
-        }
-        }
-        
-        let response = await axios.post("api/login", {
-            email: email.value,
-            password: password.value
-        }, axiosConfig);
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        };
+
+        let response = await axios.post(
+            "api/login",
+            {
+                email: email.value,
+                password: password.value,
+            },
+            axiosConfig
+        );
         const { data } = response;
-        if (data == 'success') {
+        if (data == "success") {
             isLogin.value = true; // 로그인 성공시 isLogin을 true로 바꿔주기
             router.push({
-                path: `/`
-            })
+                path: `/`,
+            });
         }
     } catch (error) {
         console.error(error);
