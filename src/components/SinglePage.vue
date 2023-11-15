@@ -7,7 +7,7 @@
             <h1 class="mb-4">{{ route.query.title }}</h1>
             <div class="post-meta align-items-center text-center">
               <figure class="author-figure mb-0 me-3 d-inline-block"><img src="images/person_1.jpg" alt="Image" class="img-fluid"></figure>
-              <span class="d-inline-block mt-1">{{ route.query.userId }}</span>
+              <span class="d-inline-block mt-1">{{ route.query.name }}</span>
               <span>&nbsp;-&nbsp; {{ route.query.registerTime }}</span>
             </div>
           </div>
