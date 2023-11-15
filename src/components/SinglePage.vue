@@ -7,7 +7,7 @@
             <h1 class="mb-4">{{ route.query.title }}</h1>
             <div class="post-meta align-items-center text-center">
               <figure class="author-figure mb-0 me-3 d-inline-block"><img src="images/person_1.jpg" alt="Image" class="img-fluid"></figure>
-              <span class="d-inline-block mt-1">{{ route.query.name }}</span>
+              <span class="d-inline-block mt-1">{{ route.query.userId }}</span>
               <span>&nbsp;-&nbsp; {{ route.query.registerTime }}</span>
             </div>
           </div>
@@ -44,9 +44,9 @@
             <p>Categories:  <a href="#">Food</a>, <a href="#">Travel</a>  Tags: <a href="#">#manila</a>, <a href="#">#asia</a></p>
           </div>
 
-          <!-- 댓글 -->
+
           <div class="pt-5 comment-wrap">
-            <h3 class="mb-5 heading">{{route.query.commentsCount }} Comments</h3>
+            <h3 class="mb-5 heading">6 Comments</h3>
             <ul class="comment-list">
               <li class="comment">
                 <div class="vcard">
@@ -328,5 +328,4 @@
 
 
   const route = useRoute();
-  console.log(route.query.name)
 </script>

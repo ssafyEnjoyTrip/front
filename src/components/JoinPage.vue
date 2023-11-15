@@ -85,8 +85,13 @@ const phoneNum = ref("");
 
 const join = async () => {
     try {
-        const axiosConfig = {headers:{"Content-Type": "application/json"}}
-         let response = await axios.post("/api/join", {
+        const axiosConfig = {
+        headers:{
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+        }
+        
+        let response = await axios.post("api/join", {
             email: email.value,
             password: password.value,
             name: userName.value,
@@ -94,7 +99,6 @@ const join = async () => {
         },axiosConfig);
 
         console.log(response.data);
-       
     } catch (error) {
         console.error(error);
     }

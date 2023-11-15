@@ -9,7 +9,7 @@
                         </a>
                         <div>
                             <span class="date"
-                                >{{ item.registerTime }} &bullet; <a href="#">{{ item.name }}</a></span
+                                >{{ item.registerTime }} &bullet; <a href="#">{{ item.commentsCount }}</a></span
                             >
                             <h2>
                                 {{ item.title }}

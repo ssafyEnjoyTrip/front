@@ -37,7 +37,6 @@ export const useArticleStore = defineStore("articleStore", () => {
                     commentsCount: data.commentsCount,
                     content: data.content,
                     userId: data.userId,
-                    name: data.name
                 },
             });
             alert("Push로 출동한 녀석!");
