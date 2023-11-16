@@ -45,23 +45,29 @@
                         </div>
                     </div>
                 </div> -->
-                
+
                 <div class="col-lg-8">
                     <div class="row">
                         <div class="col-6 mb-3">
-                            <input v-model="email" type="text" class="form-control" name="email" placeholder="이메일을 입력해주세요."/>
+                            <input v-model="email" type="text" class="form-control" name="email" placeholder="이메일을 입력해주세요." />
                         </div>
                         <div class="col-6 mb-3">
-                            <input v-model="password" type="text" class="form-control" name = "password" placeholder="비밀번호를 입력해주세요."/>
+                            <input v-model="password" type="text" class="form-control" name="password" placeholder="비밀번호를 입력해주세요." />
                         </div>
                         <div class="col-6 mb-3">
-                            <input v-model="passwordCheck" type="text" class="form-control" name = "passwordCheck" placeholder="비밀번호를 다시 입력해주세요"/>
+                            <input
+                                v-model="passwordCheck"
+                                type="text"
+                                class="form-control"
+                                name="passwordCheck"
+                                placeholder="비밀번호를 다시 입력해주세요"
+                            />
                         </div>
                         <div class="col-6 mb-3">
-                            <input v-model="userName" type="text" class="form-control" name = "userName" placeholder="이름을 입력해주세요."/>
+                            <input v-model="userName" type="text" class="form-control" name="userName" placeholder="이름을 입력해주세요." />
                         </div>
                         <div class="col-6 mb-3">
-                            <input v-model="phoneNum" type="text" class="form-control" name = "phoneNum" placeholder="핸드폰 번호를 입력해주세요."/>
+                            <input v-model="phoneNum" type="text" class="form-control" name="phoneNum" placeholder="핸드폰 번호를 입력해주세요." />
                         </div>
                         <div class="col-12">
                             <button class="btn btn-primary" @click="join">회원가입</button>
@@ -75,8 +81,8 @@
 </template>
 
 <script setup>
-import axios from 'axios';
-import { ref } from 'vue';
+import axios from "axios";
+import { ref } from "vue";
 const email = ref("");
 const password = ref("");
 const passwordCheck = ref("");
@@ -86,17 +92,21 @@ const phoneNum = ref("");
 const join = async () => {
     try {
         const axiosConfig = {
-        headers:{
-            "Content-Type": "application/x-www-form-urlencoded"
-        }
-        }
-        
-        let response = await axios.post("api/join", {
-            email: email.value,
-            password: password.value,
-            name: userName.value,
-            phoneNum: phoneNum.value,
-        },axiosConfig);
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+
+        let response = await axios.post(
+            "api/join",
+            {
+                email: email.value,
+                password: password.value,
+                name: userName.value,
+                phoneNum: phoneNum.value,
+            },
+            axiosConfig
+        );
 
         console.log(response.data);
     } catch (error) {
