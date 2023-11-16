@@ -1,16 +1,28 @@
-import { ref, watch} from 'vue'
+import { reactive, watch} from 'vue'
 import { defineStore } from 'pinia'
 
 
 export const useUserStore = defineStore('userStore', () => {
-    const SESSION_STORAGE_KEY = 'userStore';
-    // 세션 스토리지에서 값을 불러오고, 없으면 false로 초기화
-    const isLogin = ref(JSON.parse(sessionStorage.getItem(SESSION_STORAGE_KEY)) || false);
+    // 로그인 여부, 사용자 이름, 프로필 이미지, 로그인 항목
+    const authStore = reactive({
+        isLogin: false,
+        userName: '',
+        userId: 0,
+        role:'',
+        // userProfileImageUrl: notLoginUserProfileImageUrl,
+        // userEmail: 'ice98@ssafy.com',
+        // userPassword: '1234'
 
-    // isLogin 값이 변경될 때마다 세션 스토리지에 저장
-    watch(isLogin, (newVal) => {
-        sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(newVal));
-    });
-    return {isLogin}
+    })
+    // login 후 변경
+    const setLogin = (payload) => {
+        authStore.isLogin = payload.isLogin;
+        authStore.userName = payload.userName;
+        authStore.userId = payload.userId,
+        authStore.role = payload.role
+        // authStore.userProfileImageUrl = payload.userProfileImageUrl;
+    }
+
+    return {authStore, setLogin}
 })
 
