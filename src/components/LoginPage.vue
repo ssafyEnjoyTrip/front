@@ -10,24 +10,40 @@
     </div>
 
     <div class="section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="row">
-                        <div class="col-6 mb-3">
-                            <input v-model="email" type="text" class="form-control" name="email" placeholder="Your Email"/>
-                        </div>
-                        <div class="col-12 mb-3">
-                            <input v-model="password" type="text" class="form-control" name = "password" placeholder="password"/>
-                        </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary" @click="login">로그인</button>
-                        </div>
-                    </div>
-                </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="row">
+            <div class="col-6 mb-3 mx-auto">
+              <input
+                v-model="email"
+                type="text"
+                class="form-control"
+                name="email"
+                placeholder="Your Email"
+              />
             </div>
+          </div>
+          <div class="row">
+            <div class="col-6 mb-3 mx-auto">
+              <input
+                v-model="password"
+                type="password"
+                class="form-control"
+                name="password"
+                placeholder="Password"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-primary" type="button" @click="login">로그인</button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
     <!-- /.untree_co-section -->
 </template>
 

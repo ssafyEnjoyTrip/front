@@ -83,6 +83,9 @@
 <script setup>
 import axios from "axios";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 const email = ref("");
 const password = ref("");
 const passwordCheck = ref("");
@@ -97,7 +100,7 @@ const join = async () => {
             },
         };
 
-        let response = await axios.post(
+        let {data} = await axios.post(
             "api/join",
             {
                 email: email.value,
@@ -107,8 +110,11 @@ const join = async () => {
             },
             axiosConfig
         );
-
-        console.log(response.data);
+        if (data == 'success') {
+            alert("회원가입이 완료되었습니다.")
+            router.push(`/login`)
+        }
+        
     } catch (error) {
         console.error(error);
     }

@@ -47,7 +47,7 @@
                                 </tr>
                                 <tr v-show="authStore.isLogin">
                                     {{ authStore.userName }}님 안녕하세요!
-                                    <router-link to="/" class="btn btn-primary me-md-2" href="#"  role="button"
+                                    <router-link to="/myPage" class="btn btn-primary me-md-2" href="#"  role="button"
                                         >마이 페이지</router-link
                                     >
                                     <button class="btn btn-primary" href="#"  role="button" @click="logout">로그아웃</button>
