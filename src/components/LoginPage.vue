@@ -39,7 +39,7 @@ import { useUserStore } from "@/stores/userStore";
 import { storeToRefs } from 'pinia'
 
 const store = useUserStore();
-const { isLogin } = storeToRefs(store);
+const { authStore, setLogin } = useUserStore();
 const router = useRouter();
 const email = ref("");
 const password = ref("");
@@ -56,12 +56,27 @@ const login = async () => {
             email: email.value,
             password: password.value
         }, axiosConfig);
+        
         const { data } = response;
-        if (data == 'success') {
-            isLogin.value = true; // 로그인 성공시 isLogin을 true로 바꿔주기
-            router.push({
-                path: `/`
+        console.log(data)
+        if (data.success) {
+
+            sessionStorage.setItem("isLogin", true);
+            sessionStorage.setItem("userName", data.userName);
+            sessionStorage.setItem("userId", data.userId);
+            sessionStorage.setItem("role", data.role);
+            // sessionStorage.setItem("userProfileImageUrl", data.userProfileImageUrl);
+
+            // 로그인 성공시 isLogin을 true로 바꿔주기
+            setLogin({
+                isLogin: true,
+                userName: data.userName,
+                userId : data.userId,
+                role : data.role,
+                // userProfileImageUrl: data.userProfileImageUrl,
             })
+
+            router.push(`/`)
         }
     } catch (error) {
         console.error(error);

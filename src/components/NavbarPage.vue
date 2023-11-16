@@ -41,15 +41,16 @@
                         </div>
                         <div class="col-4">
                             <ul>
-                                <tr v-show="!isLogin">
-                                    <router-link to="/login" class="btn btn-primary me-md-2" v-show="!isLogin" role="button">로그인</router-link>
-                                    <router-link to="/join" class="btn btn-primary" v-show="!isLogin" role="button">회원가입</router-link>
+                                <tr v-show="!authStore.isLogin">
+                                    <router-link to="/login" class="btn btn-primary me-md-2"  role="button">로그인</router-link>
+                                    <router-link to="/join" class="btn btn-primary"  role="button">회원가입</router-link>
                                 </tr>
-                                <tr v-show="isLogin">
-                                    <router-link to="/" class="btn btn-primary me-md-2" href="#" v-show="isLogin" role="button"
+                                <tr v-show="authStore.isLogin">
+                                    {{ authStore.userName }}님 안녕하세요!
+                                    <router-link to="/" class="btn btn-primary me-md-2" href="#"  role="button"
                                         >마이 페이지</router-link
                                     >
-                                    <router-link to="/" class="btn btn-primary" href="#" v-show="isLogin" role="button">로그아웃</router-link>
+                                    <button class="btn btn-primary" href="#"  role="button" @click="logout">로그아웃</button>
                                 </tr>
                             </ul>
                         </div>
@@ -63,8 +64,35 @@
 <script setup>
 import { useUserStore } from "@/stores/userStore";
 import { storeToRefs } from 'pinia'
+import { useRouter } from "vue-router";
+import { ref } from "vue";
+import axios from "axios";
 
-const store = useUserStore();
-const { isLogin } = storeToRefs(store);
+const router = useRouter();
+const { authStore, setLogin } = useUserStore();
+const logout = async () => {
+    
+    try {
+        let { data } = await axios.post('api/logout');
+        if (data == 'success') {
+            sessionStorage.removeItem("isLogin");
+            sessionStorage.removeItem("userName");
+            sessionStorage.removeItem("userId");
+            sessionStorage.removeItem("role");
+        }
 
+        // store 변경
+        setLogin({
+            isLogin : false,
+            userName : '',
+            userId: '',
+            role : '',
+            // userProfileImageUrl: notLoginUserProfileImageUrl,
+        })
+        router.push('/login')
+    }catch (error) {
+        console.log(error)
+    }
+    
+}
 </script>
