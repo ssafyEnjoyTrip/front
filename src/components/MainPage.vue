@@ -103,9 +103,9 @@
                 </div>
                 <div class="col-md-6 col-lg-3">
                     <div class="blog-entry">
-                        <routr-link to="/single" class="img-link">
+                        <router-link to="/single" class="img-link">
                             <img src="images/img_4_horizontal.jpg" alt="Image" class="img-fluid" />
-                        </routr-link>
+                        </router-link>
                         <span class="date">Apr. 14th, 2022</span>
                         <h2><router-link to="/single">Don’t assume your user data in the cloud is safe</router-link></h2>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
