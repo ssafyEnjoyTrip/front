@@ -55,8 +55,8 @@ import { useUserStore } from "@/stores/userStore";
 
 const { authStore, setLogin } = useUserStore();
 const router = useRouter();
-const email = ref("");
-const password = ref("");
+const email = ref("e");
+const password = ref("e");
 
 const login = async () => {
     try {

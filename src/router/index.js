@@ -59,6 +59,10 @@ const router = createRouter({
             path: '/deleteUser',
             name: 'deleteUser',
             component: DeleteAccountPage,
+        },
+        {
+            path: "/blogPage",
+            component: BlogPage
         }
 
     ],

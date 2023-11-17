@@ -44,10 +44,9 @@
 
         <div class="col-lg-4 sidebar">
           <div class="sidebar-box search-form-wrap mb-4">
-            <form action="#" class="sidebar-search-form">
-              <span class="bi-search"></span>
-              <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter" />
-            </form>
+              
+              <input type="text" class="form-control" placeholder="Type a keyword and hit enter" v-model="keyword"/>
+              <button @click="search(keyword)">검색</button>
           </div>
           <!-- END sidebar-box -->
           <div class="sidebar-box">
@@ -155,12 +154,14 @@ import util from "@/common/util.js";
 import { Modal } from "bootstrap";
 
 const store = useArticleStore();
-const { list, detail } = store;
+const { list, detail, search } = store;
 const { article, articleList } = storeToRefs(store);
 
 let insertModal = null;
 let updateModal = null;
 let detailModal = null;
+
+let keyword = ref("");
 
 //mount 안된 상태에서는 document 내에 정보가 없기 때문에!
 onMounted(() => {

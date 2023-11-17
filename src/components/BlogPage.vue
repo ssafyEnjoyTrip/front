@@ -1,65 +1,17 @@
 <template>
   <div class="section search-result-wrap">
-    <div class="container">      
+    <div class="container">
       <div class="row posts-entry">
         <div class="col-lg-8">
-          <div class="blog-entry d-flex blog-entry-search-item">
-            <a href="single.html" class="img-link me-4">
-              <img src="images/img_1_sq.jpg" alt="Image" class="img-fluid">
+          <div class="blog-entry d-flex blog-entry-search-item" v-for="(item, index) in articleList" :key="index">
+            <a class="img-link me-4">
+              <img src="https://picsum.photos/1024/1000/?image=50" alt="Image" class="img-fluid" @click="detail(item.articleId)" />
             </a>
             <div>
-              <span class="date">Apr. 14th, 2022 &bullet; <a href="#">Business</a></span>
-              <h2><a href="single.html">Thought you loved Python? Wait until you meet Rust</a></h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
-              <p><a href="single.html" class="btn btn-sm btn-outline-primary">Read More</a></p>
-            </div>
-          </div>
-
-          <div class="blog-entry d-flex blog-entry-search-item">
-            <a href="single.html" class="img-link me-4">
-              <img src="images/img_2_sq.jpg" alt="Image" class="img-fluid">
-            </a>
-            <div>
-              <span class="date">Apr. 14th, 2022 &bullet; <a href="#">Business</a></span>
-              <h2><a href="single.html">Thought you loved Python? Wait until you meet Rust</a></h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
-              <p><a href="single.html" class="btn btn-sm btn-outline-primary">Read More</a></p>
-            </div>
-          </div>
-
-          <div class="blog-entry d-flex blog-entry-search-item">
-            <a href="single.html" class="img-link me-4">
-              <img src="images/img_3_sq.jpg" alt="Image" class="img-fluid">
-            </a>
-            <div>
-              <span class="date">Apr. 14th, 2022 &bullet; <a href="#">Business</a></span>
-              <h2><a href="single.html">Thought you loved Python? Wait until you meet Rust</a></h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
-              <p><a href="single.html" class="btn btn-sm btn-outline-primary">Read More</a></p>
-            </div>
-          </div>
-
-          <div class="blog-entry d-flex blog-entry-search-item">
-            <a href="single.html" class="img-link me-4">
-              <img src="images/img_4_sq.jpg" alt="Image" class="img-fluid">
-            </a>
-            <div>
-              <span class="date">Apr. 14th, 2022 &bullet; <a href="#">Business</a></span>
-              <h2><a href="single.html">Thought you loved Python? Wait until you meet Rust</a></h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
-              <p><a href="single.html" class="btn btn-sm btn-outline-primary">Read More</a></p>
-            </div>
-          </div>
-
-          <div class="blog-entry d-flex blog-entry-search-item">
-            <a href="single.html" class="img-link me-4">
-              <img src="images/img_5_sq.jpg" alt="Image" class="img-fluid">
-            </a>
-            <div>
-              <span class="date">Apr. 14th, 2022 &bullet; <a href="#">Business</a></span>
-              <h2><a href="single.html">Thought you loved Python? Wait until you meet Rust</a></h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, nobis ea quis inventore vel voluptas.</p>
-              <p><a href="single.html" class="btn btn-sm btn-outline-primary">Read More</a></p>
+              <span class="date">{{ item.registerTime }} &bullet; <a href="#">{{ item.name }}</a></span>
+              <h2> {{ item.title }} </h2>
+              <p>{{ item.content }}</p>
+              <button class="btn btn-sm btn-outline-primary">Read More</button>
             </div>
           </div>
 
@@ -75,15 +27,13 @@
               </div>
             </div>
           </div>
-
         </div>
 
         <div class="col-lg-4 sidebar">
-
           <div class="sidebar-box search-form-wrap mb-4">
             <form action="#" class="sidebar-search-form">
               <span class="bi-search"></span>
-              <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">
+              <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter" />
             </form>
           </div>
           <!-- END sidebar-box -->
@@ -93,7 +43,7 @@
               <ul>
                 <li>
                   <a href="">
-                    <img src="images/img_1_sq.jpg" alt="Image placeholder" class="me-4 rounded">
+                    <img src="images/img_1_sq.jpg" alt="Image placeholder" class="me-4 rounded" />
                     <div class="text">
                       <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
                       <div class="post-meta">
@@ -104,7 +54,7 @@
                 </li>
                 <li>
                   <a href="">
-                    <img src="images/img_2_sq.jpg" alt="Image placeholder" class="me-4 rounded">
+                    <img src="images/img_2_sq.jpg" alt="Image placeholder" class="me-4 rounded" />
                     <div class="text">
                       <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
                       <div class="post-meta">
@@ -115,7 +65,7 @@
                 </li>
                 <li>
                   <a href="">
-                    <img src="images/img_3_sq.jpg" alt="Image placeholder" class="me-4 rounded">
+                    <img src="images/img_3_sq.jpg" alt="Image placeholder" class="me-4 rounded" />
                     <div class="text">
                       <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
                       <div class="post-meta">
@@ -132,11 +82,21 @@
           <div class="sidebar-box">
             <h3 class="heading">Categories</h3>
             <ul class="categories">
-              <li><a href="#">Food <span>(12)</span></a></li>
-              <li><a href="#">Travel <span>(22)</span></a></li>
-              <li><a href="#">Lifestyle <span>(37)</span></a></li>
-              <li><a href="#">Business <span>(42)</span></a></li>
-              <li><a href="#">Adventure <span>(14)</span></a></li>
+              <li>
+                <a href="#">Food <span>(12)</span></a>
+              </li>
+              <li>
+                <a href="#">Travel <span>(22)</span></a>
+              </li>
+              <li>
+                <a href="#">Lifestyle <span>(37)</span></a>
+              </li>
+              <li>
+                <a href="#">Business <span>(42)</span></a>
+              </li>
+              <li>
+                <a href="#">Adventure <span>(14)</span></a>
+              </li>
             </ul>
           </div>
           <!-- END sidebar-box -->
@@ -158,10 +118,19 @@
               <li><a href="#">Freelancing</a></li>
             </ul>
           </div>
-
         </div>
       </div>
     </div>
   </div>
-
 </template>
+
+<script setup>
+import { useRouter } from "vue-router";
+import { useArticleStore } from "@/stores/articleStore";
+
+const store = useArticleStore();
+const router = useRouter();
+
+const {articleList} = store;
+
+</script>
