@@ -55,5 +55,7 @@ export const useArticleStore = defineStore("articleStore", () => {
       console.log(error);
     }
   };
-  return { detail, list, article, articleList, articleDelete };
+
+  const insertArticle = async (articleDto) => {};
+  return { detail, list, article, articleList, articleDelete, insertArticle };
 });
