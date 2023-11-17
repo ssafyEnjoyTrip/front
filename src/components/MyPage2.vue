@@ -4,12 +4,20 @@
 			<div class="row same-height justify-content-center">
 				<div class="col-md-6">
 					<div class="post-entry text-center">
-						<h1 class="mb-4">About Us</h1>
+						<h1 class="mb-4">MyPage</h1>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+    <div v-for="attraction in bookMarkAttractionList" :key="attraction.title">
+      <h2>{{ attraction.title }}</h2>
+      <img v-if="attraction.firstImage" :src="attraction.firstImage" alt="Attraction Image">
+      <img v-else src="@/assets/no-image.png" alt="No Image">
+    </div>
+
+
 
 	<div class="section sec-halfs py-0">
 		<div class="container">
@@ -171,3 +179,36 @@
 	</div>
 
 </template>
+
+
+<script setup>
+import axios from 'axios';
+import { useUserStore } from "@/stores/userStore";
+import { useRouter } from "vue-router";
+import { ref } from 'vue';
+const { authStore } = useUserStore();
+const router = useRouter();
+const bookMarkAttractionList = ref([]);
+const Bookmarks = async () => {
+
+	let userId = authStore.userId;
+	if (userId == 0) {
+		alert("로그인을 먼저 해주세요!")
+		router.push(`/login`)
+	}
+
+	try {
+
+		
+		let { data } = await axios.get('api/users/myPage/' + userId);
+		bookMarkAttractionList.value = data.bookMarkAttractionList || [];
+		console.log(data);
+        
+    }catch (error) {
+        console.log(error)
+    }
+    
+}
+
+Bookmarks();
+</script>

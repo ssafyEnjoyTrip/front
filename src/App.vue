@@ -16,10 +16,20 @@ let isLogin = sessionStorage.getItem("isLogin");
 if (isLogin == "true") {
     let userName = sessionStorage.getItem("userName");
     let userProfileImageUrl = sessionStorage.getItem("userProfileImageUrl")
+    let userId = sessionStorage.getItem("userId");
+    let role = sessionStorage.getItem("role");
+    let email = sessionStorage.getItem("email");
+    let phoneNum = sessionStorage.getItem("phoneNum");
+    let registerTime = sessionStorage.getItem("registerTime");
     setLogin({
         isLogin: true,
+        userId: userId,
         userName: userName,
-        userProfileImageUrl: userProfileImageUrl
+        userProfileImageUrl: userProfileImageUrl,
+        role: role,
+        email: email,
+        phoneNum: phoneNum,
+        registerTime: registerTime,
     });
 }
 

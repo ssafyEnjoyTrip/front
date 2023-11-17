@@ -8,9 +8,12 @@ export const useUserStore = defineStore('userStore', () => {
         isLogin: false,
         userName: '',
         userId: 0,
-        role:'',
+        userRole: '',
+        userEmail: '',
+        userPhoneNum: '',
+        userRegisterTime: '',
         // userProfileImageUrl: notLoginUserProfileImageUrl,
-        // userEmail: 'ice98@ssafy.com',
+        
         // userPassword: '1234'
 
     })
@@ -18,11 +21,28 @@ export const useUserStore = defineStore('userStore', () => {
     const setLogin = (payload) => {
         authStore.isLogin = payload.isLogin;
         authStore.userName = payload.userName;
-        authStore.userId = payload.userId,
-        authStore.role = payload.role
+        authStore.userId = payload.userId;
+        authStore.userRole = payload.role;
+        authStore.userEmail = payload.email;
+        authStore.userPhoneNum = payload.phoneNum;
+        authStore.userRegisterTime = payload.registerTime;
         // authStore.userProfileImageUrl = payload.userProfileImageUrl;
     }
+    // update 후 변경
+    const update = (payload) => {
+        authStore.userName = payload.userName;
+        authStore.userPhoneNum = payload.phoneNum;
+    }
+    const clearStore = () => {
+        authStore.isLogin = false;
+        authStore.userName = '';
+        authStore.userId = 0;
+        authStore.userRole = ''
+        authStore.userEmail = '';
+        authStore.userPhoneNum = '';
+        authStore.userRegisterTime = '';
+    }
 
-    return {authStore, setLogin}
+    return {authStore, setLogin, update, clearStore}
 })
 

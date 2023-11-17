@@ -1,12 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MainPage from "@/components/MainPage.vue";
-import AboutPage from "@/components/AboutPage.vue";
 import BlogPage from "@/components/BlogPage.vue";
 import CategoryPage from "@/components/CategoryPage.vue";
 import LoginPage from "@/components/LoginPage.vue";
 import SearchResultPage from "@/components/SearchResultPage.vue";
 import SinglePage from "@/components/SinglePage.vue";
 import JoinPage from "@/components/JoinPage.vue";
+import MyPage from "@/components/MyPage.vue";
+import AttractionDetailPage from "@/components/AttractionDetailPage.vue"
+import EditProfilePage from "@/components/EditProfilePage.vue"
+import DeleteAccountPage from "@/components/DeleteAccountPage.vue"
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,8 +19,8 @@ const router = createRouter({
             component: MainPage,
         },
         {
-            path: "/about",
-            component: AboutPage,
+            path: "/myPage",
+            component: MyPage,
         },
         {
             path: "/blog",
@@ -41,6 +44,23 @@ const router = createRouter({
             component: SearchResultPage,
         },
         { name: "Single", path: "/single", component: SinglePage },
+
+        {
+            path: '/attractionDetail',
+            name: 'attractionDetail',
+            component: AttractionDetailPage,
+        },
+        {
+            path: '/editProfile',
+            name: 'editProfile',
+            component: EditProfilePage,
+        },
+        {
+            path: '/deleteUser',
+            name: 'deleteUser',
+            component: DeleteAccountPage,
+        }
+
     ],
 });
 
