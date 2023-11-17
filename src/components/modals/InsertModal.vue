@@ -38,11 +38,15 @@ import { ref } from "vue";
 import http from "@/common/axios.js";
 import CKEditor from "@ckeditor/ckeditor5-vue";
 import ClassEditor from "@ckeditor/ckeditor5-build-classic";
+import { useAuthStore } from "../../stores/authStore";
+import { useRouter } from "vue-router";
 
 const ckeditor = CKEditor.component;
 const editor = ClassEditor;
 const editorData = ref("");
 const editorConfig = {};
+const router = useRouter();
+const store = useAuthStore();
 
 const title = ref("");
 const attachFile = ref(false);
@@ -73,11 +77,19 @@ const boardInsert = async () => {
     await http.post("/boards", formData, options);
     if (data.result == "login") {
       doLogout();
+    } else {
+      closeModal();
     }
   } catch (error) {
     console.log(error);
   }
-  const doLogout = () => {};
+  const doLogout = () => {
+    store.setLogout();
+    router.push("/");
+  };
+
+  const emit = defineEmits(["call-parent-insert"]);
+  const closeModal = () => emit("call-parent-insert");
 };
 </script>
 

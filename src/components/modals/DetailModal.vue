@@ -35,8 +35,12 @@
               </tr>
             </tbody>
           </table>
-          <button id="btnBoardUpdateUI" class="btn btn-sm btn-primary btn-outline" data-bs-dismiss="modal" type="button">글 수정하기</button>
-          <button id="btnBoardDeleteUI" class="btn btn-sm btn-warning btn-outline" data-bs-dismiss="modal" type="button">글 삭제하기</button>
+          <button id="btnBoardUpdateUI" class="btn btn-sm btn-primary btn-outline" data-bs-dismiss="modal" type="button">
+            글 수정하기
+          </button>
+          <button id="btnBoardDeleteUI" class="btn btn-sm btn-warning btn-outline" data-bs-dismiss="modal" type="button">
+            글 삭제하기
+          </button>
         </div>
       </div>
     </div>

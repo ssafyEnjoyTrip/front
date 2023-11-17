@@ -9,6 +9,7 @@ export const useArticleStore = defineStore("articleStore", () => {
 
   const article = ref({});
   const articleList = ref([]);
+  
 
   const list = async () => {
     console.log("list()");
@@ -55,5 +56,19 @@ export const useArticleStore = defineStore("articleStore", () => {
       console.log(error);
     }
   };
-  return { detail, list, article, articleList, articleDelete };
+
+  const search = async (keyword) => {
+    alert(keyword + " search()");
+    try {
+      let response = await axios.post("http://localhost:8080/article/" + keyword);
+      let {data} = await response;
+      console.log(data);
+      articleList.value = data;    
+      console.log(articleList);
+      router.push("/blog")
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return { detail, list, article, articleList, articleDelete, search };
 });

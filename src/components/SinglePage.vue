@@ -176,7 +176,7 @@
           <div class="sidebar-box search-form-wrap">
             <form action="#" class="sidebar-search-form">
               <span class="bi-search"></span>
-              <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter" />
+              <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter" v-model="keyword" @click="search(keyword)"/>
             </form>
           </div>
           <!-- END sidebar-box -->
