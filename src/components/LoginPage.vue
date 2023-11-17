@@ -52,9 +52,7 @@ import axios from 'axios';
 import { ref } from 'vue';
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/userStore";
-import { storeToRefs } from 'pinia'
 
-const store = useUserStore();
 const { authStore, setLogin } = useUserStore();
 const router = useRouter();
 const email = ref("");
@@ -74,24 +72,29 @@ const login = async () => {
         }, axiosConfig);
         
         const { data } = response;
-        console.log(data)
         if (data.success) {
 
             sessionStorage.setItem("isLogin", true);
             sessionStorage.setItem("userName", data.userName);
             sessionStorage.setItem("userId", data.userId);
             sessionStorage.setItem("role", data.role);
-            // sessionStorage.setItem("userProfileImageUrl", data.userProfileImageUrl);
+            sessionStorage.setItem("email", data.email);
+            sessionStorage.setItem("phoneNum", data.phoneNum);
+            sessionStorage.setItem("registerTime", data.registerTime);
 
+          // sessionStorage.setItem("userProfileImageUrl", data.userProfileImageUrl);
             // 로그인 성공시 isLogin을 true로 바꿔주기
             setLogin({
                 isLogin: true,
                 userName: data.userName,
                 userId : data.userId,
-                role : data.role,
+                role: data.role,
+                email: data.email,
+                phoneNum: data.phoneNum,
+                registerTime: data.registerTime,
                 // userProfileImageUrl: data.userProfileImageUrl,
             })
-
+            alert(authStore.userName + "님 환영합니다!")
             router.push(`/`)
         }
     } catch (error) {

@@ -69,26 +69,17 @@ import { ref } from "vue";
 import axios from "axios";
 
 const router = useRouter();
-const { authStore, setLogin } = useUserStore();
+const { authStore, setLogin, clearStore } = useUserStore();
 const logout = async () => {
     
     try {
         let { data } = await axios.post('api/logout');
         if (data == 'success') {
-            sessionStorage.removeItem("isLogin");
-            sessionStorage.removeItem("userName");
-            sessionStorage.removeItem("userId");
-            sessionStorage.removeItem("role");
+            sessionStorage.clear();
         }
 
-        // store 변경
-        setLogin({
-            isLogin : false,
-            userName : '',
-            userId: '',
-            role : '',
-            // userProfileImageUrl: notLoginUserProfileImageUrl,
-        })
+        // store clear
+        clearStore();
         router.push('/login')
     }catch (error) {
         console.log(error)

@@ -1,15 +1,72 @@
 <template>	
-	<div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url('images/hero_5.jpg');">
+	<div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url('images/img_1_horizontal.jpg');">
 		<div class="container">
 			<div class="row same-height justify-content-center">
 				<div class="col-md-6">
 					<div class="post-entry text-center">
-						<h1 class="mb-4">About Us</h1>
+						<h1 class="mb-4">MyPage</h1>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<div class="container mt-5">
+    <div class="row">
+      <div class="col-md-4">
+        <!-- User Profile Card -->
+        <div class="card">
+          <img src="@/assets/profile.webp" class="img-fluid" alt="User Avatar">
+          <div class="card-body">
+            <h5 class="card-title text-center">{{ user.name }}</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <!-- User Details -->
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">회원 정보</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
+              <li class="list-group-item"><strong>Joined Date:</strong> {{ user.joinedDate }}</li>
+			  <li class="list-group-item"><strong>phoneNum:</strong> {{ user.phoneNum }}</li>
+              <!-- Add more user details as needed -->
+            </ul>
+			<div class="mt-3">
+				<router-link :to="{ name: 'editProfile', query: { userId: user.id} }" class="btn btn-primary">Edit Profile</router-link>
+				<router-link :to="{ name: 'deleteUser', query: { userId: user.id} }" class="btn btn-primary">Delete Account</router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+	<section class="section posts-entry posts-entry-sm bg-light">
+		<div class="container">
+			<div class="row mb-4">
+				<div class="col-12">
+					<h2 class="text-uppercase fw-bold text-black mb-4">즐겨찾기한 관광지</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div v-for="(attraction, index) in bookMarkAttractionList" :key="attraction.attractionId" class="col-md-6 col-lg-3">
+					<router-link :to="{ name: 'attractionDetail', query: { attractionId: attraction.attractionId } }" class="nav-link">
+						<div class="blog-entry">
+							<a href="#" class="img-link">
+								<img v-if="attraction.firstImage" :src="attraction.firstImage" alt="Attraction Image" class="img-fluid">
+								<img v-else src="@/assets/no-image.avif" alt="No Image" class="img-fluid">
+							</a>
+							<h2><a href="#">{{ attraction.title }}</a></h2>
+						</div>
+					</router-link>
+					
+				</div>
+			</div>
+		</div>
+	</section>
 
 	<div class="section sec-halfs py-0">
 		<div class="container">
@@ -36,88 +93,6 @@
 			</div>
 		</div>
 
-	</div>
-
-	<div class="section sec-features">
-		<div class="container">
-			<div class="row g-5">
-				<div class="col-12 col-sm-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
-					<div class="feature d-flex">
-						<span class="bi-bag-check-fill"></span>
-						<div>
-							<h3>Building your blog</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-						</div>
-					</div>
-				</div>
-				<div class="col-12 col-sm-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-					<div class="feature d-flex">
-						<span class="bi-wallet-fill"></span>
-						<div>
-							<h3>Resources and insights</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-						</div>
-					</div>
-				</div>
-				<div class="col-12 col-sm-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-					<div class="feature d-flex">
-						<span class="bi-pie-chart-fill"></span>
-						<div>
-							<h3>Blog just for you</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	
-	<div class="section">
-		<div class="container">
-			
-			<div class="row mb-5">
-				<div class="col-lg-5 mx-auto text-center" data-aos="fade-up">
-					<h2 class="heading text-primary">Our Team</h2>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-lg-4 mb-4 text-center" data-aos="fade-up" data-aos-delay="0">
-					<img src="images/person_1.jpg" alt="Image" class="img-fluid w-50 rounded-circle mb-3">
-					<h5 class="text-black">James Griffin</h5>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-				</div>
-				<div class="col-lg-4 mb-4 text-center" data-aos="fade-up" data-aos-delay="100">
-					<img src="images/person_2.jpg" alt="Image" class="img-fluid w-50 rounded-circle mb-3">
-					<h5 class="text-black">Claire Smith</h5>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-				</div>
-				<div class="col-lg-4 mb-4 text-center" data-aos="fade-up" data-aos-delay="200">
-					<img src="images/person_3.jpg" alt="Image" class="img-fluid w-50 rounded-circle mb-3">
-					<h5 class="text-black">Jessica Wilson</h5>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-				</div>
-
-				<div class="col-lg-4 mb-4 text-center" data-aos="fade-up" data-aos-delay="0">
-					<img src="images/person_4.jpg" alt="Image" class="img-fluid w-50 rounded-circle mb-3">
-					<h5 class="text-black">William Anderson</h5>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-				</div>
-				<div class="col-lg-4 mb-4 text-center" data-aos="fade-up" data-aos-delay="100">
-					<img src="images/person_5.jpg" alt="Image" class="img-fluid w-50 rounded-circle mb-3">
-					<h5 class="text-black">Julie Harvey</h5>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-				</div>
-				<div class="col-lg-4 mb-4 text-center" data-aos="fade-up" data-aos-delay="200">
-					<img src="images/person_2.jpg" alt="Image" class="img-fluid w-50 rounded-circle mb-3">
-					<h5 class="text-black">Shana Clarkson</h5>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-				</div>
-			</div>
-
-		</div>
 	</div>
 
 
@@ -171,3 +146,45 @@
 	</div>
 
 </template>
+
+
+<script setup>
+import axios from 'axios';
+import { useUserStore } from "@/stores/userStore";
+import { useRouter } from "vue-router";
+import { ref, reactive } from 'vue';
+const { authStore } = useUserStore();
+const router = useRouter();
+const bookMarkAttractionList = ref([]);
+const Bookmarks = async () => {
+
+	let userId = authStore.userId;
+	if (userId === 0) {
+		alert("로그인을 먼저 해주세요!")
+		router.push(`/login`)
+	}
+
+	try {
+		let { data } = await axios.get('api/users/myPage/' + userId);
+		bookMarkAttractionList.value = data.bookMarkAttractionList || [];   
+    }catch (error) {
+        console.log(error)
+    }
+    
+}
+
+Bookmarks();
+const user = reactive({
+	id: authStore.userId,
+  	name: authStore.userName,
+  	email: authStore.userEmail,
+	joinedDate: authStore.userRegisterTime,
+	phoneNum: authStore.userPhoneNum,
+  // Add more user details as needed
+});
+
+</script>
+
+<style scoped>
+
+</style>
