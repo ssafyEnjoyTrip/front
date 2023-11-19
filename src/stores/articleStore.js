@@ -9,8 +9,8 @@ export const useArticleStore = defineStore("articleStore", () => {
 
   const article = ref({});
   const articleList = ref([]);
+  const commentList = ref([]);
   
-
   const list = async () => {
     console.log("list()");
     try {
@@ -70,6 +70,39 @@ export const useArticleStore = defineStore("articleStore", () => {
       console.log(error);
     }
   };
+
+  const loadComment = async (articleId) => {
+    try{
+      let response =await axios.get("http://localhost:8080/comment/" + articleId);
+      let {data} = await response;
+      commentList.value = data;
+    } catch(error){
+      console.log(error);
+    }
+  }
+
+  const saveComment = async (comment) => {
+    console.log(comment.value.article);
+    console.log(comment.value.comment);
+    console.log(comment.value.userId);
+    
+    try{
+      let response = await axios.post("http://localhost:8080/comment/save", {
+        article: comment.value.article,
+        comment: comment.value.comment,
+        userId: comment.value.userId,  
+      },{
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      } );
+      console.log(response.data);
+
+    } catch(error){
+      console.log(error);
+    }
+  }
+
    const insertArticle = async (articleDto) => {};
-  return { detail, list, article, articleList, articleDelete, search };
+  return { detail, list, article, articleList, articleDelete, search, commentList, loadComment, saveComment };
 });
