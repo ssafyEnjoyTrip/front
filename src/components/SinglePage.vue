@@ -10,7 +10,7 @@
                 <img src="images/person_1.jpg" alt="Image" class="img-fluid" />
               </figure>
               <span class="d-inline-block mt-1">{{ articleStore.user.name }}</span>
-              <span>&nbsp;-&nbsp; {{ articleStore.registerTime }}</span>
+              <span>&nbsp;-&nbsp; {{ toDate(articleStore.registerTime) }}</span>
             </div>
           </div>
         </div>
@@ -44,27 +44,30 @@
             <button class="btn btn-sm btn-primary" @click="">글수정</button>
             <button class="btn btn-sm btn-primary" @click="articleDelete(route.query.articleId)">글삭제</button>
           </div>
-
+          
           <div class="pt-5 comment-wrap">
-            <h3 class="mb-5 heading">{{ commentList.length }} Comments</h3>
-            <div>
-            <!-- 이미지를 클릭할 때 toggleLike 함수 호출 -->
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+        <h3 class="mb-5 heading">{{ commentList.length }} Comments</h3>
+
+        <!-- 이미지를 클릭할 때 toggleLike 함수 호출 -->
+        <div class="mb-5 heading" style="border: transparent; padding-bottom: 32px;">
             <img
-              v-if="isLiked"
-              src="@/assets/heart.svg"
-              alt="Liked"
-              @click="toggleLike"
-              style="width: 20px; height: 20px; cursor: pointer;"
+                v-if="isLiked"
+                src="@/assets/heart.svg"
+                alt="Liked"
+                @click="toggleLike"
+                style="width: 20px; height: 20px; cursor: pointer;"
             />
             <img
-              v-else
-              src="@/assets/noheart.svg"
-              alt="Not Liked"
-              @click="toggleLike"
-              style="width: 20px; height: 20px; cursor: pointer;"
+                v-else
+                src="@/assets/noheart.svg"
+                alt="Not Liked"
+                @click="toggleLike"
+                style="width: 20px; height: 20px; cursor: pointer;"
             />
             <span>   좋아요 {{ articleStore.heartCount }} 개</span>
-          </div>
+        </div>
+    </div>
             <ul class="comment-list">
               <li class="comment" v-for="comment in commentList" :key="comment.id">
                 <div class="vcard">
@@ -311,7 +314,18 @@ console.log(articleStore);
 loadComment(route.query.articleId);
 // console.log(commentList);
 // console.log("길이는?" + commentList.length);
-
+const toDate = (date) => {
+  const formattedDate = new Date(date).toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    timeZone: 'Asia/Seoul'
+  });
+  return formattedDate;
+}
 
 const toggleLike = async () => {
   try {
