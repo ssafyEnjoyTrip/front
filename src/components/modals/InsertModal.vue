@@ -61,7 +61,7 @@ const changeFile = (fileEvent) => {
 const boardInsert = async () => {
   let formData = new FormData();
   formData.append("title", title.value);
-  formData.append("content", editor.value);
+  formData.append("content", editorData.value);
 
   let attachFiles = document.querySelector("#inputFileUploadInsert").files;
   if (attachFiles.length > 0) {
