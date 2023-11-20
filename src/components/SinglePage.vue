@@ -47,6 +47,24 @@
 
           <div class="pt-5 comment-wrap">
             <h3 class="mb-5 heading">{{ commentList.length }} Comments</h3>
+            <div>
+            <!-- 이미지를 클릭할 때 toggleLike 함수 호출 -->
+            <img
+              v-if="isLiked"
+              src="@/assets/heart.svg"
+              alt="Liked"
+              @click="toggleLike"
+              style="width: 20px; height: 20px; cursor: pointer;"
+            />
+            <img
+              v-else
+              src="@/assets/noheart.svg"
+              alt="Not Liked"
+              @click="toggleLike"
+              style="width: 20px; height: 20px; cursor: pointer;"
+            />
+            <span>   좋아요 ssadas 개</span>
+          </div>
             <ul class="comment-list">
               <li class="comment" v-for="(comment, index) in commentList" :key="index">
                 <div class="vcard">
@@ -259,6 +277,7 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { ref } from "vue";
+import axios from 'axios';
 import { useArticleStore } from "@/stores/articleStore";
 import { useUserStore } from "@/stores/userStore";
 const route = useRoute();
@@ -266,9 +285,9 @@ const store = useArticleStore();
 const userStore = useUserStore();
 const commentValue = ref("");
 const comment = ref({});
-
+const isLiked = ref(false);
 const storage = ref(sessionStorage);
-
+const articleId = route.query.articleId;
 const setting = () => {
   comment.value = {
     article: route.query.articleId,
@@ -283,4 +302,40 @@ const { articleDelete, loadComment, commentList, saveComment } = store;
 loadComment(route.query.articleId);
 console.log(commentList);
 console.log("길이는?" + commentList.length);
+
+
+
+const toggleLike = async () => {
+  try {
+    if (isLiked.value) {
+      // Unlike the article
+      await axios.delete(`api/hearts/${articleId}`);
+    } else {
+      // Like the article
+      await axios.post(`api/hearts/${articleId}`);
+    }
+
+    // Toggle the like status
+    isLiked.value = !isLiked.value;
+  } catch (error) {
+    console.error(error);
+  }
+};
+const checkHeart = async () => {
+  try {  
+      let {data} = await axios.post(`api/hearts/check/${articleId}`);
+
+      if (data) {
+        isLiked.value = true;
+      }
+
+    } catch (error) {
+        console.error(error);
+  }
+
+
+  console.log(isLiked.value);
+}
+
+checkHeart(); // 좋아요 한 게시물인지 확인, 그리고 isLiked 갱신
 </script>
