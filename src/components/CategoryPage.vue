@@ -23,7 +23,7 @@
             <button class="btn btn-sm btn-primary" @click="showInsertModal">글쓰기</button>
             <button class="btn btn-sm btn-primary" @click="showUpdateModal">글수정</button>
             <button class="btn btn-sm btn-primary" @click="showDetailModal">글삭제</button>
-            <insert-modal></insert-modal>
+            <insert-modal v-on:call-parent-insert="closeAfterInsert"></insert-modal>
             <update-modal></update-modal>
             <detail-modal></detail-modal>
           </div>
@@ -134,6 +134,7 @@
       </div>
     </div>
   </div>
+  
 </template>
 
 <script setup>
@@ -176,6 +177,12 @@ const showDetailModal = () => detailModal.show();
 
 list();
 console.log(articleList);
+
+const closeAfterInsert = () => {
+  console.log("closeAfterInsert")
+  insertModal.hide();
+      list();
+   }
 </script>
 
 <style>
