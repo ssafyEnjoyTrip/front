@@ -66,12 +66,12 @@
             <span>   좋아요 ssadas 개</span>
           </div>
             <ul class="comment-list">
-              <li class="comment" v-for="(comment, index) in commentList" :key="index">
+              <li class="comment" v-for="comment in commentList" :key="comment.id">
                 <div class="vcard">
                   <img src="images/person_1.jpg" alt="Image placeholder" />
                 </div>
                 <div class="comment-body">
-                  <h3>{{ comment.article.user.name }}</h3>
+                  <h3>{{ comment.article.name }}</h3>
                   <div class="meta">{{ comment.article.registerTime }}</div>
                   <p>
                     {{ comment.comment }}
@@ -80,6 +80,7 @@
                 </div>
               </li>
             </ul>
+
             <!-- END comment-list -->
 
             <div class="comment-form-wrap pt-5" v-show="storage.isLogin">
@@ -280,12 +281,15 @@ import { ref } from "vue";
 import axios from 'axios';
 import { useArticleStore } from "@/stores/articleStore";
 import { useUserStore } from "@/stores/userStore";
+import { storeToRefs } from "pinia";
+
 const route = useRoute();
 const store = useArticleStore();
 const userStore = useUserStore();
 const commentValue = ref("");
 const comment = ref({});
 const isLiked = ref(false);
+const keyword = ref("");
 const storage = ref(sessionStorage);
 const articleId = route.query.articleId;
 const setting = () => {
@@ -298,7 +302,8 @@ const setting = () => {
   saveComment(comment);
 };
 
-const { articleDelete, loadComment, commentList, saveComment } = store;
+const { articleDelete, loadComment, saveComment } = store;
+const { commentList } = storeToRefs(store);
 loadComment(route.query.articleId);
 console.log(commentList);
 console.log("길이는?" + commentList.length);

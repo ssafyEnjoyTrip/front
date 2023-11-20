@@ -34,8 +34,8 @@
                     </li>
                   </ul>
                 </li>
-                <li><router-link to="/category">Culture</router-link></li>
-                <li><router-link to="/category">Business</router-link></li>
+                <li><router-link to="/category">게시글</router-link></li>
+                <li><router-link to="/attractionPage">관광지</router-link></li>
                 <li><router-link to="/category">Politics</router-link></li>
               </ul>
             </div>
@@ -46,7 +46,9 @@
                   <router-link to="/join" class="btn btn-primary" role="button">회원가입</router-link>
                 </tr>
                 <tr v-show="authStore.isLogin" style="color: aliceblue">
-                  {{ authStore.userName}}님 안녕하세요! 
+                  {{
+                    authStore.userName
+                  }}님 안녕하세요!
                   <router-link to="/myPage" class="btn btn-primary me-md-2" href="#" role="button">마이 페이지</router-link>
                   <button class="btn btn-primary" href="#" role="button" @click="logout">로그아웃</button>
                 </tr>
