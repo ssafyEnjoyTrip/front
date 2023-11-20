@@ -34,8 +34,8 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import http from "@/common/axios.js";
+import { ref, defineEmits } from "vue";
+import axios from 'axios';
 import CKEditor from "@ckeditor/ckeditor5-vue";
 import ClassEditor from "@ckeditor/ckeditor5-build-classic";
 import { useAuthStore } from "../../stores/authStore";
@@ -74,23 +74,22 @@ const boardInsert = async () => {
   };
 
   try {
-    await http.post("/boards", formData, options);
-    if (data.result == "login") {
-      doLogout();
-    } else {
+    let { data } = await axios.post("api/article", formData, options);
+    if (data == 'success') {
+      console.log('성공')
       closeModal();
     }
   } catch (error) {
     console.log(error);
   }
-  const doLogout = () => {
-    store.setLogout();
-    router.push("/");
-  };
+  // const doLogout = () => {
+  //   // store.setLogout();
+  //   router.push("/login");
+  // };
 
-  const emit = defineEmits(["call-parent-insert"]);
-  const closeModal = () => emit("call-parent-insert");
 };
+const emit = defineEmits(['call-parent-insert'])
+const closeModal = () => emit('call-parent-insert')
 </script>
 
 <style scoped>
