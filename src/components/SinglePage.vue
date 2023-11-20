@@ -54,9 +54,9 @@
                 </div>
                 <div class="comment-body">
                   <h3>{{ comment.article.user.name }}</h3>
-                  <div class="meta">{{ comment.article.registerTime}}</div>
+                  <div class="meta">{{ comment.article.registerTime }}</div>
                   <p>
-                    {{comment.comment}}
+                    {{ comment.comment }}
                   </p>
                   <p><a href="#" class="reply rounded">Reply</a></p>
                 </div>
@@ -66,24 +66,22 @@
 
             <div class="comment-form-wrap pt-5" v-show="storage.isLogin">
               <h3 class="mb-5">Leave a comment</h3>
-              <form action="#" class="p-5 bg-light">
-                <div class="form-group">
-                  <label for="name">Name *</label>
-                  <input type="text" class="form-control" id="name" v-model="storage.userName"/>
-                </div>
-                <div class="form-group">
-                  <label for="email">Email *</label>
-                  <input type="email" class="form-control" id="email" v-model = "storage.email" />
-                </div>
-               
-                <div class="form-group">
-                  <label for="message">Message</label>
-                  <textarea name="" id="message" cols="30" rows="10" class="form-control" v-model="commentValue"></textarea>
-                </div>
-                <div class="form-group">
-                  <button class="btn btn-primary" @click="setting()">Post Comment</button>
-                </div>
-              </form>
+              <div class="form-group">
+                <label for="name">Name *</label>
+                <input type="text" class="form-control" id="name" v-model="storage.userName" />
+              </div>
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" class="form-control" id="email" v-model="storage.email" />
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea name="" id="message" cols="30" rows="10" class="form-control" v-model="commentValue"></textarea>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary" @click="setting()">Post Comment</button>
+              </div>
             </div>
           </div>
         </div>
@@ -94,7 +92,7 @@
           <div class="sidebar-box search-form-wrap">
             <form action="#" class="sidebar-search-form">
               <span class="bi-search"></span>
-              <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter" v-model="keyword" @click="search(keyword)"/>
+              <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter" v-model="keyword" @click="search(keyword)" />
             </form>
           </div>
           <!-- END sidebar-box -->
@@ -260,9 +258,9 @@
 
 <script setup>
 import { useRoute } from "vue-router";
-import {ref} from "vue"
+import { ref } from "vue";
 import { useArticleStore } from "@/stores/articleStore";
-import {useUserStore} from "@/stores/userStore"
+import { useUserStore } from "@/stores/userStore";
 const route = useRoute();
 const store = useArticleStore();
 const userStore = useUserStore();
@@ -275,18 +273,14 @@ const setting = () => {
   comment.value = {
     article: route.query.articleId,
     userId: storage.value.userId,
-    comment: commentValue.value
+    comment: commentValue.value,
   };
 
-  
   saveComment(comment);
-}
+};
 
 const { articleDelete, loadComment, commentList, saveComment } = store;
 loadComment(route.query.articleId);
 console.log(commentList);
-console.log("길이는?" + commentList.length)
-
-
-
+console.log("길이는?" + commentList.length);
 </script>
