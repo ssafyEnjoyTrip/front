@@ -180,7 +180,6 @@
       </div>
     </div>
   </section>
-  <attraction-page></attraction-page>
 
   <div class="section bg-light">
     <div class="container">
