@@ -53,7 +53,7 @@
 			</div>
 			<div class="row">
 				<div v-for="(attraction, index) in bookMarkAttractionList" :key="attraction.attractionId" class="col-md-6 col-lg-3">
-					<router-link :to="{ name: 'attractionDetail', query: { attractionId: attraction.attractionId } }" class="nav-link">
+					<router-link :to="{ name: 'attractionDetail', query: { attractionId: attraction.attractionId } }" class="nav-link" >
 						<div class="blog-entry">
 							<a href="#" class="img-link">
 								<img v-if="attraction.firstImage" :src="attraction.firstImage" alt="Attraction Image" class="img-fluid">
@@ -62,6 +62,30 @@
 							<h2><a href="#">{{ attraction.title }}</a></h2>
 						</div>
 					</router-link>
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section posts-entry posts-entry-sm bg-light">
+		<div class="container">
+			<div class="row mb-4">
+				<div class="col-12">
+					<h2 class="text-uppercase fw-bold text-black mb-4">좋아요한 게시글</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div v-for="(article, index) in heartArticleList" :key="article.articleId" class="col-md-6 col-lg-3">
+					<div @click="detail(article.articleId)">
+						<div class="blog-entry">
+							<!-- <a href="#" class="img-link">
+								<img v-if="attraction.firstImage" :src="attraction.firstImage" alt="Attraction Image" class="img-fluid">
+								<img v-else src="@/assets/no-image.avif" alt="No Image" class="img-fluid">
+							</a> -->
+							<h2><a href="#">{{ article.title }}</a></h2>
+						</div>
+					</div>
 					
 				</div>
 			</div>
@@ -95,67 +119,20 @@
 
 	</div>
 
-
-
-	<div class="section">
-		<div class="container">
-			<div class="row justify-content-between">
-				<div class="col-lg-7 mb-4 mb-lg-0">
-					<img src="images/img_7_sq.jpg" alt="Image" class="img-fluid rounded
-					">
-				</div>
-				<div class="col-lg-4 ps-lg-2">
-					<div class="mb-5">
-						<h2 class="text-black h4">Publishing platform for professional bloggers</h2>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-					</div>
-					<div class="d-flex mb-3 service-alt">
-						<div>
-							<span class="bi-wallet-fill me-4"></span>
-						</div>
-						<div>
-							<h3>Building your blog</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-						</div>
-					</div>
-
-					<div class="d-flex mb-3 service-alt">
-						<div>
-							<span class="bi-pie-chart-fill me-4"></span>
-						</div>
-						<div>
-							<h3>Resources and insights</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-						</div>
-					</div>
-
-					<div class="d-flex mb-3 service-alt">
-						<div>
-							<span class="bi-bag-check-fill me-4"></span>
-						</div>
-						<div>
-							<h3>Blog just for you</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-						</div>
-					</div>
-
-				</div>
-
-			</div>
-		</div>
-	</div>
-
 </template>
 
 
 <script setup>
 import axios from 'axios';
 import { useUserStore } from "@/stores/userStore";
+import { useArticleStore } from "@/stores/articleStore";
 import { useRouter } from "vue-router";
 import { ref, reactive } from 'vue';
 const { authStore } = useUserStore();
+const {detail} = useArticleStore();
 const router = useRouter();
 const bookMarkAttractionList = ref([]);
+const heartArticleList = ref([]);
 const Bookmarks = async () => {
 
 	let userId = authStore.userId;
@@ -166,7 +143,8 @@ const Bookmarks = async () => {
 
 	try {
 		let { data } = await axios.get('api/users/myPage/' + userId);
-		bookMarkAttractionList.value = data.bookMarkAttractionList || [];   
+		bookMarkAttractionList.value = data.bookMarkAttractionList || [];
+		heartArticleList.value = data.myPageArticleList || [];
     }catch (error) {
         console.log(error)
     }
