@@ -9,7 +9,7 @@
             </a>
             <div>
               <span class="date"
-                >{{ item.registerTime }} &bullet; <a href="#">{{ item.name }}</a></span
+                >{{ item.registerTime }} &bullet; <a href="#">{{ item.user.name }}</a></span
               >
               <h2>
                 {{ item.title }}
@@ -44,12 +44,12 @@
 
         <div class="col-lg-4 sidebar">
           <div class="sidebar-box search-form-wrap mb-4">
-              
-              <input type="text" class="form-control" placeholder="Type a keyword and hit enter" v-model="keyword"/>
-              <button @click="search(keyword)">검색</button>
+            <input type="text" class="form-control" placeholder="Type a keyword and hit enter" v-model="keyword" />
+            <button @click="search(keyword)">검색</button>
           </div>
+          <side-bar-page></side-bar-page>
           <!-- END sidebar-box -->
-          <div class="sidebar-box">
+          <!-- <div class="sidebar-box">
             <h3 class="heading">Popular Posts</h3>
             <div class="post-entry-sidebar">
               <ul>
@@ -88,7 +88,8 @@
                 </li>
               </ul>
             </div>
-          </div>
+          </div> -->
+
           <!-- END sidebar-box -->
 
           <div class="sidebar-box">
@@ -149,11 +150,12 @@ import DetailModal from "../components/modals/DetailModal.vue";
 
 //common
 import util from "@/common/util.js";
-
+import SideBarPage from "@/components/SidebarPage.vue";
 //bootstrap 객체 생성
 import { Modal } from "bootstrap";
 
 const store = useArticleStore();
+
 const { list, detail, search } = store;
 const { article, articleList } = storeToRefs(store);
 

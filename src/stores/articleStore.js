@@ -41,7 +41,6 @@ export const useArticleStore = defineStore("articleStore", () => {
           name: data.name,
         },
       });
-      alert("Push로 출동한 녀석!");
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +64,6 @@ export const useArticleStore = defineStore("articleStore", () => {
       console.log(data);
       articleList.value = data;
       console.log(articleList);
-      router.push("/blog");
     } catch (error) {
       console.log(error);
     }
@@ -75,22 +73,25 @@ export const useArticleStore = defineStore("articleStore", () => {
     try {
       let response = await axios.get("http://localhost:8080/comment/" + articleId);
       let { data } = await response;
+
+      console.log("loadComment가 정상적으로 실행이 되나?");
+
       commentList.value = data;
+
+      console.log("commentList: ", commentList.value);
+      alert("articleStore: loadComment()");
     } catch (error) {
       console.log(error);
     }
   };
 
   const saveComment = async (comment) => {
-    console.log(comment.value.articleId);
-    console.log(comment.value.comment);
-    console.log(comment.value.userId);
-
+    console.log(comment.value);
     try {
       let response = await axios.post(
         "http://localhost:8080/comment/save",
         {
-          articleId: comment.value.articleId,
+          articleId: comment.value.article,
           comment: comment.value.comment,
           userId: comment.value.userId,
         },
@@ -100,12 +101,12 @@ export const useArticleStore = defineStore("articleStore", () => {
           },
         }
       );
+      loadComment(comment.value.article);
       console.log(response.data);
     } catch (error) {
       console.log(error);
     }
   };
-
   const insertArticle = async (articleDto) => {};
   return { detail, list, article, articleList, articleDelete, search, commentList, loadComment, saveComment };
 });
