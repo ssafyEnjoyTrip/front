@@ -6,6 +6,8 @@ import { useRoute } from "vue-router";
 
 export const useAttractionStore = defineStore("attractionStore", () => {
   const attractionList = ref([]);
+  const detailObject = ref({});
+
   const getAttractionList = async () => {
     try {
       let response = await axios.get("http://localhost:8080/attractions/");
@@ -27,12 +29,13 @@ export const useAttractionStore = defineStore("attractionStore", () => {
 
   const detailAttraction = async (attractionId) => {
     try {
-      let response = await axios.get("http://localhost:8080/" + attractionId);
+      let response = await axios.get("http://localhost:8080/attractions/" + attractionId);
       let { data } = await response;
+      detailObject.value = data;
     } catch (error) {
       console.log(error);
     }
   };
 
-  return { attractionList, getAttractionList, detailAttraction, goToAttraction };
+  return { attractionList, getAttractionList, detailAttraction, goToAttraction, detailObject };
 });
