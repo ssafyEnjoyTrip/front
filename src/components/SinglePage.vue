@@ -46,95 +46,17 @@
           </div>
 
           <div class="pt-5 comment-wrap">
-            <h3 class="mb-5 heading">{{ route.query.commentsCount }} Comments</h3>
+            <h3 class="mb-5 heading">{{ commentList.length }} Comments</h3>
             <ul class="comment-list">
-              <li class="comment">
+              <li class="comment" v-for="(comment, index) in commentList" :key="index">
                 <div class="vcard">
                   <img src="images/person_1.jpg" alt="Image placeholder" />
                 </div>
                 <div class="comment-body">
-                  <h3>Jean Doe</h3>
-                  <div class="meta">January 9, 2018 at 2:21pm</div>
+                  <h3>{{ comment.article.user.name }}</h3>
+                  <div class="meta">{{ comment.article.registerTime }}</div>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?
-                  </p>
-                  <p><a href="#" class="reply rounded">Reply</a></p>
-                </div>
-              </li>
-
-              <li class="comment">
-                <div class="vcard">
-                  <img src="images/person_2.jpg" alt="Image placeholder" />
-                </div>
-                <div class="comment-body">
-                  <h3>Jean Doe</h3>
-                  <div class="meta">January 9, 2018 at 2:21pm</div>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?
-                  </p>
-                  <p><a href="#" class="reply rounded">Reply</a></p>
-                </div>
-
-                <ul class="children">
-                  <li class="comment">
-                    <div class="vcard">
-                      <img src="images/person_3.jpg" alt="Image placeholder" />
-                    </div>
-                    <div class="comment-body">
-                      <h3>Jean Doe</h3>
-                      <div class="meta">January 9, 2018 at 2:21pm</div>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?
-                      </p>
-                      <p><a href="#" class="reply rounded">Reply</a></p>
-                    </div>
-
-                    <ul class="children">
-                      <li class="comment">
-                        <div class="vcard">
-                          <img src="images/person_4.jpg" alt="Image placeholder" />
-                        </div>
-                        <div class="comment-body">
-                          <h3>Jean Doe</h3>
-                          <div class="meta">January 9, 2018 at 2:21pm</div>
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus,
-                            nihil?
-                          </p>
-                          <p><a href="#" class="reply rounded">Reply</a></p>
-                        </div>
-
-                        <ul class="children">
-                          <li class="comment">
-                            <div class="vcard">
-                              <img src="images/person_5.jpg" alt="Image placeholder" />
-                            </div>
-                            <div class="comment-body">
-                              <h3>Jean Doe</h3>
-                              <div class="meta">January 9, 2018 at 2:21pm</div>
-                              <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit
-                                necessitatibus, nihil?
-                              </p>
-                              <p><a href="#" class="reply rounded">Reply</a></p>
-                            </div>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-
-              <li class="comment">
-                <div class="vcard">
-                  <img src="images/person_1.jpg" alt="Image placeholder" />
-                </div>
-                <div class="comment-body">
-                  <h3>Jean Doe</h3>
-                  <div class="meta">January 9, 2018 at 2:21pm</div>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?
+                    {{ comment.comment }}
                   </p>
                   <p><a href="#" class="reply rounded">Reply</a></p>
                 </div>
@@ -142,30 +64,24 @@
             </ul>
             <!-- END comment-list -->
 
-            <div class="comment-form-wrap pt-5">
+            <div class="comment-form-wrap pt-5" v-show="storage.isLogin">
               <h3 class="mb-5">Leave a comment</h3>
-              <form action="#" class="p-5 bg-light">
-                <div class="form-group">
-                  <label for="name">Name *</label>
-                  <input type="text" class="form-control" id="name" />
-                </div>
-                <div class="form-group">
-                  <label for="email">Email *</label>
-                  <input type="email" class="form-control" id="email" />
-                </div>
-                <div class="form-group">
-                  <label for="website">Website</label>
-                  <input type="url" class="form-control" id="website" />
-                </div>
+              <div class="form-group">
+                <label for="name">Name *</label>
+                <input type="text" class="form-control" id="name" v-model="storage.userName" />
+              </div>
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" class="form-control" id="email" v-model="storage.email" />
+              </div>
 
-                <div class="form-group">
-                  <label for="message">Message</label>
-                  <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
-                </div>
-                <div class="form-group">
-                  <input type="submit" value="Post Comment" class="btn btn-primary" />
-                </div>
-              </form>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea name="" id="message" cols="30" rows="10" class="form-control" v-model="commentValue"></textarea>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary" @click="setting()">Post Comment</button>
+              </div>
             </div>
           </div>
         </div>
@@ -176,7 +92,7 @@
           <div class="sidebar-box search-form-wrap">
             <form action="#" class="sidebar-search-form">
               <span class="bi-search"></span>
-              <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter" v-model="keyword" @click="search(keyword)"/>
+              <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter" v-model="keyword" @click="search(keyword)" />
             </form>
           </div>
           <!-- END sidebar-box -->
@@ -342,9 +258,29 @@
 
 <script setup>
 import { useRoute } from "vue-router";
+import { ref } from "vue";
 import { useArticleStore } from "@/stores/articleStore";
+import { useUserStore } from "@/stores/userStore";
 const route = useRoute();
 const store = useArticleStore();
+const userStore = useUserStore();
+const commentValue = ref("");
+const comment = ref({});
 
-const { articleDelete } = store;
+const storage = ref(sessionStorage);
+
+const setting = () => {
+  comment.value = {
+    article: route.query.articleId,
+    userId: storage.value.userId,
+    comment: commentValue.value,
+  };
+
+  saveComment(comment);
+};
+
+const { articleDelete, loadComment, commentList, saveComment } = store;
+loadComment(route.query.articleId);
+console.log(commentList);
+console.log("길이는?" + commentList.length);
 </script>
