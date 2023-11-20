@@ -4,13 +4,13 @@
       <div class="row same-height justify-content-center">
         <div class="col-md-6">
           <div class="post-entry text-center">
-            <h1 class="mb-4">{{ route.query.title }}</h1>
+            <h1 class="mb-4">{{ articleStore.title }}</h1>
             <div class="post-meta align-items-center text-center">
               <figure class="author-figure mb-0 me-3 d-inline-block">
                 <img src="images/person_1.jpg" alt="Image" class="img-fluid" />
               </figure>
-              <span class="d-inline-block mt-1">{{ route.query.name }}</span>
-              <span>&nbsp;-&nbsp; {{ route.query.registerTime }}</span>
+              <span class="d-inline-block mt-1">{{ articleStore.user.name }}</span>
+              <span>&nbsp;-&nbsp; {{ articleStore.registerTime }}</span>
             </div>
           </div>
         </div>
@@ -23,7 +23,7 @@
       <div class="row blog-entries element-animate">
         <div class="col-md-12 col-lg-8 main-content">
           <div class="post-content-body">
-            <p>{{ route.query.content }}</p>
+            <p v-html="articleStore.content"></p>
             <div class="row my-4">
               <div class="col-md-12 mb-4">
                 <img src="images/hero_1.jpg" alt="Image placeholder" class="img-fluid rounded" />
@@ -63,7 +63,7 @@
               @click="toggleLike"
               style="width: 20px; height: 20px; cursor: pointer;"
             />
-            <span>   좋아요 ssadas 개</span>
+            <span>   좋아요 {{ articleStore.heartCount }} 개</span>
           </div>
             <ul class="comment-list">
               <li class="comment" v-for="comment in commentList" :key="comment.id">
@@ -280,18 +280,22 @@ import { useRoute } from "vue-router";
 import { ref } from "vue";
 import axios from 'axios';
 import { useArticleStore } from "@/stores/articleStore";
-import { useUserStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
 
 const route = useRoute();
 const store = useArticleStore();
-const userStore = useUserStore();
+const { articleDelete, loadComment, saveComment, articleStore, incrementHeartCount, decrementHeartCount } = store;
+const heartCount = ref('');
+heartCount.value = articleStore.heartCount;
+const { commentList } = storeToRefs(store);
 const commentValue = ref("");
 const comment = ref({});
 const isLiked = ref(false);
 const keyword = ref("");
 const storage = ref(sessionStorage);
+
 const articleId = route.query.articleId;
+
 const setting = () => {
   comment.value = {
     article: route.query.articleId,
@@ -301,13 +305,12 @@ const setting = () => {
 
   saveComment(comment);
 };
+console.log(articleStore);
 
-const { articleDelete, loadComment, saveComment } = store;
-const { commentList } = storeToRefs(store);
+
 loadComment(route.query.articleId);
-console.log(commentList);
-console.log("길이는?" + commentList.length);
-
+// console.log(commentList);
+// console.log("길이는?" + commentList.length);
 
 
 const toggleLike = async () => {
@@ -315,9 +318,11 @@ const toggleLike = async () => {
     if (isLiked.value) {
       // Unlike the article
       await axios.delete(`api/hearts/${articleId}`);
+      decrementHeartCount();
     } else {
       // Like the article
       await axios.post(`api/hearts/${articleId}`);
+      incrementHeartCount();
     }
 
     // Toggle the like status

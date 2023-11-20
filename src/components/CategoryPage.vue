@@ -158,7 +158,7 @@ import { Modal } from "bootstrap";
 const store = useArticleStore();
 
 const { list, detail, search } = store;
-const { article, articleList } = storeToRefs(store);
+const { articleList } = storeToRefs(store);
 
 let insertModal = null;
 let updateModal = null;
