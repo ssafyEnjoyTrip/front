@@ -25,7 +25,14 @@ export const useAttractionStore = defineStore("attractionStore", () => {
     });
   };
 
-  const detailAttraction = async (attractionId) => {};
+  const detailAttraction = async (attractionId) => {
+    try {
+      let response = await axios.get("http://localhost:8080/" + attractionId);
+      let { data } = await response;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return { attractionList, getAttractionList, detailAttraction, goToAttraction };
 });
