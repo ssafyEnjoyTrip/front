@@ -77,13 +77,13 @@
 			</div>
 			<div class="row">
 				<div v-for="(article, index) in heartArticleList" :key="article.articleId" class="col-md-6 col-lg-3">
-					<div @click="detail(article.articleId)">
+					<div @click="goToArticle(article.articleId)">
 						<div class="blog-entry">
 							<!-- <a href="#" class="img-link">
 								<img v-if="attraction.firstImage" :src="attraction.firstImage" alt="Attraction Image" class="img-fluid">
 								<img v-else src="@/assets/no-image.avif" alt="No Image" class="img-fluid">
 							</a> -->
-							<h2><a href="#">{{ article.title }}</a></h2>
+							<h2>{{ article.title }}</h2>
 						</div>
 					</div>
 					
@@ -101,9 +101,9 @@
 			</div>
 			<div class="row">
 				<div v-for="(article, index) in MyArticleList" :key="article.articleId" class="col-md-6 col-lg-3">
-					<div @click="detail(article.articleId)">
+					<div @click="goToArticle(article.articleId)">
 						<div class="blog-entry">
-							<h2><a href="#">{{ article.title }}</a></h2>
+							<h2>{{ article.title }}</h2>
 							<h2 v-html="article.content"></h2>
 						</div>
 					</div>
@@ -121,21 +121,17 @@
 				</div>
 			</div>
 			<div class="row">
-				<div v-for="(comment, index) in myCommentList" :key="comment.commentId" class="col-md-6 col-lg-3">
+				<div v-for="(comment, index) in myCommentList" :key="comment.commentId" class="col-md-6 col-lg-3" @click="goToArticle(comment.article.articleId)">
 					<div @click="detail(comment.commentId)">
 						<div class="blog-entry">
-							<h2><a href="#">{{ comment.article.title }}</a></h2>
-							<h2><a href="#">{{ comment.comment }}</a></h2>
-							
+							<h2>{{ comment.article.title }}</h2>
+							<h2>{{ comment.comment }}</h2>							
 						</div>
 					</div>
-					
 				</div>
 			</div>
 		</div>
 	</section>
-
-
 </template>
 
 
@@ -145,13 +141,18 @@ import { useUserStore } from "@/stores/userStore";
 import { useArticleStore } from "@/stores/articleStore";
 import { useRouter } from "vue-router";
 import { ref, reactive } from 'vue';
+import { storeToRefs } from 'pinia';
 const { authStore } = useUserStore();
-const {detail} = useArticleStore();
+const {detail, goToArticle, } = useArticleStore();
+// const {articleDetail} = storeToRefs(useArticleStore());
+
 const router = useRouter();
 const bookMarkAttractionList = ref([]);
 const heartArticleList = ref([]);
 const MyArticleList = ref([]);
 const myCommentList = ref([]);
+
+
 const Bookmarks = async () => {
 
 	let userId = authStore.userId;
@@ -198,6 +199,11 @@ const user = reactive({
 .btn-danger {
   background-color: #dc3545;
   border-color: #dc3545;
+}
+
+.col-lg-3 h2{
+	border: 1px solid ;
+	cursor: pointer;
 }
 
 /* Add more styles as needed */

@@ -4,13 +4,13 @@
       <div class="row same-height justify-content-center">
         <div class="col-md-6">
           <div class="post-entry text-center">
-            <h1 class="mb-4">{{ articleStore.title }}</h1>
+            <h1 class="mb-4">{{ articleDetail.title }}</h1>
             <div class="post-meta align-items-center text-center">
               <figure class="author-figure mb-0 me-3 d-inline-block">
                 <img src="images/person_1.jpg" alt="Image" class="img-fluid" />
               </figure>
-              <span class="d-inline-block mt-1">{{ articleStore.user.name }}</span>
-              <span>&nbsp;-&nbsp; {{ toDate(articleStore.registerTime) }}</span>
+              <span class="d-inline-block mt-1">{{ articleDetail.user.name }}</span>
+              <span>&nbsp;-&nbsp; {{ toDate(articleDetail.registerTime) }}</span>
             </div>
           </div>
         </div>
@@ -23,17 +23,12 @@
       <div class="row blog-entries element-animate">
         <div class="col-md-12 col-lg-8 main-content">
           <div class="post-content-body">
-            <p v-html="articleStore.content"></p>
+            <p v-html="articleDetail.content"></p>
             <div class="row my-4">
-              <div class="col-md-12 mb-4">
-                <img src="images/hero_1.jpg" alt="Image placeholder" class="img-fluid rounded" />
+              <div class="col-md-12 mb-4" v-for="(item) in articleDetail.articleFiles" :key="item.id">
+                <img :src="item.fileUrl" alt="404" class="img-fluid rounded" />
               </div>
-              <div class="col-md-6 mb-4">
-                <img src="images/img_2_horizontal.jpg" alt="Image placeholder" class="img-fluid rounded" />
-              </div>
-              <div class="col-md-6 mb-4">
-                <img src="images/img_3_horizontal.jpg" alt="Image placeholder" class="img-fluid rounded" />
-              </div>
+              
             </div>
           </div>
 
@@ -65,7 +60,7 @@
                 @click="toggleLike"
                 style="width: 20px; height: 20px; cursor: pointer;"
             />
-            <span>   좋아요 {{ articleStore.heartCount }} 개</span>
+            <span>   좋아요 {{ articleDetail.heartCount }} 개</span>
         </div>
     </div>
             <ul class="comment-list">
@@ -90,11 +85,11 @@
               <h3 class="mb-5">Leave a comment</h3>
               <div class="form-group">
                 <label for="name">Name *</label>
-                <input type="text" class="form-control" id="name" v-model="storage.userName" />
+                <input type="text" class="form-control" id="name" v-model="storage.userName" readOnly/>
               </div>
               <div class="form-group">
                 <label for="email">Email *</label>
-                <input type="email" class="form-control" id="email" v-model="storage.email" />
+                <input type="email" class="form-control" id="email" v-model="storage.email" readOnly/>
               </div>
 
               <div class="form-group">
@@ -287,10 +282,8 @@ import { storeToRefs } from "pinia";
 
 const route = useRoute();
 const store = useArticleStore();
-const { articleDelete, loadComment, saveComment, articleStore, incrementHeartCount, decrementHeartCount } = store;
-const heartCount = ref('');
-heartCount.value = articleStore.heartCount;
-const { commentList } = storeToRefs(store);
+const { articleDelete, loadComment, saveComment, getDetailArticle, incrementHeartCount, decrementHeartCount } = store;
+const { commentList, articleDetail } = storeToRefs(store);
 const commentValue = ref("");
 const comment = ref({});
 const isLiked = ref(false);
@@ -298,6 +291,7 @@ const keyword = ref("");
 const storage = ref(sessionStorage);
 
 const articleId = route.query.articleId;
+console.log(articleId);
 
 const setting = () => {
   comment.value = {
@@ -308,12 +302,7 @@ const setting = () => {
 
   saveComment(comment);
 };
-console.log(articleStore);
 
-
-loadComment(route.query.articleId);
-// console.log(commentList);
-// console.log("길이는?" + commentList.length);
 const toDate = (date) => {
   const formattedDate = new Date(date).toLocaleString('en-US', {
     year: 'numeric',
@@ -348,18 +337,19 @@ const toggleLike = async () => {
 const checkHeart = async () => {
   try {  
       let {data} = await axios.post(`api/hearts/check/${articleId}`);
-
       if (data) {
         isLiked.value = true;
       }
-
     } catch (error) {
         console.error(error);
   }
-
-
-  console.log(isLiked.value);
 }
 
+
+getDetailArticle(articleId);
+loadComment(articleId);
 checkHeart(); // 좋아요 한 게시물인지 확인, 그리고 isLiked 갱신
+
+
+console.log("SinglePage's " ,articleDetail.value);
 </script>

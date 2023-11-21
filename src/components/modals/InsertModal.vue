@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, defineEmits } from "vue";
 import axios from 'axios';
 import CKEditor from "@ckeditor/ckeditor5-vue";
 import ClassEditor from "@ckeditor/ckeditor5-build-classic";
@@ -50,9 +50,8 @@ const store = useAuthStore();
 
 const title = ref("");
 const attachFile = ref(false);
-
 const fileList = ref([]);
-const fileDto = ref([]);
+
 const changeFile = (fileEvent) => {
   fileList.value = []; // thumbnail
   const fileArray = Array.from(fileEvent.target.files);
@@ -74,41 +73,15 @@ const boardInsert = async () => {
     header: { "Content-Type": "multipart/form-data" },
   };
 
-  try {  
-    let { data } = await axios.post("api/upload", formData, options);
-    console.log(data);
-
-    if (data != null) {
-      //data == 파일 정보가 있음
-      //title, content, data <- 객체로 묶어서 article dto 
+  try {
+    let { data } = await axios.post("api/article", formData, options);
+    if (data == 'success') {
       console.log('성공')
-      data.forEach(el => {
-        fileDto.push({
-          "fileName":el.fileName,
-          "fileUrl":el.fileUrl
-        })
-      })
-      console.log(fileDto);
       closeModal();
-    }    
+    }
   } catch (error) {
     console.log(error);
   }
-
-  let uploadObject = {
-    "fileList":fileList.value,
-    "content": editorData.value,
-    "title": title.value
-  }
-  console.log(uploadObject)
-  try{
-    let response = await axios.post("http://localhost:8080/article/", uploadObject);
-    let {data} = await response;
-
-  }catch(error){
-    console.log(error);
-  }
- 
   // const doLogout = () => {
   //   // store.setLogout();
   //   router.push("/login");

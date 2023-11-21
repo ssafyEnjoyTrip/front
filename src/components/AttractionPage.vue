@@ -10,20 +10,19 @@
 
       <div class="row">
         
-        <div class="col-lg-4 mb-4" v-for="(item, index) in attractionList" :key="index">
+        <div class="col-lg-4 mb-4" v-for="(item, index) in attractionList" :key="index" style="cursor: pointer;">
           <div class="post-entry-alt" @click="goToAttraction(item.attractionId)">
             <img :src="item.firstImage" alt="Image" class="img-fluid" style="width: 400px; height: 300px" />
             <div class="excerpt">
               <h2>{{ item.title }}</h2>
               <div class="post-meta align-items-center text-left clearfix">
                 <figure class="author-figure mb-0 me-3 float-start">
-                  <img src="images/person_1.jpg" alt="Image" class="img-fluid" />
                 </figure>
-                <span class="d-inline-block mt-1">By <a href="#">David Anderson</a></span>
-                <span>&nbsp;-&nbsp; July 19, 2019</span>
+                <span class="d-inline-block mt-1">{{ item.addr1 }}</span>
+                <br>
+                <span> 방문 수 &nbsp;-&nbsp; {{ item.readcount }}</span>
               </div>
 
-              <p>{{ item.addr1 }}</p>
               <p>
                 <router-link to="/single" class="read-more">{{ item.readCount }}</router-link>
               </p>

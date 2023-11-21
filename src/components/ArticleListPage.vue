@@ -5,12 +5,10 @@
         <div class="col-lg-8">
           <div class="blog-entry d-flex blog-entry-search-item" v-for="(item, index) in articleList" :key="index">
             <a class="img-link me-4">
-              <img src="https://picsum.photos/1024/1000/?image=50" alt="Image" class="img-fluid" @click="detail(item.articleId)" />
+              <img src="https://picsum.photos/1024/1000/?image=50" alt="Image" class="img-fluid" @click="goToArticle(item.articleId)" />
             </a>
             <div>
-              <span class="date"
-                >{{ toDate(item.registerTime) }} &bullet; <a href="#">{{ item.user.name }}</a></span
-              >
+              <span class="date">{{ toDate(item.registerTime) }} &bullet; <a href="#">{{ item.user.name }}</a></span>
               <h2>
                 {{ item.title }}
               </h2>
@@ -19,7 +17,7 @@
             </div>
           </div>
 
-          <PaginationUI v-on:call-parent="movePage">asdasdasd</PaginationUI>
+          <PaginationUI v-on:call-parent="movePage"></PaginationUI>
           
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button class="btn btn-sm btn-primary" @click="showInsertModal">글쓰기</button>
@@ -30,18 +28,6 @@
             <detail-modal></detail-modal>
           </div>
           <br />
-          <!-- <div class="row text-start pt-5 border-top">
-            <div class="col-md-12">
-              <div class="custom-pagination">
-                <span>1</span>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <span>...</span>
-                <a href="#">15</a>
-              </div>
-            </div>
-          </div> -->
         </div>
 
         <div class="col-lg-4 sidebar">
@@ -117,7 +103,7 @@ import { Modal } from "bootstrap";
 
 const store = useArticleStore();
 
-const { list, detail, search, setArticleMovePage, toDate, articleStore } = store;
+const { list, goToArticle, search, setArticleMovePage, toDate, articleStore } = store;
 const { articleList } = storeToRefs(store);
 
 let insertModal = null;

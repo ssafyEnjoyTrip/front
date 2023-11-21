@@ -13250,7 +13250,8 @@ textarea {
 }
 
 .read-more {
-    border-bottom: 2px solid #214252;
+    text-decoration: none;
+    color:rgba(60, 153, 180, 1);
 }
 
 .post-entry-alt h2,
