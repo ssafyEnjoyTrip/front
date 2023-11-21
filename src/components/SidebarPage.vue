@@ -1,36 +1,14 @@
 <template>
   <h3 class="heading">Popular Posts</h3>
-  <div class="post-entry-sidebar">
+  <div class="post-entry-sidebar" >
     <ul>
-      <li>
-        <a href="">
-          <img src="images/img_1_sq.jpg" alt="Image placeholder" class="me-4 rounded" />
+      <li v-for="(item) in popularAttraction" :key="item.id">
+        <a style="text-decoration: none; cursor:pointer" @click="goToAttraction(item.attractionId)">
+          <img :src="item.firstImage" alt="Image placeholder" class="me-4 rounded" />
           <div class="text">
-            <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
+            <h4>{{ item.title }}</h4>
             <div class="post-meta">
-              <span class="mr-2">March 15, 2018 </span>
-            </div>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="images/img_2_sq.jpg" alt="Image placeholder" class="me-4 rounded" />
-          <div class="text">
-            <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-            <div class="post-meta">
-              <span class="mr-2">March 15, 2018 </span>
-            </div>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="images/img_3_sq.jpg" alt="Image placeholder" class="me-4 rounded" />
-          <div class="text">
-            <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-            <div class="post-meta">
-              <span class="mr-2">March 15, 2018 </span>
+              <span class="mr-2">{{ item.addr1 }}</span>
             </div>
           </div>
         </a>
@@ -38,3 +16,12 @@
     </ul>
   </div>
 </template>
+
+<script setup>
+import { storeToRefs } from 'pinia';
+import {useAttractionStore} from "@/stores/attractionStore"
+const store = useAttractionStore();
+const {sideBarList, goToAttraction} = store;
+const {popularAttraction, detailObject} = storeToRefs(store);
+sideBarList();
+</script>

@@ -1,6 +1,7 @@
 <template>
   <navbar-page></navbar-page>
-  <router-view></router-view>
+  <!-- 같은 주소에서 router.push를 했을때 변경이 되지 않으면 아래와 같이 id와 key를 넣어주면 해결된다 -->
+  <router-view id="router" :key="$route.fullPath"></router-view>
   <footer-page></footer-page>
 </template>
 

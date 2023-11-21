@@ -10,6 +10,8 @@ export const useArticleStore = defineStore("articleStore", () => {
   const article = ref({});
   const articleList = ref([]);
   const commentList = ref([]);
+  const articleDetail = ref({});
+
   const articleStore = reactive({
     // list
     list: [],
@@ -24,8 +26,6 @@ export const useArticleStore = defineStore("articleStore", () => {
     totalListItemCount: 0,
 
  })
-
- const articleDetail = ref({});
   const list = async () => {
     let params = {
       limit: articleStore.limit,
@@ -57,35 +57,30 @@ export const useArticleStore = defineStore("articleStore", () => {
     return formattedDate;
   }
 
-  const setArticleDetail = (payload) => {
-    articleStore.articleId = payload.articleId;
-    articleStore.title = payload.title;
-    articleStore.registerTime = payload.registerTime;
-    articleStore.content = payload.content;
-    articleStore.user = payload.user;
-    articleStore.name = payload.name;
-    articleStore.heartCount = payload.heartCount;
-  }
   const setArticleMovePage = (pageIndex) => {
     articleStore.offset = (pageIndex - 1) * articleStore.listRowCount
     articleStore.currentPageIndex = pageIndex
   }
-  const detail = async (articleId) => {
-    console.log("detail()");
-    console.log(articleId);
-    try {
-      let { data } = await axios.get("http://localhost:8080/article/" + articleId);
-      setArticleDetail(data);
-      router.push({
-        name: "Single",
-        query: {
-          articleId : articleId,
-        }
-      });
-    } catch (error) {
+  
+  const goToArticle = (articleId) => {
+    router.push({
+      name: "Single",
+      query: {
+        articleId: articleId,
+      },
+    });
+  }
+
+  const getDetailArticle = async (articleId) => {
+    try{
+      let response = await axios.get("http://localhost:8080/article/" + articleId);
+      let {data} = await response;
+      articleDetail.value = data;
+      console.log("articleStore's getDetailArticle: ", articleDetail);
+    } catch(error){
       console.log(error);
     }
-  };
+  }
 
   const articleDelete = async (articleId) => {
     alert(articleId + " articleDelete()");
@@ -191,8 +186,7 @@ export const useArticleStore = defineStore("articleStore", () => {
 
 
   return {
-    articleStore, detail, list, article, articleList, articleDelete, commentList, loadComment, saveComment, setArticleDetail,setArticleMovePage,
-    pageCount, startPageIndex, endPageIndex, prev, next, incrementHeartCount, decrementHeartCount, toDate, search
-
+    articleStore, goToArticle, list, article, articleList, articleDelete, commentList, loadComment, saveComment,setArticleMovePage,
+    pageCount, startPageIndex, endPageIndex, prev, next, incrementHeartCount, decrementHeartCount, toDate, search, getDetailArticle, articleDetail
   };
 });

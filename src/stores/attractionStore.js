@@ -7,6 +7,17 @@ import { useRoute } from "vue-router";
 export const useAttractionStore = defineStore("attractionStore", () => {
   const attractionList = ref([]);
   const detailObject = ref({});
+  const popularAttraction = ref([]);
+
+  const sideBarList = async () => {
+    try{
+      let response = await axios.get("http://localhost:8080/attractions/readCount");
+      let {data} = await response;
+      popularAttraction.value = data;  
+    } catch(error){
+      console.log(error);
+    }
+  }
 
   const attractionStore = reactive({
     // list
@@ -114,7 +125,7 @@ export const useAttractionStore = defineStore("attractionStore", () => {
 
   return {
     attractionStore, attractionList, getAttractionList, detailAttraction, goToAttraction, detailObject, search,
-    pageCount, startPageIndex, endPageIndex, prev, next,setAttractionMovePage,
+    pageCount, startPageIndex, endPageIndex, prev, next,setAttractionMovePage, popularAttraction, sideBarList
 
   };
 });

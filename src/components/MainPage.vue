@@ -65,17 +65,16 @@
   <!-- End posts-entry -->
   <div class="section bg-light">
     <div class="container">
-      <div class="row mb-4">
-        <div class="col-sm-6">
+      <div class="row mb-2">
+        <div class="col-sm-auto">
           <h2 class="posts-entry-title">Travel</h2>
         </div>
-        <div class="col-sm-6 text-sm-end"><router-link to="/attractionPage" class="read-more">View All</router-link></div>
       </div>
 
       <div class="row align-items-stretch retro-layout-alt">
         <div class="col-md-5 order-md-2">
           <router-link to="/articleList" class="hentry img-1 h-100 gradient">
-            <div class="featured-img" style="background-image: url(&quot;images/img_2_vertical.jpg&quot;)"></div>
+            <div class="featured-img" style="background-image: url(images/img_2_vertical.jpg)"></div>
             <div class="text">
               <span>February 12, 2019</span>
               <h2>Meta unveils fees on metaverse sales</h2>
@@ -83,7 +82,7 @@
           </router-link>
         </div>
 
-        <div class="col-md-7">
+        <div class="col-md-6">
           <router-link to="/single" class="hentry img-2 v-height mb30 gradient">
             <div class="featured-img" style="background-image: url(&quot;images/img_1_horizontal.jpg&quot;)"></div>
             <div class="text text-sm">
