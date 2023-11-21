@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from "vue";
+import { ref } from "vue";
 import axios from 'axios';
 import CKEditor from "@ckeditor/ckeditor5-vue";
 import ClassEditor from "@ckeditor/ckeditor5-build-classic";
