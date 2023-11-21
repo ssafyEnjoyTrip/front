@@ -23,15 +23,10 @@
         <div class="col-md-3">
           <side-bar-page></side-bar-page>
         </div>
-
-        
       </div>
     </div>
   </section>
-
-  <div class="container">
-    <kakao-map></kakao-map>
-  </div>
+  <kakao-map></kakao-map>
 </template>
 
 <script setup>
