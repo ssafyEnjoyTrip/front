@@ -7,7 +7,6 @@ import { useRoute } from "vue-router";
 export const useAttractionStore = defineStore("attractionStore", () => {
   const attractionList = ref([]);
   const detailObject = ref({});
-
   const getAttractionList = async () => {
     try {
       let response = await axios.get("http://localhost:8080/attractions/");

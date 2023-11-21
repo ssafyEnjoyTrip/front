@@ -4,22 +4,22 @@
       <div class="row mb-4">
         <div class="col-sm-6">
           <h2 class="posts-entry-title">관광지</h2>
-        </div>      
+        </div>
       </div>
       <div class="row g-3">
         <div class="col-md-9">
           <div class="row g-3">
             <div class="col-md-12">
-              <div class="blog-entry" style="text-align: center;">                
-                  <img alt="Image" :src="detailObject.firstImage" class="img-fluid"/>
-                
+              <div class="blog-entry" style="text-align: center">
+                <img alt="Image" :src="detailObject.firstImage" class="img-fluid" />
+
                 <h2>{{ detailObject.title }}</h2>
                 <p>{{ detailObject.attractionDescription.overview }}</p>
               </div>
-            </div>            
-          </div>          
+            </div>
+          </div>
         </div>
-        
+
         <div class="col-md-3">
           <side-bar-page></side-bar-page>
         </div>
@@ -51,6 +51,4 @@ const { detailObject } = storeToRefs(store);
 const attractionId = route.query.attractionId;
 
 detailAttraction(attractionId);
-
-
 </script>
