@@ -9,16 +9,18 @@
             </a>
             <div>
               <span class="date"
-                >{{ item.registerTime }} &bullet; <a href="#">{{ item.user.name }}</a></span
+                >{{ toDate(item.registerTime) }} &bullet; <a href="#">{{ item.user.name }}</a></span
               >
               <h2>
                 {{ item.title }}
               </h2>
-              <p>{{ item.content }}</p>
+              <p v-html="item.content"></p>
               <button class="btn btn-sm btn-outline-primary">Read More</button>
             </div>
           </div>
 
+          <PaginationUI v-on:call-parent="movePage">asdasdasd</PaginationUI>
+          
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button class="btn btn-sm btn-primary" @click="showInsertModal">글쓰기</button>
             <button class="btn btn-sm btn-primary" @click="showUpdateModal">글수정</button>
@@ -28,7 +30,7 @@
             <detail-modal></detail-modal>
           </div>
           <br />
-          <div class="row text-start pt-5 border-top">
+          <!-- <div class="row text-start pt-5 border-top">
             <div class="col-md-12">
               <div class="custom-pagination">
                 <span>1</span>
@@ -39,58 +41,15 @@
                 <a href="#">15</a>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <div class="col-lg-4 sidebar">
           <div class="sidebar-box search-form-wrap mb-4">
-            <input type="text" class="form-control" placeholder="Type a keyword and hit enter" v-model="keyword" />
-            <button @click="search(keyword)">검색</button>
+            <input type="text" class="form-control" placeholder="Type a keyword and hit enter" v-model="articleStore.searchWord" />
+            <button @click="search()">검색</button>
           </div>
           <side-bar-page></side-bar-page>
-          <!-- END sidebar-box -->
-          <!-- <div class="sidebar-box">
-            <h3 class="heading">Popular Posts</h3>
-            <div class="post-entry-sidebar">
-              <ul>
-                <li>
-                  <a href="">
-                    <img src="images/img_1_sq.jpg" alt="Image placeholder" class="me-4 rounded" />
-                    <div class="text">
-                      <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                      <div class="post-meta">
-                        <span class="mr-2">March 15, 2018 </span>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a href="">
-                    <img src="images/img_2_sq.jpg" alt="Image placeholder" class="me-4 rounded" />
-                    <div class="text">
-                      <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                      <div class="post-meta">
-                        <span class="mr-2">March 15, 2018 </span>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a href="">
-                    <img src="images/img_3_sq.jpg" alt="Image placeholder" class="me-4 rounded" />
-                    <div class="text">
-                      <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                      <div class="post-meta">
-                        <span class="mr-2">March 15, 2018 </span>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div> -->
-
-          <!-- END sidebar-box -->
 
           <div class="sidebar-box">
             <h3 class="heading">Categories</h3>
@@ -144,10 +103,11 @@ import { storeToRefs } from "pinia";
 import { ref, onMounted } from "vue";
 
 //component
-// import PaginationUI from '../components/PaginationUI.vue'
-import InsertModal from "../components/modals/InsertModal.vue";
-import UpdateModal from "../components/modals/UpdateModal.vue";
-import DetailModal from "../components/modals/DetailModal.vue";
+
+import InsertModal from "./modals/InsertModal.vue";
+import UpdateModal from "./modals/UpdateModal.vue";
+import DetailModal from "./modals/DetailModal.vue";
+import PaginationUI from "@/components/PaginationUI.vue";
 
 //common
 import util from "@/common/util.js";
@@ -157,14 +117,12 @@ import { Modal } from "bootstrap";
 
 const store = useArticleStore();
 
-const { list, detail, search } = store;
+const { list, detail, search, setArticleMovePage, toDate, articleStore } = store;
 const { articleList } = storeToRefs(store);
 
 let insertModal = null;
 let updateModal = null;
 let detailModal = null;
-
-let keyword = ref("");
 
 //mount 안된 상태에서는 document 내에 정보가 없기 때문에!
 onMounted(() => {
@@ -178,8 +136,14 @@ const showUpdateModal = () => updateModal.show();
 const showDetailModal = () => detailModal.show();
 
 list();
-console.log(articleList);
 
+// pagination
+const movePage= (pageIndex) => {
+  console.log("ArticleListPage의 movePage 함수 호출! pageIndex : " + pageIndex);
+  setArticleMovePage(pageIndex);
+  list();
+}
+   
 const closeAfterInsert = () => {
   console.log("closeAfterInsert")
   insertModal.hide();
