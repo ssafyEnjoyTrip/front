@@ -6,7 +6,7 @@
         <div class="col-sm-6">
           <h2 class="posts-entry-title">Business</h2>
         </div>
-        <div class="col-sm-6 text-sm-end"><router-link to="/category" class="read-more">View All</router-link></div>
+        <div class="col-sm-6 text-sm-end"><router-link to="/articleList" class="read-more">View All</router-link></div>
       </div>
       <div class="row g-3">
         <div class="col-md-9">
@@ -63,7 +63,55 @@
     </div>
   </section>
   <!-- End posts-entry -->
+  <div class="section bg-light">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-sm-6">
+          <h2 class="posts-entry-title">Travel</h2>
+        </div>
+        <div class="col-sm-6 text-sm-end"><router-link to="/attractionPage" class="read-more">View All</router-link></div>
+      </div>
 
+      <div class="row align-items-stretch retro-layout-alt">
+        <div class="col-md-5 order-md-2">
+          <router-link to="/articleList" class="hentry img-1 h-100 gradient">
+            <div class="featured-img" style="background-image: url(&quot;images/img_2_vertical.jpg&quot;)"></div>
+            <div class="text">
+              <span>February 12, 2019</span>
+              <h2>Meta unveils fees on metaverse sales</h2>
+            </div>
+          </router-link>
+        </div>
+
+        <div class="col-md-7">
+          <router-link to="/single" class="hentry img-2 v-height mb30 gradient">
+            <div class="featured-img" style="background-image: url(&quot;images/img_1_horizontal.jpg&quot;)"></div>
+            <div class="text text-sm">
+              <span>February 12, 2019</span>
+              <h2>AI can now kill those annoying cookie pop-ups</h2>
+            </div>
+          </router-link>
+
+          <div class="two-col d-block d-md-flex justify-content-between">
+            <router-link to="/single" class="hentry v-height img-2 gradient">
+              <div class="featured-img" style="background-image: url(&quot;images/img_2_sq.jpg&quot;)"></div>
+              <div class="text text-sm">
+                <span>February 12, 2019</span>
+                <h2>Don’t assume your user data in the cloud is safe</h2>
+              </div>
+            </router-link>
+            <router-link to="/single" class="hentry v-height img-2 ms-auto float-end gradient">
+              <div class="featured-img" style="background-image: url(&quot;images/img_3_sq.jpg&quot;)"></div>
+              <div class="text text-sm">
+                <span>February 12, 2019</span>
+                <h2>Startup vs corporate: What job suits you best?</h2>
+              </div>
+            </router-link>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Start posts-entry -->
   <section class="section posts-entry posts-entry-sm bg-light">
     <div class="container">
@@ -124,7 +172,7 @@
         <div class="col-sm-6">
           <h2 class="posts-entry-title">Culture</h2>
         </div>
-        <div class="col-sm-6 text-sm-end"><a href="category.html" class="read-more">View All</a></div>
+        <div class="col-sm-6 text-sm-end"><a href="#" class="read-more">View All</a></div>
       </div>
       <div class="row g-3">
         <div class="col-md-9 order-md-2">
@@ -181,55 +229,6 @@
     </div>
   </section>
 
-  <div class="section bg-light">
-    <div class="container">
-      <div class="row mb-4">
-        <div class="col-sm-6">
-          <h2 class="posts-entry-title">Travel</h2>
-        </div>
-        <div class="col-sm-6 text-sm-end"><router-link to="/category" class="read-more">View All</router-link></div>
-      </div>
-
-      <div class="row align-items-stretch retro-layout-alt">
-        <div class="col-md-5 order-md-2">
-          <router-link to="/category" class="hentry img-1 h-100 gradient">
-            <div class="featured-img" style="background-image: url(&quot;images/img_2_vertical.jpg&quot;)"></div>
-            <div class="text">
-              <span>February 12, 2019</span>
-              <h2>Meta unveils fees on metaverse sales</h2>
-            </div>
-          </router-link>
-        </div>
-
-        <div class="col-md-7">
-          <router-link to="/single" class="hentry img-2 v-height mb30 gradient">
-            <div class="featured-img" style="background-image: url(&quot;images/img_1_horizontal.jpg&quot;)"></div>
-            <div class="text text-sm">
-              <span>February 12, 2019</span>
-              <h2>AI can now kill those annoying cookie pop-ups</h2>
-            </div>
-          </router-link>
-
-          <div class="two-col d-block d-md-flex justify-content-between">
-            <router-link to="/single" class="hentry v-height img-2 gradient">
-              <div class="featured-img" style="background-image: url(&quot;images/img_2_sq.jpg&quot;)"></div>
-              <div class="text text-sm">
-                <span>February 12, 2019</span>
-                <h2>Don’t assume your user data in the cloud is safe</h2>
-              </div>
-            </router-link>
-            <router-link to="/single" class="hentry v-height img-2 ms-auto float-end gradient">
-              <div class="featured-img" style="background-image: url(&quot;images/img_3_sq.jpg&quot;)"></div>
-              <div class="text text-sm">
-                <span>February 12, 2019</span>
-                <h2>Startup vs corporate: What job suits you best?</h2>
-              </div>
-            </router-link>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script setup>

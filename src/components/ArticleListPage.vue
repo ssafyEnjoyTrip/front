@@ -123,7 +123,7 @@ const { articleList } = storeToRefs(store);
 let insertModal = null;
 let updateModal = null;
 let detailModal = null;
-
+console.log(articleList)
 //mount 안된 상태에서는 document 내에 정보가 없기 때문에!
 onMounted(() => {
   insertModal = new Modal(document.getElementById("insertModal"));
@@ -139,7 +139,6 @@ list();
 
 // pagination
 const movePage= (pageIndex) => {
-  console.log("ArticleListPage의 movePage 함수 호출! pageIndex : " + pageIndex);
   setArticleMovePage(pageIndex);
   list();
 }
