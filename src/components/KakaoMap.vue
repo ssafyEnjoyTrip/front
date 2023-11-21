@@ -170,38 +170,3 @@
     </ul>
   </div>
 </template>
-
-<script setup></script>
-
-<script>
-export default {
-  // 이름은 상관없는듯
-  name: "KakaoMap",
-  mounted() {
-    if (window.kakao && window.kakao.maps) {
-      this.initMap();
-    } else {
-      // // API KEY는 index에서 불러오고 있음
-      const script = document.createElement("script");
-      script.onload = () => window.kakao.maps.load(this.initMap);
-      document.head.appendChild(script);
-    }
-  },
-  data() {
-    return {
-      map: null,
-    };
-  },
-  methods: {
-    initMap() {
-      const container = document.getElementById("map");
-      const options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 3,
-      };
-
-      this.map = new kakao.maps.Map(container, options);
-    },
-  },
-};
-</script>
