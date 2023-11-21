@@ -12,31 +12,8 @@
                 <li class="active">
                   <router-link to="/">home</router-link>
                 </li>
-                <li class="has-children">
-                  <router-link to="/category">pages</router-link>
-
-                  <ul class="dropdown">
-                    <li><router-link to="/searchResult">Search Result</router-link></li>
-                    <li><router-link to="/blog">Blog</router-link></li>
-                    <li><router-link to="/single">Blog Single</router-link></li>
-                    <li><router-link to="/category">Category</router-link></li>
-                    <li><router-link to="/about">About</router-link></li>
-                    <!-- <li><router-link to="/contact">Cantact Us</router-link></li> -->
-                    <li><a href="#">Menu One</a></li>
-                    <li><a href="#">Menu Two</a></li>
-                    <li class="has-children">
-                      <a href="#">Dropdown</a>
-                      <ul class="dropdown">
-                        <li><a href="#">Sub Menu One</a></li>
-                        <li><a href="#">Sub Menu Two</a></li>
-                        <li><a href="#">Sub Menu Three</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li><router-link to="/category">게시글</router-link></li>
+                <li><router-link to="/articleList">게시글</router-link></li>
                 <li><router-link to="/attractionPage">관광지</router-link></li>
-                <li><router-link to="/category">Politics</router-link></li>
               </ul>
             </div>
             <div class="col-4">

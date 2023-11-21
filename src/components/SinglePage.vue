@@ -74,8 +74,8 @@
                   <img src="images/person_1.jpg" alt="Image placeholder" />
                 </div>
                 <div class="comment-body">
-                  <h3>{{ comment.article.name }}</h3>
-                  <div class="meta">{{ comment.article.registerTime }}</div>
+                  <h3>{{ comment.user.name }}</h3>
+                  <div class="meta">{{ toDate(comment.commentRegisterTime) }}</div>
                   <p>
                     {{ comment.comment }}
                   </p>
