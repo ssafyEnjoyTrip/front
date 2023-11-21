@@ -11,6 +11,7 @@ import AttractionDetailPage from "@/components/AttractionDetailPage.vue";
 import EditProfilePage from "@/components/EditProfilePage.vue";
 import DeleteAccountPage from "@/components/DeleteAccountPage.vue";
 import AttractionPage from "@/components/AttractionPage.vue";
+import KakaoMap from "@/components/KakaoMap.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -68,6 +69,10 @@ const router = createRouter({
     {
       path: "/attractionPage",
       component: AttractionPage,
+    },
+    {
+      path: "/kakaomap",
+      component: KakaoMap,
     },
   ],
 });
