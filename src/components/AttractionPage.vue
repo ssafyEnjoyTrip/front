@@ -9,7 +9,8 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-4 mb-4" v-for="item in attractionList.content" :key="item.id">
+        
+        <div class="col-lg-4 mb-4" v-for="(item, index) in attractionList" :key="index">
           <div class="post-entry-alt" @click="goToAttraction(item.attractionId)">
             <img :src="item.firstImage" alt="Image" class="img-fluid" style="width: 400px; height: 300px" />
             <div class="excerpt">
@@ -29,6 +30,7 @@
             </div>
           </div>
         </div>
+        <AttractionPaginationUI v-on:call-parent="movePage">asdasdasd</AttractionPaginationUI>
       </div>
     </div>
   </section>
@@ -38,8 +40,18 @@
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 import { useAttractionStore } from "@/stores/attractionStore";
+import AttractionPaginationUI from "@/components/AttractionPaginationUI.vue";
 const store = useAttractionStore();
-const { getAttractionList, detailAttraction, goToAttraction } = store;
+
+// attractionStore는 나중에 키워드 서치할때 사용하면된다.
+const { getAttractionList, detailAttraction, goToAttraction, attractionStore, setAttractionMovePage } = store;
 const { attractionList } = storeToRefs(store);
 getAttractionList();
+console.log(attractionList);
+// pagination
+const movePage= (pageIndex) => {
+  setAttractionMovePage(pageIndex);
+  getAttractionList();
+}
+
 </script>

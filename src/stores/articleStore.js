@@ -23,20 +23,9 @@ export const useArticleStore = defineStore("articleStore", () => {
     currentPageIndex: 1,
     totalListItemCount: 0,
 
-    // detail, update, delete
-    articleId: 0,
-    title: "",
-    content: "",
-    user: ref({}),
-    regDate: "",
-    regTime: "",
-    readCount: 0,
-    fileList: [],
-    heartCount:0,
  })
 
-  
- const setTotalListItemCount = (count) => articleStore.totalListItemCount = count
+ const articleDetail = ref({});
   const list = async () => {
     let params = {
       limit: articleStore.limit,
