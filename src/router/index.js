@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MainPage from "@/components/MainPage.vue";
 import BlogPage from "@/components/BlogPage.vue";
-import CategoryPage from "@/components/CategoryPage.vue";
+import ArticleListPage from "@/components/ArticleListPage.vue";
 import LoginPage from "@/components/LoginPage.vue";
 import SearchResultPage from "@/components/SearchResultPage.vue";
 import SinglePage from "@/components/SinglePage.vue";
@@ -29,9 +29,9 @@ const router = createRouter({
       component: BlogPage,
     },
     {
-      name: "Catogory",
-      path: "/category",
-      component: CategoryPage,
+      name: "ArticleList",
+      path: "/articleList",
+      component: ArticleListPage,
     },
     {
       path: "/login",
