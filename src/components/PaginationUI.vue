@@ -21,7 +21,7 @@
       </ul>
     </nav>
     {{  articleStore.startPageIndex  }}
-    {{ prev }} {{ next }}
+    
   </template>
   
   <script setup>
