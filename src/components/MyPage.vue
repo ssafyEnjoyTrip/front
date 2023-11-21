@@ -92,6 +92,49 @@
 		</div>
 	</section>
 
+	<section class="section posts-entry posts-entry-sm bg-light">
+		<div class="container">
+			<div class="row mb-4">
+				<div class="col-12">
+					<h2 class="text-uppercase fw-bold text-black mb-4">내가 작성한 게시글</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div v-for="(article, index) in MyArticleList" :key="article.articleId" class="col-md-6 col-lg-3">
+					<div @click="detail(article.articleId)">
+						<div class="blog-entry">
+							<h2><a href="#">{{ article.title }}</a></h2>
+							<h2 v-html="article.content"></h2>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section posts-entry posts-entry-sm bg-light">
+		<div class="container">
+			<div class="row mb-4">
+				<div class="col-12">
+					<h2 class="text-uppercase fw-bold text-black mb-4">내가 작성한 댓글</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div v-for="(comment, index) in myCommentList" :key="comment.commentId" class="col-md-6 col-lg-3">
+					<div @click="detail(comment.commentId)">
+						<div class="blog-entry">
+							<h2><a href="#">{{ comment.article.title }}</a></h2>
+							<h2><a href="#">{{ comment.comment }}</a></h2>
+							
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<div class="section sec-halfs py-0">
 		<div class="container">
 			<div class="half-content d-lg-flex align-items-stretch">
@@ -133,6 +176,8 @@ const {detail} = useArticleStore();
 const router = useRouter();
 const bookMarkAttractionList = ref([]);
 const heartArticleList = ref([]);
+const MyArticleList = ref([]);
+const myCommentList = ref([]);
 const Bookmarks = async () => {
 
 	let userId = authStore.userId;
@@ -145,6 +190,9 @@ const Bookmarks = async () => {
 		let { data } = await axios.get('api/users/myPage/' + userId);
 		bookMarkAttractionList.value = data.bookMarkAttractionList || [];
 		heartArticleList.value = data.myPageArticleList || [];
+		MyArticleList.value = data.myPageWriteArticleList || [];
+		myCommentList.value = data.myPageCommentList || [];
+		console.log(myCommentList);
     }catch (error) {
         console.log(error)
     }
@@ -164,5 +212,19 @@ const user = reactive({
 </script>
 
 <style scoped>
+/* Add your custom styles here */
+.hero-section {
+  margin-bottom: 50px;
+}
 
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+/* Add more styles as needed */
 </style>
