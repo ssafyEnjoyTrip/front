@@ -5,24 +5,21 @@
         <div class="col-lg-8">
           <div class="blog-entry d-flex blog-entry-search-item" v-for="(item, index) in articleList" :key="index">
             <a class="img-link me-4">
-              <img src="https://picsum.photos/1024/1000/?image=50" alt="Image" class="img-fluid" @click="goToArticle(item.articleId)" />
+              <img src="https://picsum.photos/1024/1000/?image=50" alt="Image" class="img-fluid please-cursor" @click="goToArticle(item.articleId)" />
             </a>
-            <div>
-              <span class="date">{{ toDate(item.registerTime) }} &bullet; <a href="#">{{ item.user.name }}</a></span>
-              <h2>
-                {{ item.title }}
-              </h2>
+            <div class="please-cursor" @click="goToArticle(item.articleId)">
+              <span class="date"
+                >{{ toDate(item.registerTime) }} &bullet; <a href="#">{{ item.user.name }}</a></span
+              >
+              <h2>{{ item.title }}</h2>
               <p v-html="item.content"></p>
-              <button class="btn btn-sm btn-outline-primary">Read More</button>
             </div>
           </div>
 
           <PaginationUI v-on:call-parent="movePage"></PaginationUI>
-          
+
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button class="btn btn-sm btn-primary" @click="showInsertModal">글쓰기</button>
-            <button class="btn btn-sm btn-primary" @click="showUpdateModal">글수정</button>
-            <button class="btn btn-sm btn-primary" @click="showDetailModal">글삭제</button>
             <insert-modal v-on:call-parent-insert="closeAfterInsert"></insert-modal>
             <update-modal></update-modal>
             <detail-modal></detail-modal>
@@ -80,7 +77,6 @@
       </div>
     </div>
   </div>
-  
 </template>
 
 <script setup>
@@ -109,7 +105,7 @@ const { articleList } = storeToRefs(store);
 let insertModal = null;
 let updateModal = null;
 let detailModal = null;
-console.log(articleList)
+console.log(articleList);
 //mount 안된 상태에서는 document 내에 정보가 없기 때문에!
 onMounted(() => {
   insertModal = new Modal(document.getElementById("insertModal"));
@@ -124,21 +120,24 @@ const showDetailModal = () => detailModal.show();
 list();
 
 // pagination
-const movePage= (pageIndex) => {
+const movePage = (pageIndex) => {
   setArticleMovePage(pageIndex);
   list();
-}
-   
+};
+
 const closeAfterInsert = () => {
-  console.log("closeAfterInsert")
+  console.log("closeAfterInsert");
   insertModal.hide();
-      list();
-   }
+  list();
+};
 </script>
 
 <style>
 tr,
 td {
   border: 1px solid black;
+}
+.please-cursor {
+  cursor: pointer;
 }
 </style>
