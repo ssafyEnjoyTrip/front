@@ -1,52 +1,75 @@
 <template>
-  <section class="section posts-entry posts-entry-sm bg-light">
+  <div class="section bg-light">
     <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-lg-3">
-          <div class="blog-entry">
-            <router-link to="/single" class="img-link">
-              <img src="images/img_1_horizontal.jpg" alt="Image" class="img-fluid" />
-            </router-link>
-            <span class="date">Apr. 14th, 2022</span>
-            <h2><router-link to="/single">Thought you loved Python? Wait until you meet Rust</router-link></h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            <p><router-link to="/single" class="read-more">Continue Reading</router-link></p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="blog-entry">
-            <router-link to="/single" class="img-link">
-              <img src="images/img_2_horizontal.jpg" alt="Image" class="img-fluid" />
-            </router-link>
-            <span class="date">Apr. 14th, 2022</span>
-            <h2><router-link to="/single">Startup vs corporate: What job suits you best?</router-link></h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            <p><router-link to="/single" class="read-more">Continue Reading</router-link></p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="blog-entry">
-            <router-link to="/single" class="img-link">
-              <img src="images/img_3_horizontal.jpg" alt="Image" class="img-fluid" />
-            </router-link>
-            <span class="date">Apr. 14th, 2022</span>
-            <h2><router-link to="/single">UK sees highest inflation in 30 years</router-link></h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            <p><router-link to="/single" class="read-more">Continue Reading</router-link></p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="blog-entry">
-            <router-link to="/single" class="img-link">
-              <img src="images/img_4_horizontal.jpg" alt="Image" class="img-fluid" />
-            </router-link>
-            <span class="date">Apr. 14th, 2022</span>
-            <h2><router-link to="/single">Don’t assume your user data in the cloud is safe</router-link></h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            <p><router-link to="/single" class="read-more">Continue Reading</router-link></p>
-          </div>
+      <div class="row mb-2">
+        <div class="col-sm-auto">
+          <h2 class="posts-entry-title">Random Attraction</h2>
         </div>
       </div>
+
+      <div class="row align-items-stretch retro-layout-alt">
+
+
+        <div class="col-md-6" v-for="(item, index) in loopItems" :key="index">
+          <a class="hentry img-2 v-height mb30 gradient" @click="goToAttraction(item.one.attractionId)">
+            <img :src="item.one.firstImage" class="featured-img" alt="">
+            <div class="text text-sm">
+              <h2>{{ item.one.title }} </h2>
+            </div>
+          </a>
+
+          <div class="two-col d-block d-md-flex justify-content-between">
+            <a class="hentry v-height img-2 gradient" @click="goToAttraction(item.one.attractionId)">
+              <img :src="item.two.firstImage" class="featured-img" alt="">
+              <div class="text text-sm">
+                <h2>{{ item.two.title }}</h2>
+              </div>
+            </a>
+            <a class="hentry v-height img-2 ms-auto float-end gradient" @click="goToAttraction(item.one.attractionId)">
+              <img :src="item.three.firstImage" class="featured-img" alt="">
+              <div class="text text-sm">
+                <h2>{{ item.three.title }} </h2>
+              </div>
+            </a>
+          </div>
+        </div>
+
+
+
+      </div>
     </div>
-  </section>
+  </div>
 </template>
+
+<script setup>
+import axios from "axios"
+import { ref, onMounted, } from "vue";
+import { useAttractionStore } from "@/stores/AttractionStore"
+const { goToAttraction } = useAttractionStore();
+const loopItems = ref([]);
+const fetchData = async () => {
+  try {
+    let { data } = await axios.get("http://localhost:8080/attractions/randomAttraction")
+    let obj = {
+      one: {},
+      two: {},
+      three: {}
+    }
+    data.forEach((el, index) => {
+      if (index % 3 == 0) obj.one = el;
+      else if (index % 3 == 1) obj.two = el;
+      else if (index % 3 == 2) {
+        obj.three = el
+        loopItems.value.push({ ...obj })
+      }
+    })
+    console.log(loopItems.value);
+  } catch (error) {
+    console.error(error);
+  }
+}
+onMounted(() => {
+  fetchData()
+})
+</script>
+
