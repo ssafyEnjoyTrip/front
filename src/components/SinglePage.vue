@@ -25,10 +25,9 @@
           <div class="post-content-body">
             <p v-html="articleDetail.content"></p>
             <div class="row my-4">
-              <div class="col-md-12 mb-4" v-for="(item) in articleDetail.articleFiles" :key="item.id">
+              <div class="col-md-12 mb-4" v-for="item in articleDetail.articleFiles" :key="item.id">
                 <img :src="item.fileUrl" alt="404" class="img-fluid rounded" />
               </div>
-              
             </div>
           </div>
 
@@ -36,33 +35,22 @@
             <p>Categories: <a href="#">Food</a>, <a href="#">Travel</a> Tags: <a href="#">#manila</a>, <a href="#">#asia</a></p>
           </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-sm btn-primary" @click="">글수정</button>
-            <button class="btn btn-sm btn-primary" @click="articleDelete(route.query.articleId)">글삭제</button>
+            <button v-show="writer" class="btn btn-sm btn-primary" @click="showInsertModal">글수정</button>
+            <button v-show="writer" class="btn btn-sm btn-primary" @click="articleDelete(route.query.articleId)">글삭제</button>
+            <insert-modal v-show="writer"></insert-modal>
           </div>
-          
-          <div class="pt-5 comment-wrap">
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-        <h3 class="mb-5 heading">{{ commentList.length }} Comments</h3>
 
-        <!-- 이미지를 클릭할 때 toggleLike 함수 호출 -->
-        <div class="mb-5 heading" style="border: transparent; padding-bottom: 32px;">
-            <img
-                v-if="isLiked"
-                src="@/assets/heart.svg"
-                alt="Liked"
-                @click="toggleLike"
-                style="width: 20px; height: 20px; cursor: pointer;"
-            />
-            <img
-                v-else
-                src="@/assets/noheart.svg"
-                alt="Not Liked"
-                @click="toggleLike"
-                style="width: 20px; height: 20px; cursor: pointer;"
-            />
-            <span>   좋아요 {{ articleDetail.heartCount }} 개</span>
-        </div>
-    </div>
+          <div class="pt-5 comment-wrap">
+            <div style="display: flex; align-items: center; justify-content: space-between">
+              <h3 class="mb-5 heading">{{ commentList.length }} Comments</h3>
+
+              <!-- 이미지를 클릭할 때 toggleLike 함수 호출 -->
+              <div class="mb-5 heading" style="border: transparent; padding-bottom: 32px">
+                <img v-show="isLiked" src="@/assets/heart.svg" alt="Liked" @click="toggleLike(-1)" style="width: 20px; height: 20px; cursor: pointer" />
+                <img v-show="!isLiked" src="@/assets/noheart.svg" alt="Not Liked" @click="toggleLike(1)" style="width: 20px; height: 20px; cursor: pointer" />
+                <span> 좋아요 {{ articleDetail.heartCount }} 개</span>
+              </div>
+            </div>
             <ul class="comment-list">
               <li class="comment" v-for="comment in commentList" :key="comment.id">
                 <div class="vcard">
@@ -71,10 +59,7 @@
                 <div class="comment-body">
                   <h3>{{ comment.user.name }}</h3>
                   <div class="meta">{{ toDate(comment.commentRegisterTime) }}</div>
-                  <p>
-                    {{ comment.comment }}
-                  </p>
-                  <p><a href="#" class="reply rounded">Reply</a></p>
+                  <p>{{ comment.comment }}</p>
                 </div>
               </li>
             </ul>
@@ -85,11 +70,11 @@
               <h3 class="mb-5">Leave a comment</h3>
               <div class="form-group">
                 <label for="name">Name *</label>
-                <input type="text" class="form-control" id="name" v-model="storage.userName" readOnly/>
+                <input type="text" class="form-control" id="name" v-model="storage.userName" readOnly />
               </div>
               <div class="form-group">
                 <label for="email">Email *</label>
-                <input type="email" class="form-control" id="email" v-model="storage.email" readOnly/>
+                <input type="email" class="form-control" id="email" v-model="storage.email" readOnly />
               </div>
 
               <div class="form-group">
@@ -275,10 +260,12 @@
 
 <script setup>
 import { useRoute } from "vue-router";
-import { ref } from "vue";
-import axios from 'axios';
+import { ref, onMounted, computed } from "vue";
+import axios from "axios";
 import { useArticleStore } from "@/stores/articleStore";
 import { storeToRefs } from "pinia";
+import { Modal } from "bootstrap";
+import InsertModal from "@/components/modals/InsertModal.vue";
 
 const route = useRoute();
 const store = useArticleStore();
@@ -289,6 +276,8 @@ const comment = ref({});
 const isLiked = ref(false);
 const keyword = ref("");
 const storage = ref(sessionStorage);
+let insertModal = null;
+const writer = ref(false);
 
 const articleId = route.query.articleId;
 console.log(articleId);
@@ -304,19 +293,19 @@ const setting = () => {
 };
 
 const toDate = (date) => {
-  const formattedDate = new Date(date).toLocaleString('en-US', {
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    timeZone: 'Asia/Seoul'
+  const formattedDate = new Date(date).toLocaleString("en-US", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    timeZone: "Asia/Seoul",
   });
   return formattedDate;
-}
+};
 
-const toggleLike = async () => {
+const toggleLike = async (number) => {
   try {
     if (isLiked.value) {
       // Unlike the article
@@ -327,7 +316,7 @@ const toggleLike = async () => {
       await axios.post(`api/hearts/${articleId}`);
       incrementHeartCount();
     }
-
+    getDetailArticle(articleId);
     // Toggle the like status
     isLiked.value = !isLiked.value;
   } catch (error) {
@@ -335,21 +324,31 @@ const toggleLike = async () => {
   }
 };
 const checkHeart = async () => {
-  try {  
-      let {data} = await axios.post(`api/hearts/check/${articleId}`);
-      if (data) {
-        isLiked.value = true;
-      }
-    } catch (error) {
-        console.error(error);
+  try {
+    let { data } = await axios.post(`api/hearts/check/${articleId}`);
+    if (data) {
+      isLiked.value = true;
+    }
+  } catch (error) {
+    console.error(error);
   }
-}
+};
 
+const isArticleWriter = (articleUserId) => {
+  if (sessionStorage.userId == articleUserId) writer.value = true;
+  else writer.value = false;
+  console.log(writer.value);
+};
+
+onMounted(() => {
+  insertModal = new Modal(document.getElementById("insertModal"));
+  isArticleWriter(articleDetail.value.user.userId); // article 작성자의 ID와 로그인한 user의 ID를 확인해서 일치하면 글 수정, 삭제 버튼 활성화
+  checkHeart(); // 좋아요 한 게시물인지 확인, 그리고 isLiked 갱신
+  console.log("제가 이 글의 작성자인가요? ", writer.value);
+});
+
+const showInsertModal = () => insertModal.show();
 
 getDetailArticle(articleId);
 loadComment(articleId);
-checkHeart(); // 좋아요 한 게시물인지 확인, 그리고 isLiked 갱신
-
-
-console.log("SinglePage's " ,articleDetail.value);
 </script>
