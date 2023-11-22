@@ -120,13 +120,38 @@ export const useAttractionStore = defineStore("attractionStore", () => {
   const prev = computed(() => attractionStore.currentPageIndex <= attractionStore.pageLinkCount ? false : true)
   const next = computed(() => endPageIndex.value == pageCount.value ? false : true) // 위에서 더 큰 값은 보정했으므로 같은 지만 비교
 
-
-
-
-
+  const changeBookmark = async (attractionId) => { 
+    
+    if(!isBookmark.value){
+      try{
+        await axios.post("http://localhost:8080/bookmarks/save", {
+                                                                  "userId":sessionStorage.userId,
+                                                                  "attractionId": attractionId
+                                                                          });
+              
+      } catch(error){
+        console.error(error);
+      }   
+    }
+    else {
+      console.log("-----------------------------------------------------------")
+      console.log("Delete 수행");
+      console.log("-----------------------------------------------------------")
+      try{
+        await axios.delete("http://localhost:8080/bookmarks/",{ 
+                                                              data:{
+                                                              "userId":sessionStorage.userId,
+                                                              "attractionId": attractionId
+                                                                      }});
+      } catch(error){
+        console.error(error);
+      }   
+    }
+    isBookmark.value = !isBookmark.value
+  }
   return {
     attractionStore, attractionList, getAttractionList, detailAttraction, goToAttraction, detailObject, search,
-    pageCount, startPageIndex, endPageIndex, prev, next, setAttractionMovePage, popularAttraction, sideBarList
+    pageCount, startPageIndex, endPageIndex, prev, next, setAttractionMovePage, popularAttraction, sideBarList, isBookmark, changeBookmark
 
   };
 });
