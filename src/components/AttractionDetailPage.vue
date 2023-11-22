@@ -4,6 +4,8 @@
       <div class="row mb-4">
         <div class="col-sm-6">
           <h2 class="posts-entry-title">관광지</h2>
+          <img src="../assets/bookmark.png" class="bookmarks" alt="즐겨찾기 하는 중"><img src="../assets/no_bookmark.png"
+            class="bookmarks" alt="즐겨찾기 하지 않는 중">
         </div>
       </div>
       <div class="row g-3">
@@ -267,3 +269,12 @@ const initMap = () => {
   }
 };
 </script>
+
+
+<style>
+.bookmarks {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+</style>
