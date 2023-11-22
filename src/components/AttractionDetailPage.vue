@@ -4,8 +4,10 @@
       <div class="row mb-4">
         <div class="col-sm-6">
           <h2 class="posts-entry-title">관광지</h2>
-          <img src="../assets/bookmark.png" class="bookmarks" alt="즐겨찾기 하는 중"><img src="../assets/no_bookmark.png"
-            class="bookmarks" alt="즐겨찾기 하지 않는 중">
+          <div v-if="isLogin">
+          <img src="../assets/bookmark.png" class="bookmarks" v-show="isBookmark" @click="changeBookmark(attractionId)">
+          <img src="../assets/no_bookmark.png" class="bookmarks" v-show="!isBookmark" @click="changeBookmark(attractionId)">
+        </div>
         </div>
       </div>
       <div class="row g-3">
@@ -48,16 +50,43 @@ import KakaoMap from "./KakaoMap.vue";
 import { useAttractionStore } from "@/stores/attractionStore";
 import { storeToRefs } from "pinia";
 import SideBarPage from "@/components/SidebarPage.vue";
+import axios from "axios";
 
 // 라우트에서 쿼리 추출
 const route = useRoute();
 const store = useAttractionStore();
-const { detailAttraction } = store;
-const { detailObject } = storeToRefs(store);
-
+const { detailAttraction, changeBookmark } = store;
+const { detailObject, isBookmark } = storeToRefs(store);
+const isLogin = ref(false);
 const attractionId = route.query.attractionId;
+const bookmark = ref("")
+
+const checkBookmark = async () => {
+  try{
+    let {data} = await axios.post("http://localhost:8080/bookmarks",  {
+                                                                  "userId":sessionStorage.userId,
+                                                                  "attractionId": attractionId
+                                                                          });
+    // console.log("--------------------");
+    // console.log(data);
+    // console.log("--------------------");
+    if(data == "SUCCESS") isBookmark.value = true;
+    else isBookmark.value = false;
+
+    
+  } catch(error){
+    console.error(error);
+  }
+}
+
+checkBookmark();
+
+// 로그인 했는지 확인 -> 안했다면 북마크 로고 지우기
+if(sessionStorage.userId != undefined) isLogin.value = !isLogin.value;
+
 detailAttraction(attractionId);
 onMounted(() => {
+
   if (window.kakao && window.kakao.maps) {
     initMap();
   } else {
