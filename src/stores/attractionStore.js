@@ -8,13 +8,15 @@ export const useAttractionStore = defineStore("attractionStore", () => {
   const attractionList = ref([]);
   const detailObject = ref({});
   const popularAttraction = ref([]);
+  const isBookmark = ref(false);
+
 
   const sideBarList = async () => {
-    try{
+    try {
       let response = await axios.get("http://localhost:8080/attractions/readCount");
-      let {data} = await response;
-      popularAttraction.value = data;  
-    } catch(error){
+      let { data } = await response;
+      popularAttraction.value = data;
+    } catch (error) {
       console.log(error);
     }
   }
@@ -56,23 +58,22 @@ export const useAttractionStore = defineStore("attractionStore", () => {
       searchWord: attractionStore.searchWord,
     };
     try {
-      let response = await axios.get("http://localhost:8080/attractions", {params});
+      let response = await axios.get("http://localhost:8080/attractions", { params });
       let { data } = await response;
       console.log(data);
       attractionList.value = data.list;
       attractionStore.totalListItemCount = data.count
-      console.log(articleList);
+      console.log("attractionStore's search(keyword) ", attractionStore);
     } catch (error) {
       console.log(error);
     }
   };
 
-
   const setAttractionMovePage = (pageIndex) => {
     attractionStore.offset = (pageIndex - 1) * attractionStore.listRowCount
     attractionStore.currentPageIndex = pageIndex
   }
-  
+
   const goToAttraction = async (attractionId) => {
     router.push({
       name: "attractionDetail",
@@ -112,10 +113,10 @@ export const useAttractionStore = defineStore("attractionStore", () => {
       tempEndPageIndex = Math.floor(attractionStore.currentPageIndex / attractionStore.pageLinkCount) * attractionStore.pageLinkCount + attractionStore.pageLinkCount;
     }
     // endPageIndex 가 전체 pageCount(페이지 전체 수) 보다 크면 페이지 전체 수로 보정 
-    if( tempEndPageIndex > pageCount.value ) tempEndPageIndex = pageCount.value
+    if (tempEndPageIndex > pageCount.value) tempEndPageIndex = pageCount.value
     return tempEndPageIndex;
   })
-  
+
   const prev = computed(() => attractionStore.currentPageIndex <= attractionStore.pageLinkCount ? false : true)
   const next = computed(() => endPageIndex.value == pageCount.value ? false : true) // 위에서 더 큰 값은 보정했으므로 같은 지만 비교
 
@@ -125,7 +126,7 @@ export const useAttractionStore = defineStore("attractionStore", () => {
 
   return {
     attractionStore, attractionList, getAttractionList, detailAttraction, goToAttraction, detailObject, search,
-    pageCount, startPageIndex, endPageIndex, prev, next,setAttractionMovePage, popularAttraction, sideBarList
+    pageCount, startPageIndex, endPageIndex, prev, next, setAttractionMovePage, popularAttraction, sideBarList
 
   };
 });

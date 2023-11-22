@@ -1,5 +1,6 @@
-<template>	
-	<div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url('images/img_1_horizontal.jpg');">
+<template>
+	<div class="site-cover site-cover-sm same-height overlay single-page"
+		style="background-image: url('images/img_1_horizontal.jpg');">
 		<div class="container">
 			<div class="row same-height justify-content-center">
 				<div class="col-md-6">
@@ -12,37 +13,39 @@
 	</div>
 
 	<div class="container mt-5">
-    <div class="row">
-      <div class="col-md-4">
-        <!-- User Profile Card -->
-        <div class="card">
-          <img src="@/assets/profile.webp" class="img-fluid" alt="User Avatar">
-          <div class="card-body">
-            <h5 class="card-title text-center">{{ user.name }}</h5>
-          </div>
-        </div>
-      </div>
+		<div class="row">
+			<div class="col-md-4">
+				<!-- User Profile Card -->
+				<div class="card">
+					<img src="@/assets/profile.webp" class="img-fluid" alt="User Avatar">
+					<div class="card-body">
+						<h5 class="card-title text-center">{{ user.name }}</h5>
+					</div>
+				</div>
+			</div>
 
-      <div class="col-md-8">
-        <!-- User Details -->
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">회원 정보</h5>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
-              <li class="list-group-item"><strong>Joined Date:</strong> {{ user.joinedDate }}</li>
-			  <li class="list-group-item"><strong>phoneNum:</strong> {{ user.phoneNum }}</li>
-              <!-- Add more user details as needed -->
-            </ul>
-			<div class="mt-3">
-				<router-link :to="{ name: 'editProfile', query: { userId: user.id} }" class="btn btn-primary">Edit Profile</router-link>
-				<router-link :to="{ name: 'deleteUser', query: { userId: user.id} }" class="btn btn-primary">Delete Account</router-link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+			<div class="col-md-8">
+				<!-- User Details -->
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">회원 정보</h5>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
+							<li class="list-group-item"><strong>Joined Date:</strong> {{ user.joinedDate }}</li>
+							<li class="list-group-item"><strong>phoneNum:</strong> {{ user.phoneNum }}</li>
+							<!-- Add more user details as needed -->
+						</ul>
+						<div class="mt-3">
+							<router-link :to="{ name: 'editProfile', query: { userId: user.id } }"
+								class="btn btn-primary">Edit Profile</router-link>
+							<router-link :to="{ name: 'deleteUser', query: { userId: user.id } }"
+								class="btn btn-primary">Delete Account</router-link>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<section class="section posts-entry posts-entry-sm bg-light">
 		<div class="container">
@@ -52,17 +55,20 @@
 				</div>
 			</div>
 			<div class="row">
-				<div v-for="(attraction, index) in bookMarkAttractionList" :key="attraction.attractionId" class="col-md-6 col-lg-3">
-					<router-link :to="{ name: 'attractionDetail', query: { attractionId: attraction.attractionId } }" class="nav-link" >
+				<div v-for="(attraction, index) in bookMarkAttractionList" :key="attraction.attractionId"
+					class="col-md-6 col-lg-3">
+					<router-link :to="{ name: 'attractionDetail', query: { attractionId: attraction.attractionId } }"
+						class="nav-link">
 						<div class="blog-entry">
 							<a href="#" class="img-link">
-								<img v-if="attraction.firstImage" :src="attraction.firstImage" alt="Attraction Image" class="img-fluid">
+								<img v-if="attraction.firstImage" :src="attraction.firstImage" alt="Attraction Image"
+									class="img-fluid">
 								<img v-else src="@/assets/no-image.avif" alt="No Image" class="img-fluid">
 							</a>
 							<h2><a href="#">{{ attraction.title }}</a></h2>
 						</div>
 					</router-link>
-					
+
 				</div>
 			</div>
 		</div>
@@ -86,7 +92,7 @@
 							<h2>{{ article.title }}</h2>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -107,7 +113,7 @@
 							<h2 v-html="article.content"></h2>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -121,11 +127,12 @@
 				</div>
 			</div>
 			<div class="row">
-				<div v-for="(comment, index) in myCommentList" :key="comment.commentId" class="col-md-6 col-lg-3" @click="goToArticle(comment.article.articleId)">
+				<div v-for="(comment, index) in myCommentList" :key="comment.commentId" class="col-md-6 col-lg-3"
+					@click="goToArticle(comment.article.articleId)">
 					<div @click="detail(comment.commentId)">
 						<div class="blog-entry">
 							<h2>{{ comment.article.title }}</h2>
-							<h2>{{ comment.comment }}</h2>							
+							<h2>{{ comment.comment }}</h2>
 						</div>
 					</div>
 				</div>
@@ -143,7 +150,7 @@ import { useRouter } from "vue-router";
 import { ref, reactive } from 'vue';
 import { storeToRefs } from 'pinia';
 const { authStore } = useUserStore();
-const {detail, goToArticle, } = useArticleStore();
+const { detail, goToArticle, } = useArticleStore();
 // const {articleDetail} = storeToRefs(useArticleStore());
 
 const router = useRouter();
@@ -168,20 +175,20 @@ const Bookmarks = async () => {
 		MyArticleList.value = data.myPageWriteArticleList || [];
 		myCommentList.value = data.myPageCommentList || [];
 		console.log(myCommentList);
-    }catch (error) {
-        console.log(error)
-    }
-    
+	} catch (error) {
+		console.log(error)
+	}
+
 }
 
 Bookmarks();
 const user = reactive({
 	id: authStore.userId,
-  	name: authStore.userName,
-  	email: authStore.userEmail,
+	name: authStore.userName,
+	email: authStore.userEmail,
 	joinedDate: authStore.userRegisterTime,
 	phoneNum: authStore.userPhoneNum,
-  // Add more user details as needed
+	// Add more user details as needed
 });
 
 </script>
@@ -189,22 +196,21 @@ const user = reactive({
 <style scoped>
 /* Add your custom styles here */
 .hero-section {
-  margin-bottom: 50px;
+	margin-bottom: 50px;
 }
 
 .card {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn-danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
+	background-color: #dc3545;
+	border-color: #dc3545;
 }
 
-.col-lg-3 h2{
-	border: 1px solid ;
+.col-lg-3 h2 {
+	border: 1px solid;
 	cursor: pointer;
 }
 
-/* Add more styles as needed */
-</style>
+/* Add more styles as needed */</style>

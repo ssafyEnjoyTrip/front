@@ -5,7 +5,11 @@
         <div class="col-sm-6">
           <h2 class="posts-entry-title">관광지</h2>
         </div>
-        <div class="col-sm-6 text-sm-end"><router-link to="/category" class="read-more">View All</router-link></div>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="원하는 관광지를 찾아보세요." v-model="attractionStore.searchWord">
+          <button type="button" class="btn btn-outline-secondary" @click="search()">검색</button>
+
+        </div>
       </div>
 
       <div class="row">
@@ -22,7 +26,6 @@
                 <br>
                 <span> 방문 수 &nbsp;-&nbsp; {{ item.readcount }}</span>
               </div>
-
               <p class="read-more">{{ item.readCount }} </p>
             </div>
           </div>
@@ -41,8 +44,8 @@ import AttractionPaginationUI from "@/components/AttractionPaginationUI.vue";
 const store = useAttractionStore();
 
 // attractionStore는 나중에 키워드 서치할때 사용하면된다.
-const { getAttractionList, detailAttraction, goToAttraction, attractionStore, setAttractionMovePage } = store;
-const { attractionList } = storeToRefs(store);
+const { getAttractionList, detailAttraction, goToAttraction, setAttractionMovePage, search } = store;
+const { attractionList, attractionStore } = storeToRefs(store);
 getAttractionList();
 console.log(attractionList);
 // pagination
