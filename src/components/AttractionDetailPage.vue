@@ -20,7 +20,7 @@
           </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-lg-3 sidebar">
           <side-bar-page></side-bar-page>
         </div>
       </div>
@@ -30,6 +30,12 @@
   <div class="container">
     <hr />
     <kakao-map></kakao-map>
+    <ul>
+      <li class="fw-bold">전화 및 문의: <span>010-0000-11111</span></li>
+
+      <li>홈페이지: www.localhost.com</li>
+
+    </ul>
   </div>
 </template>
 
@@ -88,6 +94,18 @@ const initMap = () => {
 
   // 마커가 지도 위에 표시되도록 설정합니다
   marker.setMap(map);
+
+  var iwContent = '<div style="padding:5px;">' + detailObject.value.title + '</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
+
+  // 인포윈도우를 생성합니다
+  var infowindow = new kakao.maps.InfoWindow({
+    position: iwPosition,
+    content: iwContent
+  });
+
+  // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+  infowindow.open(map, marker);
 
   // 커스텀 오버레이의 컨텐츠 노드에 css class를 추가합니다
   contentNode.className = "placeinfo_wrap";

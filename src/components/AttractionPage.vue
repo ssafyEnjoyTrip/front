@@ -9,7 +9,7 @@
       </div>
 
       <div class="row">
-        
+
         <div class="col-lg-4 mb-4" v-for="(item, index) in attractionList" :key="index" style="cursor: pointer;">
           <div class="post-entry-alt" @click="goToAttraction(item.attractionId)">
             <img :src="item.firstImage" alt="Image" class="img-fluid" style="width: 400px; height: 300px" />
@@ -23,13 +23,11 @@
                 <span> 방문 수 &nbsp;-&nbsp; {{ item.readcount }}</span>
               </div>
 
-              <p>
-                <router-link to="/single" class="read-more">{{ item.readCount }}</router-link>
-              </p>
+              <p class="read-more">{{ item.readCount }} </p>
             </div>
           </div>
         </div>
-        <AttractionPaginationUI v-on:call-parent="movePage">asdasdasd</AttractionPaginationUI>
+        <AttractionPaginationUI v-on:call-parent="movePage"></AttractionPaginationUI>
       </div>
     </div>
   </section>
@@ -48,7 +46,7 @@ const { attractionList } = storeToRefs(store);
 getAttractionList();
 console.log(attractionList);
 // pagination
-const movePage= (pageIndex) => {
+const movePage = (pageIndex) => {
   setAttractionMovePage(pageIndex);
   getAttractionList();
 }

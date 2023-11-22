@@ -5,12 +5,11 @@
         <div class="col-lg-8">
           <div class="blog-entry d-flex blog-entry-search-item" v-for="(item, index) in articleList" :key="index">
             <a class="img-link me-4">
-              <img src="https://picsum.photos/1024/1000/?image=50" alt="Image" class="img-fluid please-cursor" @click="goToArticle(item.articleId)" />
+              <img src="https://picsum.photos/1024/1000/?image=50" alt="Image" class="img-fluid please-cursor"
+                @click="goToArticle(item.articleId)" />
             </a>
             <div class="please-cursor" @click="goToArticle(item.articleId)">
-              <span class="date"
-                >{{ toDate(item.registerTime) }} &bullet; <a href="#">{{ item.user.name }}</a></span
-              >
+              <span class="date">{{ toDate(item.registerTime) }} &bullet; <a href="#">{{ item.user.name }}</a></span>
               <h2>{{ item.title }}</h2>
               <p v-html="item.content"></p>
             </div>
@@ -29,7 +28,8 @@
 
         <div class="col-lg-4 sidebar">
           <div class="sidebar-box search-form-wrap mb-4">
-            <input type="text" class="form-control" placeholder="Type a keyword and hit enter" v-model="articleStore.searchWord" />
+            <input type="text" class="form-control" placeholder="Type a keyword and hit enter"
+              v-model="articleStore.searchWord" />
             <button @click="search()">검색</button>
           </div>
           <side-bar-page></side-bar-page>
@@ -137,6 +137,7 @@ tr,
 td {
   border: 1px solid black;
 }
+
 .please-cursor {
   cursor: pointer;
 }
