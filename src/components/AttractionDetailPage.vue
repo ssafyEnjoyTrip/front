@@ -27,13 +27,12 @@
           <div class="row g-3">
             <div class="col-md-12">
               <div class="blog-entry" style="text-align: center; margin-right: 100px; margin-left: 100px;">
-                <img v-if="detailObject.firstImage" :src="detailObject.firstImage" alt="Attraction Image"
-									class="img-fluid">
+                <img v-if="detailObject.firstImage" :src="detailObject.firstImage" alt="Attraction Image" class="img-fluid">
 						    <img v-else src="@/assets/no-image.avif" alt="No Image" class="img-fluid">
-                <!-- <img alt="Image" :src="detailObject.firstImage" class="img-fluid" /> -->
-
                 <h2>{{ detailObject.title }}</h2>
-                <p>{{ detailObject.attractionDescription.overview }}</p>
+                <p v-if="detailObject && detailObject.attractionDescription">
+                  {{ detailObject.attractionDescription.overview }}
+                </p>
               </div>
             </div>
           </div>
@@ -101,24 +100,9 @@ const checkBookmark = async () => {
 }
 
 checkBookmark();
-
-// 로그인 했는지 확인 -> 안했다면 북마크 로고 지우기
-// 로그인 안되어있으면 북마크 로고 지우기
-//if (isLogin.value == true) {
-//isBookmark.value = false;
-//}
-
-detailAttraction(attractionId);
-onMounted(() => {
+onMounted(async () => {
+  await detailAttraction(attractionId);
   initMap();
-  //   if (window.kakao && window.kakao.maps) {
-  //     initMap();
-  //   } else {
-  //     // // API KEY는 index에서 불러오고 있음
-  //     const script = document.createElement("script");
-  //     script.onload = () => window.kakao.maps.load(this.initMap);
-  //     document.head.appendChild(script);
-  //   }
 });
 const initMap = () => {
   const container = document.getElementById("map");
