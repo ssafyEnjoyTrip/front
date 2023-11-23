@@ -9,8 +9,8 @@
 
 .map_wrap {
   position: relative;
-  width: 100%;
-  height: 350px;
+  width: 900px;
+  height: 500px;
 }
 
 #category {

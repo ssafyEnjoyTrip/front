@@ -5,7 +5,7 @@
         <div class="site-navigation">
           <div class="row g-0 align-items-center">
             <div class="col-2">
-              <router-link to="/" class="logo m-0 float-start">Tripy .</router-link>
+              <router-link to="/" class="logo m-0 float-start">Tripy</router-link>
             </div>
             <div class="col-6 text-center">
               <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu mx-auto">
@@ -23,11 +23,17 @@
                   <router-link to="/join" class="btn btn-primary" role="button">회원가입</router-link>
                 </tr>
                 <tr v-show="authStore.isLogin" style="color: aliceblue">
-                  {{
-                    authStore.userName
-                  }}님 안녕하세요!
-                  <router-link to="/myPage" class="btn btn-primary me-md-2" href="#" role="button">마이 페이지</router-link>
-                  <button class="btn btn-primary" href="#" role="button" @click="logout">로그아웃</button>
+                  <td colspan="4" class="d-flex align-items-center">
+                    <span class="me-3">
+                      {{ authStore.userName }}님 안녕하세요!
+                    </span>
+                    <router-link to="/myPage" class="btn btn-primary me-md-2" role="button">
+                      마이 페이지
+                    </router-link>
+                    <button class="btn btn-danger" role="button" @click="logout">
+                      로그아웃
+                    </button>
+                  </td>
                 </tr>
               </ul>
             </div>

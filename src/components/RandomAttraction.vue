@@ -10,7 +10,8 @@
       <div class="row align-items-stretch retro-layout-alt img-thumbnail">
         <div class="col-md-6" v-for="(item, index) in loopItems" :key="index">
           <a class="hentry img-2 v-height mb30 gradient" @click="goToAttraction(item.one.attractionId)">
-            <img :src="item.one.firstImage" class="featured-img" alt="">
+            <img v-if="item.one.firstImage" :src="item.one.firstImage" class="featured-img" alt="">
+						<img v-else src="@/assets/no-image.avif" alt="No Image" class="featured-img">
             <div class="text text-sm">
               <h2>{{ item.one.title }} </h2>
             </div>
@@ -18,13 +19,15 @@
 
           <div class="two-col d-block d-md-flex justify-content-between">
             <a class="hentry v-height img-2 gradient" @click="goToAttraction(item.one.attractionId)">
-              <img :src="item.two.firstImage" class="featured-img" alt="">
+            <img v-if="item.two.firstImage" :src="item.two.firstImage" class="featured-img" alt="">
+						<img v-else src="@/assets/no-image.avif" alt="No Image" class="featured-img">
               <div class="text text-sm">
                 <h2>{{ item.two.title }}</h2>
               </div>
             </a>
             <a class="hentry v-height img-2 ms-auto float-end gradient" @click="goToAttraction(item.one.attractionId)">
-              <img :src="item.three.firstImage" class="featured-img" alt="">
+              <img v-if="item.three.firstImage" :src="item.three.firstImage" class="featured-img" alt="">
+              <img v-else src="@/assets/no-image.avif" alt="No Image" class="featured-img">
               <div class="text text-sm">
                 <h2>{{ item.three.title }} </h2>
               </div>
