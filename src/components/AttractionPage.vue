@@ -29,7 +29,10 @@
 
         <div class="col-lg-4 mb-4" v-for="(item, index) in attractionList" :key="index" style="cursor: pointer;">
           <div class="post-entry-alt" @click="goToAttraction(item.attractionId)">
-            <img :src="item.firstImage" alt="Image" class="img-fluid" style="width: 400px; height: 300px" />
+            <img v-if="item.firstImage" :src="item.firstImage" alt="Attraction Image"
+									class="img-fluid">
+						<img v-else src="@/assets/no-image.avif" alt="No Image" class="img-fluid">
+            <!-- <img :src="item.firstImage" alt="Image" class="img-fluid" style="width: 400px; height: 300px" /> -->
             <div class="excerpt">
               <h2>{{ item.title }}</h2>
               <div class="post-meta align-items-center text-left clearfix">
