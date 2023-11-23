@@ -1,13 +1,26 @@
 <template>
+  <div class="site-cover site-cover-sm same-height overlay single-page"
+    style="background-image: url('images/img_1_horizontal.jpg');">
+    <div class="container">
+      <div class="row same-height justify-content-center">
+        <div class="col-md-6">
+          <div class="post-entry text-center">
+            <h1 class="mb-4"> Attraction </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <section class="section posts-entry">
     <div class="container">
       <div class="row mb-4">
         <div class="col-sm-6">
           <h2 class="posts-entry-title">관광지</h2>
           <div v-if="isLogin">
-          <img src="../assets/bookmark.png" class="bookmarks" v-show="isBookmark" @click="changeBookmark(attractionId)">
-          <img src="../assets/no_bookmark.png" class="bookmarks" v-show="!isBookmark" @click="changeBookmark(attractionId)">
-        </div>
+            <img src="../assets/bookmark.png" class="bookmarks" v-show="isBookmark" @click="changeBookmark(attractionId)">
+            <img src="../assets/no_bookmark.png" class="bookmarks" v-show="!isBookmark"
+              @click="changeBookmark(attractionId)">
+          </div>
         </div>
       </div>
       <div class="row g-3">
@@ -48,6 +61,7 @@ import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import KakaoMap from "./KakaoMap.vue";
 import { useAttractionStore } from "@/stores/attractionStore";
+import { useAuthStore } from "@/stores/authStore";
 import { storeToRefs } from "pinia";
 import SideBarPage from "@/components/SidebarPage.vue";
 import axios from "axios";
@@ -55,46 +69,48 @@ import axios from "axios";
 // 라우트에서 쿼리 추출
 const route = useRoute();
 const store = useAttractionStore();
+const authStore = useAuthStore();
+
+const { isLogin } = storeToRefs(authStore);
 const { detailAttraction, changeBookmark } = store;
 const { detailObject, isBookmark } = storeToRefs(store);
-const isLogin = ref(false);
 const attractionId = route.query.attractionId;
 const bookmark = ref("")
+console.log("글쓰기 버튼 나오면 안되는데. ", isLogin.value);
 
 const checkBookmark = async () => {
-  try{
-    let {data} = await axios.post("http://localhost:8080/bookmarks",  {
-                                                                  "userId":sessionStorage.userId,
-                                                                  "attractionId": attractionId
-                                                                          });
-    // console.log("--------------------");
-    // console.log(data);
-    // console.log("--------------------");
-    if(data == "SUCCESS") isBookmark.value = true;
-    else isBookmark.value = false;
+  if (isLogin.value) {
+    try {
+      let { data } = await axios.post("http://localhost:8080/bookmarks", {
+        "userId": sessionStorage.userId,
+        "attractionId": attractionId
+      });
+      if (data == "SUCCESS") isBookmark.value = true;
+      else isBookmark.value = false;
 
-    
-  } catch(error){
-    console.error(error);
+    } catch (error) {
+      console.error(error);
+    }
   }
+
 }
 
 checkBookmark();
 
 // 로그인 했는지 확인 -> 안했다면 북마크 로고 지우기
-if(sessionStorage.userId != undefined) isLogin.value = !isLogin.value;
+if (sessionStorage.userId != undefined) isLogin.value = !isLogin.value;
 
 detailAttraction(attractionId);
 onMounted(() => {
-
-  if (window.kakao && window.kakao.maps) {
-    initMap();
-  } else {
-    // // API KEY는 index에서 불러오고 있음
-    const script = document.createElement("script");
-    script.onload = () => window.kakao.maps.load(this.initMap);
-    document.head.appendChild(script);
-  }
+  initMap();
+  //   if (window.kakao && window.kakao.maps) {
+  //     initMap();
+  //   } else {
+  //     // // API KEY는 index에서 불러오고 있음
+  //     const script = document.createElement("script");
+  //     script.onload = () => window.kakao.maps.load(this.initMap);
+  //     document.head.appendChild(script);
+  //   }
 });
 const initMap = () => {
   const container = document.getElementById("map");
@@ -107,6 +123,7 @@ const initMap = () => {
     contentNode = document.createElement("div"), // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
     markers = [], // 마커를 담을 배열입니다
     currCategory = ""; // 현재 선택된 카테고리를 가지고 있을 변수입니다
+
 
   var map = new kakao.maps.Map(container, options);
 

@@ -10,7 +10,9 @@ export const useArticleStore = defineStore("articleStore", () => {
   const articleList = ref([]);
   const commentList = ref([]);
   const articleDetail = ref({});
+  const thumbnail = ref([]);
   const writer = ref(false);
+  const isLogin = ref(false);
 
   const articleStore = reactive({
     // list
@@ -26,6 +28,7 @@ export const useArticleStore = defineStore("articleStore", () => {
     totalListItemCount: 0,
   });
   const list = async () => {
+    thumbnail.value = [];
     let params = {
       limit: articleStore.limit,
       offset: articleStore.offset,
@@ -35,9 +38,13 @@ export const useArticleStore = defineStore("articleStore", () => {
     try {
       let response = await axios.get("http://localhost:8080/article", { params });
       let { data } = await response;
-      console.log(data);
       articleList.value = data.list;
       articleStore.totalListItemCount = data.count;
+
+      articleList.value.forEach(element => {
+        console.log(element.articleFiles[0].fileUrl);
+        thumbnail.value.push(element.articleFiles[0].fileUrl)
+      });
     } catch (error) {
       console.log(error);
     }
@@ -152,6 +159,10 @@ export const useArticleStore = defineStore("articleStore", () => {
     else writer.value = false;
   };
 
+  const checkLogin = () => {
+    if (sessionStorage.userId != null) isLogin.value = true;
+  }
+
   const incrementHeartCount = () => {
     articleStore.heartCount++;
   };
@@ -212,5 +223,6 @@ export const useArticleStore = defineStore("articleStore", () => {
     articleDetail,
     isArticleWriter,
     writer,
+    checkLogin, isLogin, thumbnail
   };
 });
