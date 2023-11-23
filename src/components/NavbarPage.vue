@@ -40,13 +40,19 @@
 
 <script setup>
 import { useUserStore } from "@/stores/userStore";
+import { useAuthStore } from "@/stores/authStore";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import axios from "axios";
-
 const router = useRouter();
 const { authStore, setLogin, clearStore } = useUserStore();
+const { checkLogin } = useAuthStore();
+const { isLogin } = storeToRefs(useAuthStore());
+
+checkLogin(sessionStorage.isLogin);
+
+
 const logout = async () => {
   try {
     let { data } = await axios.post("api/logout");
