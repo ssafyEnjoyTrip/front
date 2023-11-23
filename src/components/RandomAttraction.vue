@@ -7,9 +7,7 @@
         </div>
       </div>
 
-      <div class="row align-items-stretch retro-layout-alt">
-
-
+      <div class="row align-items-stretch retro-layout-alt img-thumbnail">
         <div class="col-md-6" v-for="(item, index) in loopItems" :key="index">
           <a class="hentry img-2 v-height mb30 gradient" @click="goToAttraction(item.one.attractionId)">
             <img :src="item.one.firstImage" class="featured-img" alt="">
@@ -33,9 +31,6 @@
             </a>
           </div>
         </div>
-
-
-
       </div>
     </div>
   </div>

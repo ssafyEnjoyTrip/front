@@ -1,10 +1,10 @@
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 
 import notloginUserProfileImageUrl from '@/assets/noProfile.png'
 export const useAuthStore = defineStore('authStore', () => {
   //로그인 여부, 사용자 이름, 프로필 이미지, 로그인 항목
-
+  const isLogin = ref(false);
   const authStore = reactive({
     isLogin: false,
     userName: '',
@@ -34,5 +34,10 @@ export const useAuthStore = defineStore('authStore', () => {
     authStore.userProfileImageUrl = payload.userProfileImageUrl
   }
 
-  return { authStore, setLogin, setLogout }
+  const checkLogin = (check) => {
+    if (check != undefined) isLogin.value = true;
+  }
+
+
+  return { authStore, setLogin, setLogout, isLogin, checkLogin }
 })

@@ -1,5 +1,6 @@
 <template>
-  <div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url(&quot;images/hero_5.jpg&quot;)">
+  <div class="site-cover site-cover-sm same-height overlay single-page"
+    style="background-image: url(&quot;images/hero_5.jpg&quot;)">
     <div class="container">
       <div class="row same-height justify-content-center">
         <div class="col-md-6">
@@ -26,17 +27,19 @@
             <p v-html="articleDetail.content"></p>
             <div class="row my-4">
               <div class="col-md-12 mb-4" v-for="item in articleDetail.articleFiles" :key="item.id">
-                <img :src="item.fileUrl" alt="404" class="img-fluid rounded" />
+                <img :src="item.fileUrl" :alt="item.fileUrl" class="img-fluid rounded" />
               </div>
             </div>
           </div>
 
           <div class="pt-5">
-            <p>Categories: <a href="#">Food</a>, <a href="#">Travel</a> Tags: <a href="#">#manila</a>, <a href="#">#asia</a></p>
+            <p>Categories: <a href="#">Food</a>, <a href="#">Travel</a> Tags: <a href="#">#manila</a>, <a
+                href="#">#asia</a></p>
           </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button v-show="writer" class="btn btn-sm btn-primary" @click="showInsertModal">글수정</button>
-            <button v-show="writer" class="btn btn-sm btn-primary" @click="articleDelete(route.query.articleId)">글삭제</button>
+            <button v-show="writer" class="btn btn-sm btn-primary"
+              @click="articleDelete(route.query.articleId)">글삭제</button>
             <insert-modal v-show="writer"></insert-modal>
           </div>
 
@@ -46,8 +49,10 @@
 
               <!-- 이미지를 클릭할 때 toggleLike 함수 호출 -->
               <div class="mb-5 heading" style="border: transparent; padding-bottom: 32px">
-                <img v-show="isLiked" src="@/assets/heart.svg" alt="Liked" @click="toggleLike(-1)" style="width: 20px; height: 20px; cursor: pointer" />
-                <img v-show="!isLiked" src="@/assets/noheart.svg" alt="Not Liked" @click="toggleLike(1)" style="width: 20px; height: 20px; cursor: pointer" />
+                <img v-show="isLiked" src="@/assets/heart.svg" alt="Liked" @click="toggleLike(-1)"
+                  style="width: 20px; height: 20px; cursor: pointer" />
+                <img v-show="!isLiked" src="@/assets/noheart.svg" alt="Not Liked" @click="toggleLike(1)"
+                  style="width: 20px; height: 20px; cursor: pointer" />
                 <span> 좋아요 {{ articleDetail.heartCount }} 개</span>
               </div>
             </div>
@@ -66,23 +71,29 @@
 
             <!-- END comment-list -->
 
-            <div class="comment-form-wrap pt-5" v-show="storage.isLogin">
+            <div class="comment-form-wrap pt-5">
               <h3 class="mb-5">Leave a comment</h3>
               <div class="form-group">
                 <label for="name">Name *</label>
-                <input type="text" class="form-control" id="name" v-model="storage.userName" readOnly />
+                <input type="text" class="form-control" id="name" v-model="storage.userName" readOnly v-if="isLogin" />
+                <input type="text" class="form-control" id="name" placeholder="로그인을 해주세요" readOnly v-if="!isLogin" />
               </div>
               <div class="form-group">
                 <label for="email">Email *</label>
-                <input type="email" class="form-control" id="email" v-model="storage.email" readOnly />
+                <input type="email" class="form-control" id="email" v-model="storage.email" readOnly v-if="isLogin" />
+                <input type="email" class="form-control" id="email" placeholder="로그인을 해주세요" v-if="!isLogin" readOnly />
               </div>
 
               <div class="form-group">
                 <label for="message">Message</label>
-                <textarea name="" id="message" cols="30" rows="10" class="form-control" v-model="commentValue"></textarea>
+                <textarea name="" id="message" cols="30" rows="10" class="form-control" v-model="commentValue"
+                  v-if="isLogin"></textarea>
+                <textarea name="" id="message" cols="30" rows="10" class="form-control" placeholder="로그인을 해주세요"
+                  v-if="!isLogin" readonly></textarea>
               </div>
               <div class="form-group">
-                <button class="btn btn-primary" @click="setting()">Post Comment</button>
+                <button class="btn btn-primary" @click="setting()" v-if="isLogin">Post Comment</button>
+                <button class="btn btn-primary disabled" v-if="!isLogin">Post Comment</button>
               </div>
             </div>
           </div>
@@ -94,7 +105,8 @@
           <div class="sidebar-box search-form-wrap">
             <form action="#" class="sidebar-search-form">
               <span class="bi-search"></span>
-              <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter" v-model="keyword" @click="search(keyword)" />
+              <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter" v-model="keyword"
+                @click="search(keyword)" />
             </form>
           </div>
           <!-- END sidebar-box -->
@@ -103,7 +115,8 @@
               <img src="images/person_2.jpg" alt="Image Placeholder" class="img-fluid mb-3" />
               <div class="bio-body">
                 <h2>Hannah Anderson</h2>
-                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem facilis sunt repellendus excepturi beatae porro debitis voluptate nulla quo veniam fuga sit molestias minus.</p>
+                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem facilis sunt
+                  repellendus excepturi beatae porro debitis voluptate nulla quo veniam fuga sit molestias minus.</p>
                 <p><a href="#" class="btn btn-primary btn-sm rounded px-2 py-2">Read my bio</a></p>
                 <p class="social">
                   <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
@@ -266,6 +279,8 @@ import { useArticleStore } from "@/stores/articleStore";
 import { storeToRefs } from "pinia";
 import { Modal } from "bootstrap";
 import InsertModal from "@/components/modals/InsertModal.vue";
+import { useAuthStore } from "@/stores/authStore";
+const { isLogin } = storeToRefs(useAuthStore());
 
 const route = useRoute();
 const store = useArticleStore();
