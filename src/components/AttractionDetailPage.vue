@@ -15,7 +15,6 @@
     <div class="container">
       <div class="row mb-4">
         <div class="col-sm-6">
-          <h2 class="posts-entry-title">관광지</h2>
           <div v-if="isLogin">
             <img src="../assets/bookmark.png" class="bookmarks" v-show="isBookmark" @click="changeBookmark(attractionId)">
             <img src="../assets/no_bookmark.png" class="bookmarks" v-show="!isBookmark"
@@ -27,7 +26,7 @@
         <div class="col-md-9">
           <div class="row g-3">
             <div class="col-md-12">
-              <div class="blog-entry" style="text-align: center">
+              <div class="blog-entry" style="text-align: center; margin-right: 100px; margin-left: 100px;">
                 <img v-if="detailObject.firstImage" :src="detailObject.firstImage" alt="Attraction Image"
 									class="img-fluid">
 						    <img v-else src="@/assets/no-image.avif" alt="No Image" class="img-fluid">
@@ -38,7 +37,16 @@
               </div>
             </div>
           </div>
+          
+          <div class="row g-0" style="margin-right: 100px; margin-left: 100px; margin-top: 100px">
+            <kakao-map></kakao-map>
+            <ul>
+              <li class="fw-bold">전화 및 문의: <span>010-0000-11111</span></li>
+              <li>홈페이지: www.xxx.com</li>
+            </ul>
+          </div>
         </div>
+        
 
         <div class="col-lg-3 sidebar">
           <side-bar-page></side-bar-page>
@@ -48,14 +56,7 @@
   </section>
 
   <div class="container">
-    <hr />
-    <kakao-map></kakao-map>
-    <ul>
-      <li class="fw-bold">전화 및 문의: <span>010-0000-11111</span></li>
-
-      <li>홈페이지: www.localhost.com</li>
-
-    </ul>
+    
   </div>
 </template>
 
@@ -64,7 +65,7 @@ import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import KakaoMap from "./KakaoMap.vue";
 import { useAttractionStore } from "@/stores/attractionStore";
-import { useAuthStore } from "@/stores/authStore";
+import { useUserStore } from "@/stores/userStore";
 import { storeToRefs } from "pinia";
 import SideBarPage from "@/components/SidebarPage.vue";
 import axios from "axios";
@@ -72,17 +73,18 @@ import axios from "axios";
 // 라우트에서 쿼리 추출
 const route = useRoute();
 const store = useAttractionStore();
-const authStore = useAuthStore();
+const {authStore} = useUserStore();
 
-const { isLogin } = storeToRefs(authStore);
+const { isLogin } = authStore;
 const { detailAttraction, changeBookmark } = store;
 const { detailObject, isBookmark } = storeToRefs(store);
 const attractionId = route.query.attractionId;
 const bookmark = ref("")
-console.log("글쓰기 버튼 나오면 안되는데. ", isLogin.value);
+console.log("글쓰기 버튼 나오면 안되는데. ", isLogin);
 
 const checkBookmark = async () => {
-  if (isLogin.value) {
+  if (isLogin) {
+  console.log(isLogin);
     try {
       let { data } = await axios.post("http://localhost:8080/bookmarks", {
         "userId": sessionStorage.userId,
@@ -101,7 +103,10 @@ const checkBookmark = async () => {
 checkBookmark();
 
 // 로그인 했는지 확인 -> 안했다면 북마크 로고 지우기
-if (sessionStorage.userId != undefined) isLogin.value = !isLogin.value;
+// 로그인 안되어있으면 북마크 로고 지우기
+//if (isLogin.value == true) {
+//isBookmark.value = false;
+//}
 
 detailAttraction(attractionId);
 onMounted(() => {
