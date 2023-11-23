@@ -101,17 +101,7 @@ checkBookmark();
 if (sessionStorage.userId != undefined) isLogin.value = !isLogin.value;
 
 detailAttraction(attractionId);
-onMounted(() => {
-  initMap();
-  //   if (window.kakao && window.kakao.maps) {
-  //     initMap();
-  //   } else {
-  //     // // API KEY는 index에서 불러오고 있음
-  //     const script = document.createElement("script");
-  //     script.onload = () => window.kakao.maps.load(this.initMap);
-  //     document.head.appendChild(script);
-  //   }
-});
+
 const initMap = () => {
   const container = document.getElementById("map");
   const options = {
@@ -314,6 +304,12 @@ const initMap = () => {
     }
   }
 };
+
+
+onMounted(() => {
+  initMap();
+});
+
 </script>
 
 
