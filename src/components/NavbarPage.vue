@@ -19,11 +19,13 @@
             <div class="col-4">
               <ul>
                 <tr v-show="!authStore.isLogin">
-                  <router-link to="/login" class="btn btn-primary me-md-2" role="button">로그인</router-link>
-                  <router-link to="/join" class="btn btn-primary" role="button">회원가입</router-link>
+                  <td colspan="4" class="d-flex align-items-center" style="margin-top: 10px">
+                    <router-link to="/login" class="btn btn-primary me-md-2" role="button">로그인</router-link>
+                    <router-link to="/join" class="btn btn-primary" role="button">회원가입</router-link>
+                  </td>
                 </tr>
                 <tr v-show="authStore.isLogin" style="color: aliceblue">
-                  <td colspan="4" class="d-flex align-items-center">
+                  <td colspan="4" class="d-flex align-items-center" style="margin-top: 10px">
                     <span class="me-3">
                       {{ authStore.userName }}님 안녕하세요!
                     </span>
