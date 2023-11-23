@@ -28,7 +28,10 @@
           <div class="row g-3">
             <div class="col-md-12">
               <div class="blog-entry" style="text-align: center">
-                <img alt="Image" :src="detailObject.firstImage" class="img-fluid" />
+                <img v-if="detailObject.firstImage" :src="detailObject.firstImage" alt="Attraction Image"
+									class="img-fluid">
+						    <img v-else src="@/assets/no-image.avif" alt="No Image" class="img-fluid">
+                <!-- <img alt="Image" :src="detailObject.firstImage" class="img-fluid" /> -->
 
                 <h2>{{ detailObject.title }}</h2>
                 <p>{{ detailObject.attractionDescription.overview }}</p>
