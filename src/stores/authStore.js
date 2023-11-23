@@ -9,8 +9,8 @@ export const useAuthStore = defineStore('authStore', () => {
     isLogin: false,
     userName: '',
     userProfileImageUrl: notloginUserProfileImageUrl,
-    userEmail: '종국@com',
-    userPassword: '1234'
+    userEmail: '',
+    userPassword: ''
   })
   //로그인 후 변경
 

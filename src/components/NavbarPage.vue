@@ -54,7 +54,7 @@ checkLogin(sessionStorage.isLogin);
 
 const check =  async () => {
   try{
-    let {data} = await axios.get("http://localhost:8080/users/user");
+    let {data} = await axios.get("http://localhost:8080/users/check");
     console.log("로그인한 유저의 userId는 ", data , "입니다");
   } catch(error){
     console.log("로그인하지 않았습니다.");

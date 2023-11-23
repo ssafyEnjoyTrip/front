@@ -92,7 +92,6 @@ const checkBookmark = async () => {
       console.error(error);
     }
   }
-
 }
 
 checkBookmark();

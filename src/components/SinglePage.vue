@@ -117,10 +117,6 @@
         <div class="col-12 text-uppercase text-black">More Blog Posts</div>
       </div>
       <div class="row">
-
-
-
-
       </div>
     </div>
   </section>
@@ -150,12 +146,20 @@ const storage = ref(sessionStorage);
 let insertModal = null;
 const writer = ref(false);
 
+const updateValue = ref({
+  title: "",
+  content: "",
+  articleFiles: {
+    fileUrl: ""
+  }
+})
+
 const articleId = route.query.articleId;
 console.log(articleId);
 
 const setting = () => {
   comment.value = {
-    article: route.query.articleId,
+    article: articleId,
     userId: storage.value.userId,
     comment: commentValue.value,
   };
@@ -211,14 +215,18 @@ const isArticleWriter = (articleUserId) => {
   console.log(writer.value);
 };
 
-onMounted(() => {
+onMounted( () => {
   insertModal = new Modal(document.getElementById("insertModal"));
   isArticleWriter(articleDetail.value.user.userId); // article 작성자의 ID와 로그인한 user의 ID를 확인해서 일치하면 글 수정, 삭제 버튼 활성화
   checkHeart(); // 좋아요 한 게시물인지 확인, 그리고 isLiked 갱신
-  console.log("제가 이 글의 작성자인가요? ", writer.value);
+  updateValue.value = articleDetail.value;
+  console.log(articleDetail);
 });
 
-const showInsertModal = () => insertModal.show();
+const showInsertModal = () =>{
+  insertModal.show();
+  return articleId;
+} 
 
 getDetailArticle(articleId);
 loadComment(articleId);
