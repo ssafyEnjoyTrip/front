@@ -48,7 +48,7 @@
               <h3 class="mb-5 heading">{{ commentList.length }} Comments</h3>
 
               <!-- 이미지를 클릭할 때 toggleLike 함수 호출 -->
-              <div class="mb-5 heading" style="border: transparent; padding-bottom: 32px" v-if="isLogin">
+              <div class="mb-5 heading" style="border: transparent; padding-bottom: 32px">
                 <img v-show="isLiked" src="@/assets/heart.svg" alt="Liked" @click="toggleLike(-1)"
                   style="width: 20px; height: 20px; cursor: pointer" />
                 <img v-show="!isLiked" src="@/assets/noheart.svg" alt="Not Liked" @click="toggleLike(1)"
@@ -71,23 +71,29 @@
 
             <!-- END comment-list -->
 
-            <div class="comment-form-wrap pt-5" v-show="storage.isLogin">
+            <div class="comment-form-wrap pt-5">
               <h3 class="mb-5">Leave a comment</h3>
               <div class="form-group">
                 <label for="name">Name *</label>
-                <input type="text" class="form-control" id="name" v-model="storage.userName" readOnly />
+                <input type="text" class="form-control" id="name" v-model="storage.userName" readOnly v-if="isLogin" />
+                <input type="text" class="form-control" id="name" placeholder="로그인을 해주세요" readOnly v-if="!isLogin" />
               </div>
               <div class="form-group">
                 <label for="email">Email *</label>
-                <input type="email" class="form-control" id="email" v-model="storage.email" readOnly />
+                <input type="email" class="form-control" id="email" v-model="storage.email" readOnly v-if="isLogin" />
+                <input type="email" class="form-control" id="email" placeholder="로그인을 해주세요" v-if="!isLogin" readOnly />
               </div>
 
               <div class="form-group">
                 <label for="message">Message</label>
-                <textarea name="" id="message" cols="30" rows="10" class="form-control" v-model="commentValue"></textarea>
+                <textarea name="" id="message" cols="30" rows="10" class="form-control" v-model="commentValue"
+                  v-if="isLogin"></textarea>
+                <textarea name="" id="message" cols="30" rows="10" class="form-control" placeholder="로그인을 해주세요"
+                  v-if="!isLogin" readonly></textarea>
               </div>
               <div class="form-group">
-                <button class="btn btn-primary" @click="setting()">Post Comment</button>
+                <button class="btn btn-primary" @click="setting()" v-if="isLogin">Post Comment</button>
+                <button class="btn btn-primary disabled" v-if="!isLogin">Post Comment</button>
               </div>
             </div>
           </div>

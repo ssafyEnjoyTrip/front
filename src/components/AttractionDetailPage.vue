@@ -16,7 +16,7 @@
       <div class="row mb-4">
         <div class="col-sm-6">
           <h2 class="posts-entry-title">관광지</h2>
-          <div>
+          <div v-if="isLogin">
             <img src="../assets/bookmark.png" class="bookmarks" v-show="isBookmark" @click="changeBookmark(attractionId)">
             <img src="../assets/no_bookmark.png" class="bookmarks" v-show="!isBookmark"
               @click="changeBookmark(attractionId)">
