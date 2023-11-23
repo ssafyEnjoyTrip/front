@@ -69,6 +69,8 @@ export const useArticleStore = defineStore("articleStore", () => {
   };
 
   const goToArticle = (articleId) => {
+    console.log("=======================");
+    console.log(articleId);
     router.push({
       name: "Single",
       query: {
@@ -122,9 +124,7 @@ export const useArticleStore = defineStore("articleStore", () => {
       let { data } = await response;
 
       console.log("loadComment가 정상적으로 실행이 되나?");
-
       commentList.value = data;
-
       console.log("commentList: ", commentList.value);
     } catch (error) {
       console.log(error);

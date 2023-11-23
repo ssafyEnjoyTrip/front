@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MainPage from "@/components/MainPage.vue";
-import BlogPage from "@/components/BlogPage.vue";
+
 import ArticleListPage from "@/components/ArticleListPage.vue";
 import LoginPage from "@/components/LoginPage.vue";
-import SearchResultPage from "@/components/SearchResultPage.vue";
+
 import SinglePage from "@/components/SinglePage.vue";
 import JoinPage from "@/components/JoinPage.vue";
 import MyPage from "@/components/MyPage.vue";
@@ -25,10 +25,6 @@ const router = createRouter({
       component: MyPage,
     },
     {
-      path: "/blog",
-      component: BlogPage,
-    },
-    {
       name: "ArticleList",
       path: "/articleList",
       component: ArticleListPage,
@@ -41,10 +37,7 @@ const router = createRouter({
       path: "/join",
       component: JoinPage,
     },
-    {
-      path: "/searchResult",
-      component: SearchResultPage,
-    },
+
     { name: "Single", path: "/single", component: SinglePage },
 
     {
@@ -62,10 +55,7 @@ const router = createRouter({
       name: "deleteUser",
       component: DeleteAccountPage,
     },
-    {
-      path: "/blogPage",
-      component: BlogPage,
-    },
+
     {
       path: "/attractionPage",
       component: AttractionPage,

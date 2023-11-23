@@ -96,7 +96,6 @@ const checkBookmark = async () => {
       console.error(error);
     }
   }
-
 }
 
 checkBookmark();
@@ -306,6 +305,12 @@ const initMap = () => {
     }
   }
 };
+
+
+onMounted(() => {
+  initMap();
+});
+
 </script>
 
 

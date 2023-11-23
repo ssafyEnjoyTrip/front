@@ -8,7 +8,7 @@
             <h1 class="mb-4">{{ articleDetail.title }}</h1>
             <div class="post-meta align-items-center text-center">
               <figure class="author-figure mb-0 me-3 d-inline-block">
-                <img src="images/person_1.jpg" alt="Image" class="img-fluid" />
+
               </figure>
               <span class="d-inline-block mt-1">{{ articleDetail.user.name }}</span>
               <span>&nbsp;-&nbsp; {{ toDate(articleDetail.registerTime) }}</span>
@@ -59,7 +59,7 @@
             <ul class="comment-list">
               <li class="comment" v-for="comment in commentList" :key="comment.id">
                 <div class="vcard">
-                  <img src="images/person_1.jpg" alt="Image placeholder" />
+                  <!-- <img src="images/person_1.jpg" alt="Image placeholder" /> -->
                 </div>
                 <div class="comment-body">
                   <h3>{{ comment.user.name }}</h3>
@@ -101,114 +101,9 @@
 
         <!-- END main-content -->
 
-        <div class="col-md-12 col-lg-4 sidebar">
-          <div class="sidebar-box search-form-wrap">
-            <form action="#" class="sidebar-search-form">
-              <span class="bi-search"></span>
-              <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter" v-model="keyword"
-                @click="search(keyword)" />
-            </form>
-          </div>
-          <!-- END sidebar-box -->
-          <div class="sidebar-box">
-            <div class="bio text-center">
-              <img src="images/person_2.jpg" alt="Image Placeholder" class="img-fluid mb-3" />
-              <div class="bio-body">
-                <h2>Hannah Anderson</h2>
-                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem facilis sunt
-                  repellendus excepturi beatae porro debitis voluptate nulla quo veniam fuga sit molestias minus.</p>
-                <p><a href="#" class="btn btn-primary btn-sm rounded px-2 py-2">Read my bio</a></p>
-                <p class="social">
-                  <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
-                  <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
-                  <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
-                  <a href="#" class="p-2"><span class="fa fa-youtube-play"></span></a>
-                </p>
-              </div>
-            </div>
-          </div>
-          <!-- END sidebar-box -->
-          <div class="sidebar-box">
-            <h3 class="heading">Popular Posts</h3>
-            <div class="post-entry-sidebar">
-              <ul>
-                <li>
-                  <a href="">
-                    <img src="images/img_1_sq.jpg" alt="Image placeholder" class="me-4 rounded" />
-                    <div class="text">
-                      <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                      <div class="post-meta">
-                        <span class="mr-2">March 15, 2018 </span>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a href="">
-                    <img src="images/img_2_sq.jpg" alt="Image placeholder" class="me-4 rounded" />
-                    <div class="text">
-                      <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                      <div class="post-meta">
-                        <span class="mr-2">March 15, 2018 </span>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a href="">
-                    <img src="images/img_3_sq.jpg" alt="Image placeholder" class="me-4 rounded" />
-                    <div class="text">
-                      <h4>There’s a Cool New Way for Men to Wear Socks and Sandals</h4>
-                      <div class="post-meta">
-                        <span class="mr-2">March 15, 2018 </span>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <!-- END sidebar-box -->
+        <div class="col-lg-4 sidebar" style="position: sticky; height:calc(100vh - 7rem); top: 1rem;">
 
-          <div class="sidebar-box">
-            <h3 class="heading">Categories</h3>
-            <ul class="categories">
-              <li>
-                <a href="#">Food <span>(12)</span></a>
-              </li>
-              <li>
-                <a href="#">Travel <span>(22)</span></a>
-              </li>
-              <li>
-                <a href="#">Lifestyle <span>(37)</span></a>
-              </li>
-              <li>
-                <a href="#">Business <span>(42)</span></a>
-              </li>
-              <li>
-                <a href="#">Adventure <span>(14)</span></a>
-              </li>
-            </ul>
-          </div>
-          <!-- END sidebar-box -->
-
-          <div class="sidebar-box">
-            <h3 class="heading">Tags</h3>
-            <ul class="tags">
-              <li><a href="#">Travel</a></li>
-              <li><a href="#">Adventure</a></li>
-              <li><a href="#">Food</a></li>
-              <li><a href="#">Lifestyle</a></li>
-              <li><a href="#">Business</a></li>
-              <li><a href="#">Freelancing</a></li>
-              <li><a href="#">Travel</a></li>
-              <li><a href="#">Adventure</a></li>
-              <li><a href="#">Food</a></li>
-              <li><a href="#">Lifestyle</a></li>
-              <li><a href="#">Business</a></li>
-              <li><a href="#">Freelancing</a></li>
-            </ul>
-          </div>
+          <side-bar-page></side-bar-page>
         </div>
         <!-- END sidebar -->
       </div>
@@ -222,50 +117,6 @@
         <div class="col-12 text-uppercase text-black">More Blog Posts</div>
       </div>
       <div class="row">
-        <div class="col-md-6 col-lg-3">
-          <div class="blog-entry">
-            <a href="single.html" class="img-link">
-              <img src="images/img_1_horizontal.jpg" alt="Image" class="img-fluid" />
-            </a>
-            <span class="date">Apr. 14th, 2022</span>
-            <h2><a href="single.html">Thought you loved Python? Wait until you meet Rust</a></h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            <p><a href="#" class="read-more">Continue Reading</a></p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="blog-entry">
-            <a href="single.html" class="img-link">
-              <img src="images/img_2_horizontal.jpg" alt="Image" class="img-fluid" />
-            </a>
-            <span class="date">Apr. 14th, 2022</span>
-            <h2><a href="single.html">Startup vs corporate: What job suits you best?</a></h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            <p><a href="#" class="read-more">Continue Reading</a></p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="blog-entry">
-            <a href="single.html" class="img-link">
-              <img src="images/img_3_horizontal.jpg" alt="Image" class="img-fluid" />
-            </a>
-            <span class="date">Apr. 14th, 2022</span>
-            <h2><a href="single.html">UK sees highest inflation in 30 years</a></h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            <p><a href="#" class="read-more">Continue Reading</a></p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="blog-entry">
-            <a href="single.html" class="img-link">
-              <img src="images/img_4_horizontal.jpg" alt="Image" class="img-fluid" />
-            </a>
-            <span class="date">Apr. 14th, 2022</span>
-            <h2><a href="single.html">Don’t assume your user data in the cloud is safe</a></h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            <p><a href="#" class="read-more">Continue Reading</a></p>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -280,6 +131,7 @@ import { storeToRefs } from "pinia";
 import { Modal } from "bootstrap";
 import InsertModal from "@/components/modals/InsertModal.vue";
 import { useAuthStore } from "@/stores/authStore";
+import SideBarPage from "@/components/SideBarPage.vue"
 const { isLogin } = storeToRefs(useAuthStore());
 
 const route = useRoute();
@@ -294,12 +146,20 @@ const storage = ref(sessionStorage);
 let insertModal = null;
 const writer = ref(false);
 
+const updateValue = ref({
+  title: "",
+  content: "",
+  articleFiles: {
+    fileUrl: ""
+  }
+})
+
 const articleId = route.query.articleId;
 console.log(articleId);
 
 const setting = () => {
   comment.value = {
-    article: route.query.articleId,
+    article: articleId,
     userId: storage.value.userId,
     comment: commentValue.value,
   };
@@ -355,14 +215,18 @@ const isArticleWriter = (articleUserId) => {
   console.log(writer.value);
 };
 
-onMounted(() => {
+onMounted( () => {
   insertModal = new Modal(document.getElementById("insertModal"));
   isArticleWriter(articleDetail.value.user.userId); // article 작성자의 ID와 로그인한 user의 ID를 확인해서 일치하면 글 수정, 삭제 버튼 활성화
   checkHeart(); // 좋아요 한 게시물인지 확인, 그리고 isLiked 갱신
-  console.log("제가 이 글의 작성자인가요? ", writer.value);
+  updateValue.value = articleDetail.value;
+  console.log(articleDetail);
 });
 
-const showInsertModal = () => insertModal.show();
+const showInsertModal = () =>{
+  insertModal.show();
+  return articleId;
+} 
 
 getDetailArticle(articleId);
 loadComment(articleId);
