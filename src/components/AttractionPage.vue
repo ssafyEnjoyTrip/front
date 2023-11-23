@@ -5,7 +5,7 @@
       <div class="row same-height justify-content-center">
         <div class="col-md-6">
           <div class="post-entry text-center">
-            <h1 class="mb-4">여행지 목록</h1>
+            <h1 class="mb-4">관광지 목록</h1>
           </div>
         </div>
       </div>
