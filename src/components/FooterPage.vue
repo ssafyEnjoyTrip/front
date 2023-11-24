@@ -13,13 +13,12 @@
                 </div>
                 <div class="col-lg-4 ps-lg-5">
                     <div class="nav-menu">
-                    <div class="m-3 d-flex justify-content-center">
-                        <h4 class="nav-item"><router-link class="nav-link" to="/">Home</router-link></h4>
-                        <h4 class="nav-item"><router-link class="nav-link" to="/articleList">게시글</router-link></h4>
-                        <h4 class="nav-item"><router-link class="nav-link" to="/attractionPage">관광지</router-link></h4>
-                        <h4 class="nav-item"><router-link class="nav-link" to="/path">길찾기</router-link></h4>
+                        <div class="m-3 d-flex justify-content-center">
+                            <h4 class="nav-item"><router-link class="nav-link" to="/">Home</router-link></h4>
+                            <h4 class="nav-item"><router-link class="nav-link" to="/articleList">게시글</router-link></h4>
+                            <h4 class="nav-item"><router-link class="nav-link" to="/attractionPage">관광지</router-link></h4>
+                        </div>
                     </div>
-                </div>
                     <!-- /.widget -->
                 </div>
                 <!-- /.col-lg-4 -->
@@ -48,22 +47,28 @@ import { useRouter } from "vue-router";
 
 <style scoped>
 .nav-menu {
-        padding: 15px; /* 여백을 조절하세요 */
-        border-radius: 5px; /* 필요에 따라 조절하세요 */
-    }
+    padding: 15px;
+    /* 여백을 조절하세요 */
+    border-radius: 5px;
+    /* 필요에 따라 조절하세요 */
+}
 
-    .nav-item {
-        margin-right: 15px; /* 각 메뉴 아이템 간의 간격을 조절하세요 */
-    }
+.nav-item {
+    margin-right: 15px;
+    /* 각 메뉴 아이템 간의 간격을 조절하세요 */
+}
 
-    .nav-link {
-        color: #ffffff; /* 텍스트 색상을 변경하세요 */
-        text-decoration: none;
-        font-size: 18px; /* 폰트 크기를 조절하세요 */
-        font-weight: bold; /* 폰트 두께를 조절하세요 */
-    }
+.nav-link {
+    color: #ffffff;
+    /* 텍스트 색상을 변경하세요 */
+    text-decoration: none;
+    font-size: 18px;
+    /* 폰트 크기를 조절하세요 */
+    font-weight: bold;
+    /* 폰트 두께를 조절하세요 */
+}
 
-    .nav-link:hover {
-        color: #f8f9fa; /* 호버 시 텍스트 색상을 변경하세요 */
-    }
-</style>
+.nav-link:hover {
+    color: #f8f9fa;
+    /* 호버 시 텍스트 색상을 변경하세요 */
+}</style>

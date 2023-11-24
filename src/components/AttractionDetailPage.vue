@@ -41,7 +41,7 @@
           <div class="row g-0" style="margin-right: 100px; margin-left: 100px; margin-top: 100px">
             <kakao-map></kakao-map>
             <ul>
-              <li class="fw-bold">전화 및 문의: <span v-if="detailObject && detailObject.tel">{{ detailObject.homepage
+              <li class="fw-bold">전화 및 문의: <span v-if="detailObject && detailObject.tel">{{ detailObject.tel
               }}</span> <span v-else> 전화번호가 없습니다.</span></li>
 
               <li class="fw-bold">홈페이지: <span
