@@ -14,22 +14,13 @@
 
 	<div class="container mt-5">
 		<div class="row">
-			<div class="col-md-4">
-				<!-- User Profile Card -->
-				<div class="card">
-					<img src="@/assets/profile.webp" class="img-fluid" alt="User Avatar">
-					<div class="card-body">
-						<h5 class="card-title text-center">{{ user.name }}</h5>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-8">
+			<div class="col-md-8 mx-auto">
 				<!-- User Details -->
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">회원 정보</h5>
 						<ul class="list-group list-group-flush">
+							<li class="list-group-item"><strong>Name:</strong> {{ user.name }}</li>
 							<li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
 							<li class="list-group-item"><strong>Joined Date:</strong> {{ user.joinedDate }}</li>
 							<li class="list-group-item"><strong>phoneNum:</strong> {{ user.phoneNum }}</li>
@@ -50,11 +41,11 @@
 	<section class="section posts-entry posts-entry-sm bg-light">
 		<div class="container">
 			<div class="row mb-4">
-				<div class="col-12">
+				<div class="col-12 mx-auto">
 					<h2 class="text-uppercase fw-bold text-black mb-4">즐겨찾기한 관광지</h2>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row mx-auto">
 				<div v-for="(attraction, index) in bookMarkAttractionList" :key="attraction.attractionId"
 					class="col-md-6 col-lg-3">
 					<router-link :to="{ name: 'attractionDetail', query: { attractionId: attraction.attractionId } }"
@@ -79,12 +70,13 @@
 			<div class="row mb-4">
 				<div class="col-12">
 					<h2 class="text-uppercase fw-bold text-black mb-4">좋아요한 게시글</h2>
+					<p class="text-uppercase fw-bold text-muted mb-4">게시글의 제목이 표시됩니다</p>
 				</div>
 			</div>
 			<div class="row">
 				<div v-for="(article, index) in heartArticleList" :key="article.articleId" class="col-md-6 col-lg-3">
 					<div @click="goToArticle(article.articleId)">
-						<div class="blog-entry">
+						<div class="blog-entry" style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
 							<!-- <a href="#" class="img-link">
 								<img v-if="attraction.firstImage" :src="attraction.firstImage" alt="Attraction Image" class="img-fluid">
 								<img v-else src="@/assets/no-image.avif" alt="No Image" class="img-fluid">
@@ -108,8 +100,8 @@
 			<div class="row">
 				<div v-for="(article, index) in MyArticleList" :key="article.articleId" class="col-md-6 col-lg-3">
 					<div @click="goToArticle(article.articleId)">
-						<div class="blog-entry">
-							<h2>{{ article.title }}</h2>
+						<div class="blog-entry" style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+							<h2 style="padding-top: 10px; margin-bottom: 10px;"> 제목 : {{ article.title }}</h2>
 							<h2 v-html="article.content"></h2>
 						</div>
 					</div>
@@ -130,9 +122,9 @@
 				<div v-for="(comment, index) in myCommentList" :key="comment.commentId" class="col-md-6 col-lg-3"
 					@click="goToArticle(comment.article.articleId)">
 					<div @click="detail(comment.commentId)">
-						<div class="blog-entry">
-							<h2>{{ comment.article.title }}</h2>
-							<h2>{{ comment.comment }}</h2>
+						<div class="blog-entry" style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+							<h2> 게시글 제목 : {{ comment.article.title }}</h2>
+							<h2> 작성 댓글 내용 : {{ comment.comment }}</h2>
 						</div>
 					</div>
 				</div>
@@ -209,8 +201,9 @@ const user = reactive({
 }
 
 .col-lg-3 h2 {
-	border: 1px solid;
+	/* border: 1px solid; */
 	cursor: pointer;
+	text-align: center;
 }
 
 /* Add more styles as needed */</style>
