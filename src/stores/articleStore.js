@@ -200,29 +200,9 @@ export const useArticleStore = defineStore("articleStore", () => {
   const next = computed(() => (endPageIndex.value == pageCount.value ? false : true)); // 위에서 더 큰 값은 보정했으므로 같은 지만 비교
 
   return {
-    articleStore,
-    goToArticle,
-    list,
-    article,
-    articleList,
-    articleDelete,
-    commentList,
-    loadComment,
-    saveComment,
-    setArticleMovePage,
-    pageCount,
-    startPageIndex,
-    endPageIndex,
-    prev,
-    next,
-    incrementHeartCount,
-    decrementHeartCount,
-    toDate,
-    search,
-    getDetailArticle,
-    articleDetail,
-    isArticleWriter,
-    writer,
-    checkLogin, isLogin, thumbnail
+    articleStore, articleList, article, list, goToArticle, writer, checkLogin, isLogin, thumbnail,
+    articleDelete, commentList, loadComment, saveComment, incrementHeartCount, decrementHeartCount, toDate, search,
+    setArticleMovePage, pageCount, startPageIndex, endPageIndex, prev, next, getDetailArticle, articleDetail, isArticleWriter,
+
   };
 });

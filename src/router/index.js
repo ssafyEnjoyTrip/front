@@ -16,54 +16,17 @@ import KakaoMap from "@/components/KakaoMap.vue"
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: "/",
-      component: MainPage,
-    },
-    {
-      path: "/myPage",
-      component: MyPage,
-    },
-    {
-      name: "ArticleList",
-      path: "/articleList",
-      component: ArticleListPage,
-    },
-    {
-      path: "/login",
-      component: LoginPage,
-    },
-    {
-      path: "/join",
-      component: JoinPage,
-    },
-
+    { path: "/", component: MainPage, },
+    { path: "/myPage", component: MyPage },
+    { name: "ArticleList", path: "/articleList", component: ArticleListPage, },
+    { path: "/login", component: LoginPage },
+    { path: "/join", component: JoinPage },
     { name: "Single", path: "/single", component: SinglePage },
-
-    {
-      path: "/attractionDetail",
-      name: "attractionDetail",
-      component: AttractionDetailPage,
-    },
-    {
-      path: "/editProfile",
-      name: "editProfile",
-      component: EditProfilePage,
-    },
-    {
-      path: "/deleteUser",
-      name: "deleteUser",
-      component: DeleteAccountPage,
-    },
-
-    {
-      path: "/attractionPage",
-      component: AttractionPage,
-    },
-    {
-      path: "/kakaomap",
-      component: KakaoMap,
-    },
+    { path: "/attractionDetail", name: "attractionDetail", component: AttractionDetailPage },
+    { path: "/editProfile", name: "editProfile", component: EditProfilePage },
+    { path: "/deleteUser", name: "deleteUser", component: DeleteAccountPage },
+    { path: "/attractionPage", component: AttractionPage },
+    { path: "/kakaomap", component: KakaoMap },
   ],
 });
 
