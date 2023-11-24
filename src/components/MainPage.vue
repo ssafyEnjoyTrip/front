@@ -2,11 +2,6 @@
   <!-- Start posts-entry -->
   <section class="section posts-entry retro-layout-alt">
     <div class="container">
-      <div class="row mb-4">
-        <div class="col-sm-6">
-          <h2 class="posts-entry-title">뭘로하지</h2>
-        </div>
-      </div>   
       <div class="row g-3 carousel slide" data-bs-ride="carousel" id="carouselExampleInterval">
         <div class="col-md-6">
           <div class="row">
