@@ -18,8 +18,9 @@
         <div class="col-lg-8">
           <div class="blog-entry d-flex blog-entry-search-item" v-for="(item, index) in articleList" :key="index">
             <a class="img-link me-4">
-              <img :src="thumbnail[index]" :alt="thumbnail[index]" class="img-fluid please-cursor"
+              <img v-if:src="thumbnail[index]" :alt="thumbnail[index]" class="img-fluid please-cursor"
                 @click="goToArticle(item.articleId)" />
+              <img v-else src="@/assets/no-image.avif" alt="No Image" class="img-fluid">
             </a>
             <div class="please-cursor" @click="goToArticle(item.articleId)">
               <span class="date">{{ toDate(item.registerTime) }} &bullet; <a href="#">{{ item.user.name }}</a></span>
