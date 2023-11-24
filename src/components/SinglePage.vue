@@ -32,10 +32,6 @@
             </div>
           </div>
 
-          <div class="pt-5">
-            <p>Categories: <a href="#">Food</a>, <a href="#">Travel</a> Tags: <a href="#">#manila</a>, <a
-                href="#">#asia</a></p>
-          </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button v-show="writer" class="btn btn-sm btn-primary" @click="showInsertModal">글수정</button>
             <button v-show="writer" class="btn btn-sm btn-primary"
@@ -48,7 +44,7 @@
               <h3 class="mb-5 heading">{{ commentList.length }} Comments</h3>
 
               <!-- 이미지를 클릭할 때 toggleLike 함수 호출 -->
-              <div class="mb-5 heading" style="border: transparent; padding-bottom: 32px">
+              <div class="mb-5 heading" style="border: transparent; padding-bottom: 20px">
                 <img v-show="isLiked" src="@/assets/heart.svg" alt="Liked" @click="toggleLike(-1)"
                   style="width: 20px; height: 20px; cursor: pointer" />
                 <img v-show="!isLiked" src="@/assets/noheart.svg" alt="Not Liked" @click="toggleLike(1)"
@@ -58,9 +54,6 @@
             </div>
             <ul class="comment-list">
               <li class="comment" v-for="comment in commentList" :key="comment.id">
-                <div class="vcard">
-                  <!-- <img src="images/person_1.jpg" alt="Image placeholder" /> -->
-                </div>
                 <div class="comment-body">
                   <h3>{{ comment.user.name }}</h3>
                   <div class="meta">{{ toDate(comment.commentRegisterTime) }}</div>

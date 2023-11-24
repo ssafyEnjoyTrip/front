@@ -23,7 +23,7 @@
               <img v-else src="@/assets/no-image.avif" alt="No Image" class="img-fluid">
             </a>
             <div class="please-cursor" @click="goToArticle(item.articleId)">
-              <span class="date">{{ toDate(item.registerTime) }} &bullet; <a href="#">{{ item.user.name }}</a></span>
+              <span class="date">{{ toDate(item.registerTime) }} &bullet; {{ item.user.name }}</span>
               <h2>{{ item.title }}</h2>
               <p v-html="item.content"></p>
             </div>

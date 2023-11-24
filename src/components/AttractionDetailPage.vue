@@ -27,8 +27,9 @@
           <div class="row g-3">
             <div class="col-md-12">
               <div class="blog-entry" style="text-align: center; margin-right: 100px; margin-left: 100px;">
-                <img v-if="detailObject.firstImage" :src="detailObject.firstImage" alt="Attraction Image" class="img-fluid">
-						    <img v-else src="@/assets/no-image.avif" alt="No Image" class="img-fluid">
+                <img v-if="detailObject.firstImage" :src="detailObject.firstImage" alt="Attraction Image"
+                  class="img-fluid">
+                <img v-else src="@/assets/no-image.avif" alt="No Image" class="img-fluid">
                 <h2>{{ detailObject.title }}</h2>
                 <p v-if="detailObject && detailObject.attractionDescription">
                   {{ detailObject.attractionDescription.overview }}
@@ -36,16 +37,21 @@
               </div>
             </div>
           </div>
-          
+
           <div class="row g-0" style="margin-right: 100px; margin-left: 100px; margin-top: 100px">
             <kakao-map></kakao-map>
             <ul>
-              <li class="fw-bold">전화 및 문의: <span>010-0000-11111</span></li>
-              <li>홈페이지: www.xxx.com</li>
+              <li class="fw-bold">전화 및 문의: <span v-if="detailObject && detailObject.tel">{{ detailObject.homepage
+              }}</span> <span v-else> 전화번호가 없습니다.</span></li>
+
+              <li class="fw-bold">홈페이지: <span
+                  v-if="detailObject && detailObject.attractionDescription && detailObject.attractionDescription.homepage">{{
+                    detailObject.homepage
+                  }}</span> <span v-else> 홈페이지가 없습니다.</span></li>
             </ul>
           </div>
         </div>
-        
+
 
         <div class="col-lg-3 sidebar">
           <side-bar-page></side-bar-page>
@@ -55,7 +61,7 @@
   </section>
 
   <div class="container">
-    
+
   </div>
 </template>
 
@@ -72,7 +78,7 @@ import axios from "axios";
 // 라우트에서 쿼리 추출
 const route = useRoute();
 const store = useAttractionStore();
-const {authStore} = useUserStore();
+const { authStore } = useUserStore();
 
 const { isLogin } = authStore;
 const { detailAttraction, changeBookmark } = store;
@@ -83,7 +89,7 @@ console.log("글쓰기 버튼 나오면 안되는데. ", isLogin);
 
 const checkBookmark = async () => {
   if (isLogin) {
-  console.log(isLogin);
+    console.log(isLogin);
     try {
       let { data } = await axios.post("http://localhost:8080/bookmarks", {
         "userId": sessionStorage.userId,
